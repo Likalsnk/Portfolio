@@ -1,0 +1,257 @@
+/* Skills Page Specific Styles */
+
+/* Tool Items */
+.tools-list {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.tool-item {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+}
+
+.tool-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  object-fit: cover;
+  flex-shrink: 0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.tool-icon-placeholder {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  flex-shrink: 0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.tool-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: break-word; /* Ensure long words don't overflow */
+  word-break: break-word;
+}
+
+.tool-info h4 {
+  margin: 0;
+  font-family: Inter, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.tool-info p {
+  margin: 0;
+  font-family: Inter, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #52525B; /* Zinc-600 */
+}
+
+/* AI Tools Section */
+.ai-tools-container {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.ai-icons-row {
+  overflow: hidden;
+  width: 100%;
+  min-width: 0; /* Prevent flex item from forcing width based on content */
+  padding-top: 60px; /* Space for tooltips */
+  margin-top: -20px; /* Compensate for the extra padding */
+  padding-bottom: 8px;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.ai-icons-track {
+  display: flex;
+  gap: 24px;
+  width: max-content;
+  animation: scroll 20s linear infinite;
+}
+
+.ai-icons-track:hover {
+  animation-play-state: paused;
+}
+
+.ai-icon-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.ai-icon-wrapper:hover .tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(-12px);
+}
+
+.ai-icon-wrapper:hover .ai-icon {
+  transform: translateY(-2px);
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-640px); /* Exact width of one icon set (8 * (56px + 24px)) */
+  }
+}
+
+.ai-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  object-fit: cover;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease;
+}
+
+/* Removed direct hover effect on ai-icon to avoid conflict with wrapper */
+
+.ai-description ul {
+  padding-left: 20px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ai-description li {
+  font-family: Inter, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #52525B;
+}
+
+.ai-description strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* Nested list adjustment */
+.ai-description ul ul {
+  margin-top: 8px;
+  gap: 8px;
+  list-style-type: disc;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+  .tool-item {
+    gap: 16px;
+    flex-direction: row; /* Explicitly keep row direction */
+    flex-wrap: nowrap;   /* Explicitly prevent wrapping */
+    align-items: flex-start;
+  }
+  
+  .tool-icon, .tool-icon-placeholder {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+  }
+  
+  .tool-info h4 {
+    font-size: 15px;
+  }
+  
+  .tool-info p {
+    font-size: 14px;
+  }
+}
+
+/* Tabs Navigation */
+.tabs-nav-container {
+  display: flex;
+  justify-content: flex-start; /* Align container to start */
+  margin-bottom: 32px;
+  width: 100%;
+}
+
+.tabs-nav {
+  display: flex; /* Full width flex */
+  width: 100%; /* Stretch across block */
+  justify-content: flex-start; /* Align items to left */
+  background: rgba(118, 118, 128, 0.12); /* Цвет фона трека (iOS style) */
+  padding: 4px;
+  border-radius: 16px; /* Pill shape adapted for full width */
+  position: relative;
+  /* Для поддержки стеклянного эффекта, если нужно, но обычно трек просто серый */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.tab-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  color: #52525B; /* Inactive text color */
+  font-family: Inter, sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+  /* Убираем старые тени и бордеры */
+  box-shadow: none;
+  min-width: 140px; /* Фиксированная минимальная ширина для баланса */
+  justify-content: center;
+}
+
+.tab-button:hover {
+  background: rgba(255, 255, 255, 0.5);
+  transform: none; /* Убираем сдвиг */
+  color: var(--text);
+}
+
+.tab-button.active {
+  background: #FFFFFF;
+  color: var(--text);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12), 0 3px 1px rgba(0, 0, 0, 0.04);
+  font-weight: 600;
+}
+
+/* Иконки */
+.tab-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* Tab Content */
+.tab-content {
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

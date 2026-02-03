@@ -1,0 +1,543 @@
+/* Layout */
+.layout-wrapper {
+  display: flex;
+  min-height: 100vh;
+  /* max-width removed to allow full stretch */
+  margin: 0 24px;
+  padding-top: 16px; /* Space from top as requested */
+  gap: 48px;
+  /* Entrance Animation */
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0; /* Start hidden */
+  /* Prepare for exit transition */
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+              transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Exit Animation State */
+body.exiting .layout-wrapper {
+  opacity: 0 !important;
+  transform: translateY(-20px) !important;
+}
+
+/* Sidebar */
+.sidebar {
+  width: auto; /* Width adapts to icons */
+  background: transparent; 
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 40px; 
+  position: sticky;
+  top: 16px; 
+  align-self: flex-start; 
+  height: auto;
+  box-shadow: none;
+  border-radius: 0;
+  z-index: 10; /* Ensure tooltips show above content */
+}
+
+.sidebar-top {
+  padding-bottom: 0;
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-left: 0; 
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  text-decoration: none;
+  color: #18181B; 
+  font-family: Inter, sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  padding: 0;
+  background: #fff; 
+  border: 1px solid #E4E4E7;
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  transition: all 0.2s ease;
+  position: relative; /* For tooltip positioning */
+}
+
+/* Tooltip Implementation using data-attribute */
+[data-tooltip]:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  margin-left: 12px;
+  transform: translateY(-50%);
+  background: #18181B;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-family: Inter, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  animation: fadeInTooltip 0.2s ease forwards;
+}
+
+/* Tooltip Arrow */
+[data-tooltip]:hover::before {
+  content: "";
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  margin-left: 8px; /* Position it between icon and tooltip text */
+  width: 8px;
+  height: 8px;
+  background: #18181B;
+  border-radius: 1px;
+  z-index: 99;
+  pointer-events: none;
+  animation: fadeInTooltipArrow 0.2s ease forwards;
+}
+
+@keyframes fadeInTooltip {
+  from { opacity: 0; transform: translateY(-50%) translateX(-4px); }
+  to { opacity: 1; transform: translateY(-50%) translateX(0); }
+}
+
+@keyframes fadeInTooltipArrow {
+  from { opacity: 0; transform: translateY(-50%) translateX(-4px) rotate(45deg); }
+  to { opacity: 1; transform: translateY(-50%) translateX(0) rotate(45deg); }
+}
+
+.back-link:hover {
+  background: #FAFAFA;
+  border-color: #D4D4D8;
+  color: #000;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transform: translateY(-2px);
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; 
+  position: relative; /* For absolute positioning of indicator */
+}
+
+/* Moving Indicator (The Plaque) */
+.nav-indicator {
+  position: absolute;
+  left: 0;
+  width: 48px;
+  height: 48px;
+  background: #fff; /* White background for the active state card */
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.15); /* The Purple Shadow */
+  pointer-events: none;
+  z-index: 1; /* Behind items, but visual elements will be visible */
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); /* Smooth springy transition */
+}
+
+/* The Purple Bar on the indicator */
+.nav-indicator::before {
+  content: '';
+  position: absolute;
+  left: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 24px;
+  background: #8B5CF6; 
+  border-radius: 0 4px 4px 0;
+  display: block;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  text-decoration: none;
+  color: #9CA3AF; 
+  padding: 0;
+  border-radius: 12px;
+  transition: color 0.2s ease; /* Only color transition, no transform */
+  background: transparent; /* Transparent so indicator shadow might be seen, but items are on top */
+  border: none;
+  position: relative;
+  box-shadow: none;
+  z-index: 2; /* Above the indicator */
+}
+
+.sidebar-item:hover {
+  background: transparent;
+  color: #4B5563; 
+  /* No transform, no shadow on hover to prevent jumping */
+  transform: none;
+}
+
+/* Active State - Only Text Color Changes (Indicator handles the rest) */
+.sidebar-item.active {
+  background: transparent; 
+  color: #8B5CF6; 
+  box-shadow: none; /* Handled by indicator */
+  transform: none;
+  border: none;
+}
+
+/* Remove old pseudo-element */
+.sidebar-item.active::before {
+  display: none;
+}
+
+.sidebar-item.active:hover {
+  background: #fff;
+  transform: none;
+}
+
+/* Icon Box Style - Clean */
+.icon-box {
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px; /* Larger icons */
+  box-shadow: none;
+  transition: transform 0.2s ease;
+  filter: grayscale(100%); 
+  opacity: 0.6;
+}
+
+.sidebar-item:hover .icon-box,
+.sidebar-item.active .icon-box {
+  transform: none;
+  filter: grayscale(0%);
+  opacity: 1;
+}
+
+/* Main Content - Unified Card */
+.main-content {
+  flex: 1;
+  min-width: 0; /* Prevent flex item from overflowing parent */
+  padding: 0 0 60px; /* Aligned with top (Back button) */
+  /* max-width removed to let it stretch and fill available space */
+}
+
+/* Reset Header Card styles to blend in */
+.header-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  box-shadow: none;
+  transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.header-card h1 {
+  font-family: 'Inter', sans-serif;
+  font-size: 32px;
+  font-weight: 600; /* Semi Bold */
+  margin: 0;
+  color: var(--text);
+  line-height: 1.1;
+}
+
+.quote {
+  font-family: Inter, sans-serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 24px;
+  text-align: right;
+  color: #52525B;
+  line-height: 1.2;
+  margin: 0;
+  align-self: center;
+}
+
+.tags-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap; /* Allow tags to wrap naturally */
+}
+
+.tag-pill {
+  background: #E4E4E7;
+  padding: 8px 16px;
+  border-radius: 100px;
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #52525B;
+  border: none;
+  white-space: nowrap; /* Prevent text wrapping inside tag */
+  flex-shrink: 0; /* Prevent tag from shrinking */
+}
+
+/* Enhanced Accordion Styling */
+.accordion-item {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: none;
+  overflow: hidden;
+  margin-bottom: 16px;
+  border: 1px solid transparent; /* Prepare for border transition */
+  transition: all 0.3s ease;
+}
+
+.accordion-item:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+/* Disable hover move for open items */
+.accordion-item[open]:hover {
+  transform: none;
+  box-shadow: none; /* Keep the open shadow */
+}
+
+.accordion-item[open] {
+  box-shadow: none;
+  border-color: rgba(139, 92, 246, 0.1); /* Subtle brand border */
+}
+
+.accordion-header {
+  list-style: none;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  user-select: none; /* Prevent text selection on rapid clicks */
+}
+
+/* Subtle background tint when open or hovered */
+.accordion-item[open] .accordion-header,
+.accordion-header:hover {
+  background-color: #fff; /* Keep white as requested */
+}
+
+.accordion-header::-webkit-details-marker {
+  display: none; /* Hide default triangle in Safari/Chrome */
+}
+
+.accordion-header h2 {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.arrow {
+  width: 24px;
+  height: 24px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2318181B' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Smoother rotation */
+  opacity: 0.6;
+}
+
+.accordion-item[open] .arrow {
+  transform: rotate(180deg);
+  opacity: 1;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238B5CF6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+}
+
+/* Animation for content appearance */
+.accordion-item[open] .accordion-body {
+  animation: slideDown 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.accordion-body {
+  padding: 0 24px 24px;
+  color: #52525B;
+  font-family: Inter, sans-serif;
+  line-height: 1.6;
+}
+
+/* Ensure consistent top spacing by removing margin from the first element */
+.accordion-body > *:first-child {
+  margin-top: 0;
+}
+
+/* Custom Checkmark List for 'Who am I' section */
+.accordion-body > ul {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+  margin-top: 20px;
+  margin-bottom: 24px;
+}
+
+.accordion-body > ul li {
+  position: relative;
+  margin-bottom: 0;
+  font-weight: 500;
+  color: #52525B; /* Same color as main text */
+}
+/* Removed default checkmark ::before to use emojis in HTML */
+
+/* Timeline Lists - Clean bullets */
+.timeline-item ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.timeline-item li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 8px;
+  color: #52525B;
+}
+
+.timeline-item li::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 10px;
+  width: 4px;
+  height: 4px;
+  background-color: #D4D4D8;
+  border-radius: 50%;
+}
+
+.accordion-body p {
+  margin-bottom: 16px;
+}
+
+/* Timeline specific styles */
+.timeline-item {
+  margin-bottom: 24px; /* Consistent spacing */
+  position: relative;
+  padding-left: 20px;
+  border-left: 2px solid #eee;
+}
+
+.timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+.timeline-item h4 {
+  margin: 0 0 4px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.timeline-item .meta {
+  display: block;
+  font-size: 14px;
+  color: #52525B;
+  margin-bottom: 4px;
+}
+
+.timeline-item .date {
+  display: block;
+  font-size: 14px;
+  color: #52525B;
+  margin-bottom: 12px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .layout-wrapper {
+    flex-direction: column;
+    padding: 0;
+    margin: 0 24px;
+    gap: 24px;
+  }
+  
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+  }
+  
+  .sidebar-nav {
+    display: none; /* Hide sidebar nav on mobile for now, or style it differently */
+  }
+  
+  .main-content {
+    padding: 0;
+  }
+  
+  .header-card {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .header-left {
+    display: contents;
+  }
+  
+  .header-card h1 {
+    order: 1;
+  }
+  
+  .quote {
+    order: 2;
+    text-align: left;
+    font-size: 16px;
+    align-self: flex-start;
+  }
+  
+  .tags-row {
+    order: 3;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .layout-wrapper {
+    margin: 0 16px;
+  }
+}
