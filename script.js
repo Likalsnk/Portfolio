@@ -152,16 +152,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (tabButtons.length === 0) return;
 
     tabButtons.forEach(btn => {
-      // Remove old listeners to prevent duplicates if function is called multiple times
-      // Cloning the node is a simple way to remove all listeners
-      const newBtn = btn.cloneNode(true);
-      btn.parentNode.replaceChild(newBtn, btn);
-    });
+      // Check initialization flag to prevent duplicate listeners
+      if (btn.dataset.tabsInitialized === 'true') return;
+      btn.dataset.tabsInitialized = 'true';
 
-    // Re-select fresh buttons
-    const newTabButtons = document.querySelectorAll('.tab-button');
-    
-    newTabButtons.forEach(btn => {
       btn.addEventListener('click', () => {
         const tabId = btn.getAttribute('data-tab');
         const nextContent = document.getElementById(`${tabId}-tab`);
@@ -169,7 +163,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (btn.classList.contains('active')) return;
         
         // Update buttons state immediately
-        newTabButtons.forEach(b => b.classList.remove('active'));
+        // Re-query buttons in case of dynamic changes, or just use the closure if stable.
+        // Using querySelectorAll ensures we catch all current buttons.
+        const allButtons = document.querySelectorAll('.tab-button');
+        allButtons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
 
         // Update content state immediately (no animation)
@@ -187,7 +184,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- 5. 3D Tilt Effect for Cases Cards (Smart Animate) ---
   const initTilt = () => {
     // Select elements that have data-tilt. 
-    // Now data-tilt is on .card-image-wrapper, so 'card' variable here is actually the wrapper.
     const tiltElements = document.querySelectorAll('[data-tilt]');
     
     if (tiltElements.length === 0) return;
@@ -196,24 +192,67 @@ document.addEventListener('DOMContentLoaded', () => {
       // Prevent double binding
       if (wrapper.dataset.tiltInitialized === 'true') return;
       wrapper.dataset.tiltInitialized = 'true';
-
-      // If data-tilt is on the wrapper itself, we operate on it directly.
-      // But we still want to move the image inside it? 
-      // Actually, the tilt usually applies to the container, transforming it.
-      // In CSS we had: .card-image-wrapper { transform: translateZ(0); ... }
-      // So transforming the wrapper itself is correct.
       
       const elementToTilt = wrapper; // The wrapper itself
+      let rect = null;
+      let isHovering = false;
+      let animationFrameId = null;
+
+      // Store absolute page coordinates to handle scroll without re-measuring
+      let pageX = 0;
+      let pageY = 0;
+
+      const initHover = () => {
+         isHovering = true;
+         rect = wrapper.getBoundingClientRect();
+         // Calculate absolute position
+         pageX = rect.left + window.scrollX;
+         pageY = rect.top + window.scrollY;
+         
+         // Remove transition for instant, responsive follow (Smart Animate feel)
+         elementToTilt.style.transition = 'none';
+      };
+
+      const updateRect = () => {
+        if (!wrapper.isConnected) {
+           window.removeEventListener('resize', updateRect);
+           return;
+        }
+        // Only update if we are hovering, otherwise we'll measure on next enter
+        if (isHovering) {
+            rect = wrapper.getBoundingClientRect();
+            pageX = rect.left + window.scrollX;
+            pageY = rect.top + window.scrollY;
+        }
+      };
       
-      wrapper.addEventListener('mouseenter', () => {
-        // Remove transition for instant, responsive follow (Smart Animate feel)
-        elementToTilt.style.transition = 'none';
-      });
+      // Update on resize (layout changes)
+      window.addEventListener('resize', updateRect, { passive: true });
+
+      const updateTransform = (rotateX, rotateY) => {
+        elementToTilt.style.transform = `
+          perspective(1000px)
+          rotateX(${rotateX}deg)
+          rotateY(${rotateY}deg)
+          scale(1.05)
+          translateY(-8px)
+        `;
+        animationFrameId = null;
+      };
+
+      wrapper.addEventListener('mouseenter', initHover);
 
       wrapper.addEventListener('mousemove', (e) => {
-        const rect = wrapper.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+        // Handle case where mouse is already over element on load
+        if (!isHovering) initHover();
+        
+        // Use cached absolute position - scrollY to get current viewport relative position
+        // This avoids calling getBoundingClientRect() during animation/scroll
+        const currentRectLeft = pageX - window.scrollX;
+        const currentRectTop = pageY - window.scrollY;
+        
+        const x = e.clientX - currentRectLeft;
+        const y = e.clientY - currentRectTop;
         
         // Calculate percentage from center (-1 to 1)
         const centerX = rect.width / 2;
@@ -222,23 +261,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const rotateX = ((y - centerY) / centerY) * -8; // Increased rotation range
         const rotateY = ((x - centerX) / centerX) * 8;
         
-        // Apply transform to the wrapper
-        // Note: We need to preserve the hover translateY if possible, or include it here.
-        // CSS has .card-image-wrapper:hover { transform: translateY(-8px); }
-        // JS inline style overrides CSS. So we MUST include translateY(-8px) here.
-        elementToTilt.style.transform = `
-          perspective(1000px)
-          rotateX(${rotateX}deg)
-          rotateY(${rotateY}deg)
-          scale(1.05)
-          translateY(-8px)
-        `;
+        // Use requestAnimationFrame for performance
+        if (!animationFrameId) {
+          animationFrameId = requestAnimationFrame(() => updateTransform(rotateX, rotateY));
+        }
       });
       
       wrapper.addEventListener('mouseleave', () => {
+        isHovering = false;
+        if (animationFrameId) {
+          cancelAnimationFrame(animationFrameId);
+          animationFrameId = null;
+        }
         // Revert to CSS transition for smooth snap-back
         elementToTilt.style.transition = '';
         elementToTilt.style.transform = ''; // Clears inline style, falling back to CSS :hover or default
+        rect = null;
       });
     });
   };
@@ -285,6 +323,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const newContent = doc.querySelector('.main-content').innerHTML;
         const newTitle = doc.title;
         
+        // Dynamically load missing stylesheets
+        const newLinks = doc.querySelectorAll('link[rel="stylesheet"]');
+        const currentLinks = Array.from(document.querySelectorAll('link[rel="stylesheet"]')).map(l => l.getAttribute('href'));
+        
+        newLinks.forEach(link => {
+            const cssHref = link.getAttribute('href');
+            if (cssHref && !currentLinks.includes(cssHref)) {
+                const newLink = document.createElement('link');
+                newLink.rel = 'stylesheet';
+                newLink.href = cssHref;
+                document.head.appendChild(newLink);
+            }
+        });
+
         // Wait for fade out
         setTimeout(() => {
           // Replace Content
