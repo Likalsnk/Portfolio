@@ -4,7 +4,7 @@
   min-height: 100vh;
   /* max-width removed to allow full stretch */
   margin: 0 24px;
-  padding-top: 16px; /* Space from top as requested */
+  padding-top: 40px; /* Reduced from 100px */
   gap: 48px;
   /* Entrance Animation */
   animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -40,9 +40,9 @@ body.exiting .layout-wrapper {
   flex-direction: column;
   gap: 40px; 
   position: sticky;
-  top: 16px; 
+  top: 40px; 
   align-self: flex-start; 
-  height: auto;
+  height: calc(100vh - 80px); /* Full viewport height minus top/bottom offset */
   box-shadow: none;
   border-radius: 0;
   z-index: 10; /* Ensure tooltips show above content */
@@ -136,6 +136,7 @@ body.exiting .layout-wrapper {
   flex-direction: column;
   gap: 16px; 
   position: relative; /* For absolute positioning of indicator */
+  height: 100%;
 }
 
 /* Moving Indicator (The Plaque) */
@@ -232,6 +233,62 @@ body.exiting .layout-wrapper {
   filter: grayscale(0%);
   opacity: 1;
 }
+
+/* Separator */
+.nav-separator {
+  width: 24px;
+  height: 1px;
+  background: #E4E4E7;
+  margin: 4px auto;
+  margin-top: auto; /* Push social icon to bottom */
+}
+
+/* Social Icons in Sidebar */
+.sidebar-social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  position: relative; /* For tooltip */
+  background: transparent;
+}
+
+.sidebar-social-img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  opacity: 1;
+  filter: none;
+  transition: all 0.2s ease;
+}
+
+.sidebar-social-link:hover {
+  transform: translateY(-2px);
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.sidebar-social-link:hover .sidebar-social-img {
+  opacity: 1;
+  filter: none;
+  transform: scale(1.1);
+}
+
+/* Brand Colors on Hover */
+.sidebar-social-link.behance:hover { background-color: #1769ff; }
+.sidebar-social-link.linkedin:hover { background-color: #0077b5; }
+.sidebar-social-link.github:hover { background-color: #181717; }
+.sidebar-social-link.telegram:hover { background-color: #24A1DE; }
+.sidebar-social-link.gmail:hover { background-color: #EA4335; }
+
+/* Invert icon color for dark backgrounds if needed */
+.sidebar-social-link:hover .sidebar-social-img {
+  /* Most logos are colored, so no need to invert unless they are black/white only. 
+     But let's keep it simple as per original design */
+}
+
 
 /* Main Content - Unified Card */
 .main-content {
@@ -515,7 +572,23 @@ body.exiting .layout-wrapper {
   }
   
   .sidebar-nav {
-    display: none; /* Hide sidebar nav on mobile for now, or style it differently */
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .nav-indicator {
+    display: none;
+  }
+
+  .nav-separator {
+    width: 1px;
+    height: 24px;
+    margin: 0 4px;
   }
   
   .main-content {
@@ -551,5 +624,152 @@ body.exiting .layout-wrapper {
 @media (max-width: 480px) {
   .layout-wrapper {
     margin: 0 16px;
+  }
+}
+/* Social Group Container */
+.sidebar-social-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  z-index: 20; /* Ensure it's above other things */
+}
+
+/* The trigger button */
+.social-trigger {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.4);
+  transition: all 0.2s ease;
+  color: #9CA3AF;
+  border: 1px solid transparent; /* Prevent layout shift on hover if border added */
+}
+
+.social-trigger:hover,
+.sidebar-social-group.active .social-trigger {
+  background: #fff;
+  color: #8B5CF6; /* Brand color */
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.15);
+}
+
+.social-trigger .icon-box {
+  font-size: 24px;
+}
+
+/* The Popup Menu */
+.social-popup {
+  position: absolute;
+  left: 100%; /* To the right of sidebar */
+  top: 50%; /* Vertically centered relative to trigger */
+  margin-left: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 8px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: row; /* Horizontal list */
+  gap: 8px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-50%) translateX(-10px) scale(0.95);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  z-index: 1000;
+  pointer-events: none; /* Disable interaction when hidden */
+}
+
+/* Bridge the gap for hover - No longer needed for click but kept for safety */
+.social-popup::before {
+  content: '';
+  position: absolute;
+  left: -12px;
+  top: 0;
+  bottom: 0;
+  width: 12px;
+  background: transparent;
+}
+
+/* Show on Click (via JS class) */
+.sidebar-social-group.active .social-popup {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-50%) translateX(0) scale(1);
+  pointer-events: auto;
+}
+
+/* Style for links inside popup */
+.social-popup .sidebar-social-link {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: transparent;
+}
+
+.social-popup .sidebar-social-link:hover {
+  background: rgba(0, 0, 0, 0.05);
+  transform: translateY(-2px);
+}
+
+/* Tooltip overrides for Social Popup (Top positioning) */
+.social-popup [data-tooltip]:hover::after {
+  left: 50%;
+  top: auto;
+  bottom: 100%;
+  margin-left: 0;
+  margin-bottom: 10px;
+  transform: translateX(-50%);
+  animation: fadeInTooltipTop 0.2s ease forwards;
+}
+
+.social-popup [data-tooltip]:hover::before {
+  left: 50%;
+  top: auto;
+  bottom: 100%;
+  margin-left: -4px;
+  margin-top: 0;
+  margin-bottom: 6px;
+  transform: rotate(45deg);
+  animation: fadeInTooltipArrowTop 0.2s ease forwards;
+}
+
+@keyframes fadeInTooltipTop {
+  from { opacity: 0; transform: translateX(-50%) translateY(4px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+@keyframes fadeInTooltipArrowTop {
+  from { opacity: 0; transform: translateY(4px) rotate(45deg); }
+  to { opacity: 1; transform: translateY(0) rotate(45deg); }
+}
+
+/* Mobile adjustments */
+@media (max-width: 900px) {
+  .social-popup {
+    left: 50%;
+    top: 100%;
+    margin-left: 0;
+    margin-top: 12px;
+    transform: translateX(-50%) translateY(-10px);
+    flex-direction: row; /* Horizontal on mobile */
+  }
+  
+  .social-popup::before {
+    left: 0;
+    top: -12px;
+    width: 100%;
+    height: 12px;
+  }
+  
+  .sidebar-social-group.active .social-popup {
+    transform: translateX(-50%) translateY(0);
   }
 }

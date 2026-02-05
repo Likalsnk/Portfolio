@@ -257,12 +257,9 @@ document.addEventListener('DOMContentLoaded', () => {
       
       // If anchor link (same page section), standard behavior
       if (href.startsWith('#')) return;
-      
-      // If external or different layout (e.g. index.html is NOT in sidebar layout usually, 
-      // but if we are on About page, index.html is the "Home" icon which is .back-link outside .sidebar-nav usually?
-      // Wait, look at HTML: index.html is in sidebar-top as back-link.
-      // But user said: "And from About Me page I should also get to Tools & Skills page"
-      // So this listener is for .sidebar-nav items which are About, Skills, etc.
+
+      // If linking to home page (index.html), let it do a full reload without SPA animation
+      if (href === 'index.html' || href === '/' || href.endsWith('index.html')) return;
       
       e.preventDefault();
       
@@ -340,4 +337,22 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
   });
+
+  // --- 6. Social Media Popup Logic ---
+  const socialTrigger = document.querySelector('.social-trigger');
+  const socialGroup = document.querySelector('.sidebar-social-group');
+
+  if (socialTrigger && socialGroup) {
+    socialTrigger.addEventListener('click', (e) => {
+      e.stopPropagation(); // Prevent document click from immediately closing it
+      socialGroup.classList.toggle('active');
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!socialGroup.contains(e.target)) {
+        socialGroup.classList.remove('active');
+      }
+    });
+  }
 });
