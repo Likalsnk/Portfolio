@@ -311,9 +311,10 @@ body.exiting .layout-wrapper {
   transition: all 0.3s ease;
 }
 
-.accordion-item:hover {
-  transform: none;
-  box-shadow: none;
+.accordion-item:not([open]):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-color: #E4E4E7;
 }
 
 /* Disable hover move for open items */
@@ -339,8 +340,11 @@ body.exiting .layout-wrapper {
 }
 
 /* Subtle background tint when open or hovered */
-.accordion-item[open] .accordion-header,
-.accordion-header:hover {
+.accordion-item:not([open]) .accordion-header:hover {
+  background-color: #FAFAFA;
+}
+
+.accordion-item[open] .accordion-header {
   background-color: #fff; /* Keep white as requested */
 }
 
@@ -375,7 +379,8 @@ body.exiting .layout-wrapper {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238B5CF6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
 }
 
-/* Animation for content appearance */
+/* Animation for content appearance - Removed to prevent jump */
+/*
 .accordion-item[open] .accordion-body {
   animation: slideDown 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -390,6 +395,7 @@ body.exiting .layout-wrapper {
     transform: translateY(0);
   }
 }
+*/
 
 .accordion-body {
   padding: 0 24px 24px;
@@ -455,6 +461,12 @@ body.exiting .layout-wrapper {
   position: relative;
   padding-left: 20px;
   border-left: 2px solid #eee;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.timeline-item:hover {
+  border-left-color: #8B5CF6;
+  padding-left: 28px;
 }
 
 .timeline-item:last-child {

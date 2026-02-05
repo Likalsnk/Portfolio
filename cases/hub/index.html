@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sunrise — Languages of Love</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Briem+Hand:wght@200;400;700&family=Inter:wght@200;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+        background-color: #0e0e10;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+        overflow-y: hidden; /* Lock scroll for immersive feel */
+        height: 100vh;
+        width: 100vw;
+    }
+
+    .main-content {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+    
+    /* Typography */
+    .love-title {
+        text-align: center;
+        z-index: 10;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        user-select: none;
+    }
+    
+    .text-languages {
+        font-family: 'Inter', sans-serif;
+        font-weight: 200; /* Thin */
+        font-size: clamp(40px, 8vw, 120px);
+        color: #FFB6C1; /* LightPink */
+        line-height: 0.9;
+        letter-spacing: -0.02em;
+    }
+    
+    .text-of-love {
+        font-family: 'Briem Hand', cursive;
+        font-weight: 400;
+        font-size: clamp(40px, 8vw, 120px);
+        color: #FFB6C1;
+        line-height: 1.1;
+        margin-top: 0px;
+    }
+
+    /* Hearts Animation */
+    .hearts-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+    }
+    
+    .heart {
+        position: absolute;
+        bottom: -50px;
+        color: #FF69B4; /* HotPink */
+        opacity: 0;
+        animation: floatUp linear forwards; /* forwards to keep state if needed, but we remove element */
+    }
+    
+    @keyframes floatUp {
+        0% {
+            transform: translateY(0) scale(0.5) rotate(0deg);
+            opacity: 0;
+        }
+        10% {
+            opacity: 0.8;
+            transform: translateY(-10vh) scale(0.8) rotate(10deg);
+        }
+        50% {
+             transform: translateY(-50vh) scale(1.2) rotate(-10deg);
+        }
+        100% {
+            transform: translateY(-110vh) scale(1.5) rotate(20deg);
+            opacity: 0;
+        }
+    }
+
+    /* Back Button Override */
+    .back-btn-wrapper {
+        position: absolute;
+        top: 32px;
+        left: 32px;
+        z-index: 20;
+    }
+    
+    .back-link-custom {
+        color: rgba(255, 255, 255, 0.4);
+        text-decoration: none;
+        font-family: 'Inter', sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.3s ease;
+        padding: 8px 16px;
+        border-radius: 100px;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .back-link-custom:hover {
+        color: #fff;
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+    <div class="back-btn-wrapper">
+         <a href="../../cases.html" class="back-link-custom">← Back to Cases</a>
+    </div>
+
+    <main class="main-content">
+        <div class="hearts-container" id="hearts-container"></div>
+        
+        <div class="love-title">
+            <span class="text-languages">languages</span>
+            <span class="text-of-love">of love</span>
+        </div>
+    </main>
+
+    <script>
+        function createHeart() {
+            const container = document.getElementById('hearts-container');
+            if (!container) return;
+
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤';
+            
+            // Randomize styling
+            const size = Math.random() * 24 + 12 + 'px'; // 12-36px
+            heart.style.fontSize = size;
+            
+            // Random position
+            heart.style.left = Math.random() * 100 + 'vw';
+            
+            // Randomize animation
+            const duration = Math.random() * 6 + 6 + 's'; // 6-12s
+            const delay = Math.random() * 2 + 's';
+            heart.style.animationDuration = duration;
+            heart.style.animationDelay = delay;
+            
+            // Randomize color shade (Pink/Red spectrum)
+            const colors = ['#FFC0CB', '#FF69B4', '#FF1493', '#DB7093', '#C71585'];
+            heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+            
+            container.appendChild(heart);
+            
+            // Remove after animation
+            setTimeout(() => {
+                heart.remove();
+            }, parseFloat(duration) * 1000 + 2000); // Buffer
+        }
+        
+        // Initial batch to populate screen
+        for(let i=0; i<20; i++) {
+             setTimeout(createHeart, Math.random() * 2000);
+        }
+        
+        // Continuous creation
+        setInterval(createHeart, 400);
+    </script>
+</body>
+</html>

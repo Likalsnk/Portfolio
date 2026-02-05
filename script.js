@@ -164,18 +164,18 @@ document.addEventListener('DOMContentLoaded', () => {
     newTabButtons.forEach(btn => {
       btn.addEventListener('click', () => {
         const tabId = btn.getAttribute('data-tab');
-        
-        // Remove active class from all buttons and contents
-        newTabButtons.forEach(b => b.classList.remove('active'));
-        tabContents.forEach(c => c.classList.remove('active'));
+        const nextContent = document.getElementById(`${tabId}-tab`);
 
-        // Add active class to clicked button
+        if (btn.classList.contains('active')) return;
+        
+        // Update buttons state immediately
+        newTabButtons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
 
-        // Find corresponding content
-        const activeContent = document.getElementById(`${tabId}-tab`);
-        if (activeContent) {
-          activeContent.classList.add('active');
+        // Update content state immediately (no animation)
+        tabContents.forEach(c => c.classList.remove('active'));
+        if (nextContent) {
+          nextContent.classList.add('active');
         }
       });
     });
@@ -183,6 +183,67 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initialize tabs on load
   initTabs();
+  
+  // --- 5. 3D Tilt Effect for Cases Cards (Smart Animate) ---
+  const initTilt = () => {
+    // Select elements that have data-tilt. 
+    // Now data-tilt is on .card-image-wrapper, so 'card' variable here is actually the wrapper.
+    const tiltElements = document.querySelectorAll('[data-tilt]');
+    
+    if (tiltElements.length === 0) return;
+
+    tiltElements.forEach(wrapper => {
+      // Prevent double binding
+      if (wrapper.dataset.tiltInitialized === 'true') return;
+      wrapper.dataset.tiltInitialized = 'true';
+
+      // If data-tilt is on the wrapper itself, we operate on it directly.
+      // But we still want to move the image inside it? 
+      // Actually, the tilt usually applies to the container, transforming it.
+      // In CSS we had: .card-image-wrapper { transform: translateZ(0); ... }
+      // So transforming the wrapper itself is correct.
+      
+      const elementToTilt = wrapper; // The wrapper itself
+      
+      wrapper.addEventListener('mouseenter', () => {
+        // Remove transition for instant, responsive follow (Smart Animate feel)
+        elementToTilt.style.transition = 'none';
+      });
+
+      wrapper.addEventListener('mousemove', (e) => {
+        const rect = wrapper.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        // Calculate percentage from center (-1 to 1)
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const rotateX = ((y - centerY) / centerY) * -8; // Increased rotation range
+        const rotateY = ((x - centerX) / centerX) * 8;
+        
+        // Apply transform to the wrapper
+        // Note: We need to preserve the hover translateY if possible, or include it here.
+        // CSS has .card-image-wrapper:hover { transform: translateY(-8px); }
+        // JS inline style overrides CSS. So we MUST include translateY(-8px) here.
+        elementToTilt.style.transform = `
+          perspective(1000px)
+          rotateX(${rotateX}deg)
+          rotateY(${rotateY}deg)
+          scale(1.05)
+          translateY(-8px)
+        `;
+      });
+      
+      wrapper.addEventListener('mouseleave', () => {
+        // Revert to CSS transition for smooth snap-back
+        elementToTilt.style.transition = '';
+        elementToTilt.style.transform = ''; // Clears inline style, falling back to CSS :hover or default
+      });
+    });
+  };
+
+  initTilt();
 
   // Handle Sidebar Links (SPA Content Swap)
   if (sidebarNav && mainContent) {
@@ -243,6 +304,7 @@ document.addEventListener('DOMContentLoaded', () => {
           // Re-initialize any scripts if necessary (e.g., if there were specific page scripts)
           // For accordions, HTML <details> works automatically.
           initTabs();
+          initTilt();
           
         }, 300);
         

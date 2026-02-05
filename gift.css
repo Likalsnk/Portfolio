@@ -1,0 +1,174 @@
+
+/* Gift Box Animation */
+.gift-wrapper {
+  background: #EEF2FF; /* Light indigo bg */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.gift-scene {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+  perspective: 600px;
+}
+
+.gift-box {
+  width: 60px;
+  height: 60px;
+  position: relative;
+  animation: boxShake 3s ease-in-out infinite;
+  z-index: 2;
+}
+
+.gift-body {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #F472B6 0%, #EC4899 100%); /* Pink gradient */
+  border-radius: 8px;
+  box-shadow: 0 10px 20px rgba(236, 72, 153, 0.3);
+  position: relative;
+}
+
+/* Ribbon vertical */
+.gift-body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 100%;
+  background: #FBCFE8;
+}
+
+.gift-lid {
+  position: absolute;
+  top: -15px;
+  left: -5px;
+  width: 70px;
+  height: 20px;
+  background: #DB2777; /* Darker pink */
+  border-radius: 4px;
+  z-index: 3;
+  transform-origin: center bottom;
+  animation: lidPop 3s ease-in-out infinite;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Ribbon on lid */
+.gift-lid::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 100%;
+  background: #FBCFE8;
+}
+
+.gift-bow {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 12px;
+  background: #FBCFE8;
+  border-radius: 10px 10px 0 0;
+}
+
+.gift-bow::before, .gift-bow::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  width: 14px;
+  height: 14px;
+  border: 3px solid #FBCFE8;
+  border-radius: 50%;
+  top: -6px;
+}
+
+.gift-bow::before { left: -8px; }
+.gift-bow::after { right: -8px; }
+
+/* Confetti */
+.confetti-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.confetti {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #FCD34D;
+  top: 50%;
+  left: 50%;
+  opacity: 0;
+}
+
+/* Confetti Animations */
+.c1 { background: #3B82F6; animation: confettiShoot 3s ease-in-out infinite; animation-delay: 0.1s; transform: rotate(15deg); }
+.c2 { background: #EF4444; animation: confettiShoot 3s ease-in-out infinite; animation-delay: 0.2s; transform: rotate(-45deg); }
+.c3 { background: #10B981; animation: confettiShoot 3s ease-in-out infinite; animation-delay: 0.15s; transform: rotate(80deg); }
+.c4 { background: #F59E0B; animation: confettiShoot 3s ease-in-out infinite; animation-delay: 0.25s; transform: rotate(-10deg); }
+.c5 { background: #8B5CF6; animation: confettiShoot 3s ease-in-out infinite; animation-delay: 0.3s; transform: rotate(60deg); }
+.c6 { background: #EC4899; animation: confettiShoot 3s ease-in-out infinite; animation-delay: 0.1s; transform: rotate(-90deg); }
+.c7 { background: #6366F1; animation: confettiShoot 3s ease-in-out infinite; animation-delay: 0.2s; transform: rotate(30deg); }
+.c8 { background: #F472B6; animation: confettiShoot 3s ease-in-out infinite; animation-delay: 0.15s; transform: rotate(-60deg); }
+.c9 { background: #34D399; animation: confettiShoot 3s ease-in-out infinite; animation-delay: 0.35s; transform: rotate(120deg); }
+.c10 { background: #FBBF24; animation: confettiShoot 3s ease-in-out infinite; animation-delay: 0.05s; transform: rotate(-150deg); }
+
+@keyframes boxShake {
+  0%, 80%, 100% { transform: rotate(0deg) scale(1); }
+  85% { transform: rotate(-3deg) scale(1.02); }
+  90% { transform: rotate(3deg) scale(1.02); }
+  95% { transform: rotate(-3deg) scale(1.02); }
+}
+
+@keyframes lidPop {
+  0%, 80%, 100% { transform: translateY(0) rotate(0); }
+  90% { transform: translateY(-10px) rotate(-5deg); }
+  95% { transform: translateY(-5px) rotate(5deg); }
+}
+
+@keyframes confettiShoot {
+  0%, 85% { 
+    transform: translate(-50%, -50%) scale(0); 
+    opacity: 0; 
+  }
+  90% { 
+    opacity: 1; 
+    transform: translate(var(--tx), var(--ty)) scale(1) rotate(var(--rot)); 
+  }
+  100% { 
+    opacity: 0; 
+    transform: translate(calc(var(--tx) * 1.5), calc(var(--ty) * 1.5)) scale(0.8) rotate(var(--rot)); 
+  }
+}
+
+/* Set trajectories for confetti */
+.c1 { --tx: -40px; --ty: -50px; --rot: 45deg; }
+.c2 { --tx: 40px; --ty: -50px; --rot: -45deg; }
+.c3 { --tx: -20px; --ty: -60px; --rot: 10deg; }
+.c4 { --tx: 20px; --ty: -60px; --rot: -10deg; }
+.c5 { --tx: -60px; --ty: -30px; --rot: 90deg; }
+.c6 { --tx: 60px; --ty: -30px; --rot: -90deg; }
+.c7 { --tx: -30px; --ty: -40px; --rot: 30deg; }
+.c8 { --tx: 30px; --ty: -40px; --rot: -30deg; }
+.c9 { --tx: 0px; --ty: -70px; --rot: 0deg; }
+.c10 { --tx: 50px; --ty: -20px; --rot: -60deg; }

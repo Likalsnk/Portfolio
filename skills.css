@@ -14,6 +14,16 @@
   flex-wrap: nowrap;
 }
 
+/* Removed hover effects as requested */
+/*
+.tool-item:hover {
+  background: #FAFAFA;
+  border-color: #E4E4E7;
+  transform: scale(1.01);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+*/
+
 .tool-icon {
   width: 64px;
   height: 64px;
@@ -55,6 +65,15 @@
   font-size: 15px;
   line-height: 1.5;
   color: #52525B; /* Zinc-600 */
+}
+
+.skill-quote {
+  margin-top: 12px !important;
+  font-style: italic;
+  font-size: 14px !important;
+  color: #71717A !important; /* Zinc-500 */
+  padding-left: 12px;
+  border-left: 2px solid #E4E4E7;
 }
 
 /* AI Tools Section */
@@ -178,61 +197,67 @@
   }
 }
 
-/* Tabs Navigation */
+/* Tabs Navigation - Folder Style */
 .tabs-nav-container {
   display: flex;
-  justify-content: flex-start; /* Align container to start */
-  margin-bottom: 32px;
+  justify-content: flex-start;
+  margin-bottom: 0;
   width: 100%;
+  position: relative;
+  z-index: 10;
+  padding-left: 0;
 }
 
 .tabs-nav {
-  display: flex; /* Full width flex */
-  width: 100%; /* Stretch across block */
-  justify-content: flex-start; /* Align items to left */
-  background: rgba(118, 118, 128, 0.12); /* Цвет фона трека (iOS style) */
-  padding: 4px;
-  border-radius: 16px; /* Pill shape adapted for full width */
-  position: relative;
-  /* Для поддержки стеклянного эффекта, если нужно, но обычно трек просто серый */
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  width: auto;
+  justify-content: flex-start;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  gap: 4px;
 }
 
 .tab-button {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 20px;
-  border-radius: 999px;
+  padding: 12px 24px;
+  border-radius: 12px 12px 0 0;
   border: none;
-  background: transparent;
-  color: #52525B; /* Inactive text color */
+  background: rgba(255, 255, 255, 0.5);
+  color: #71717A;
   font-family: Inter, sans-serif;
   font-weight: 500;
   font-size: 15px;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
-  /* Убираем старые тени и бордеры */
+  transition: background 0.2s ease, color 0.2s ease;
   box-shadow: none;
-  min-width: 140px; /* Фиксированная минимальная ширина для баланса */
+  min-width: 120px;
   justify-content: center;
+  position: relative;
+  margin-bottom: -1px;
 }
 
 .tab-button:hover {
-  background: rgba(255, 255, 255, 0.5);
-  transform: none; /* Убираем сдвиг */
+  background: rgba(255, 255, 255, 0.8);
   color: var(--text);
+  transform: none;
 }
 
 .tab-button.active {
   background: #FFFFFF;
   color: var(--text);
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12), 0 3px 1px rgba(0, 0, 0, 0.04);
   font-weight: 600;
+  box-shadow: none;
+  transform: none;
+  z-index: 20;
+  padding-bottom: 16px;
+  margin-bottom: -4px;
 }
 
-/* Иконки */
 .tab-icon-wrapper {
   display: flex;
   align-items: center;
@@ -241,17 +266,31 @@
   line-height: 1;
 }
 
-/* Tab Content */
+/* Tab Content - Separate Blocks (About Me style) */
 .tab-content {
   display: none;
-  animation: fadeIn 0.3s ease;
 }
 
 .tab-content.active {
   display: block;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
+  position: relative;
+  z-index: 5;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+/* Connect first item to tab */
+.tab-content .accordion-container > .accordion-item:first-child {
+  margin-top: 0;
+  position: relative;
+  z-index: 10;
+  transition: border-radius 0.2s ease;
+}
+
+/* Dynamic radius using :has - Connects tab to the first block */
+body:has(.tab-button:first-child.active) .tab-content .accordion-container > .accordion-item:first-child,
+body:has(.tab-button:nth-child(2).active) .tab-content .accordion-container > .accordion-item:first-child {
+  border-top-left-radius: 0;
 }
