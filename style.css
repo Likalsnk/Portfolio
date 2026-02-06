@@ -256,6 +256,145 @@ body {
   line-height: 1.5;
 }
 
+/* --- Mobile Header & Burger Menu --- */
+.mobile-header {
+  display: none; /* Hidden on desktop */
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: rgba(228, 228, 231, 0.8); /* Glass effect */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.mobile-logo {
+  font-family: "Briem Hand", cursive;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.burger-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  justify-content: center;
+  z-index: 1001;
+}
+
+.burger-btn span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: var(--text);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Burger Animation */
+.burger-btn.active span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.burger-btn.active span:nth-child(2) {
+  opacity: 0;
+}
+.burger-btn.active span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile Nav Overlay */
+.mobile-nav-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  padding-bottom: 60px;
+}
+
+.mobile-nav-overlay.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.mobile-nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  text-align: center;
+  flex-grow: 1;
+  justify-content: center;
+  width: 100%;
+}
+
+.mobile-nav-link {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--text);
+  text-decoration: none;
+  font-family: Inter, sans-serif;
+  transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+}
+
+.mobile-nav-link:hover {
+  color: var(--brand);
+}
+
+.mobile-nav-link span {
+  font-size: 18px;
+}
+
+.mobile-social-icons {
+  display: flex;
+  gap: 16px;
+  margin-top: 0;
+}
+
+.mobile-social-link {
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  transition: transform 0.2s ease;
+}
+
+.mobile-social-link:hover {
+  transform: translateY(-2px);
+}
+
+.mobile-social-link img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
 @media (max-width: 768px) {
   .tag {
     font-size: 14px;
@@ -263,10 +402,57 @@ body {
     padding: 6px 12px;
   }
 
+  /* Show Mobile Header */
+  .mobile-header {
+    display: flex;
+  }
+  
+  /* Add padding to body to prevent content from hiding behind fixed header */
+  body {
+    padding-top: 100px; 
+  }
+
+  /* Reset padding for Home Page since header is hidden */
+  body.home-page {
+    padding-top: 40px;
+  }
+
+  /* Typography Adjustments */
+  .page-title {
+    font-size: 36px;
+    margin-bottom: 12px;
+  }
+
+  .tags {
+    margin-bottom: 40px;
+    gap: 10px;
+  }
+
+  /* Hide Desktop/Bottom Nav - Override for Home Page */
   .nav-buttons {
+    /* display: none; Removed to allow display on homepage */
+    gap: 12px; /* Tighter gap for mobile */
+  }
+
+  /* Hide Mobile Header specifically on Home Page */
+  .home-page .mobile-header {
+    display: none;
+  }
+  
+  /* Also hide Sidebar if present (for other pages) */
+  .sidebar {
+    display: none !important;
+  }
+  
+  /* Adjust layout wrapper for pages with sidebar */
+  .layout-wrapper {
+    margin: 0 16px;
     flex-direction: column;
+  }
+  
+  .main-content {
+    padding: 20px 0;
     width: 100%;
-    gap: 12px;
   }
 
   .nav-button {

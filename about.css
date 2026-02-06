@@ -509,7 +509,8 @@ body.exiting .layout-wrapper {
 }
 
 .accordion-body p {
-  margin-bottom: 16px;
+  margin-top: 0;
+  margin-bottom: 8px;
 }
 
 /* Timeline specific styles */
@@ -552,11 +553,11 @@ body.exiting .layout-wrapper {
 }
 
 /* Responsive */
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .layout-wrapper {
     flex-direction: column;
     padding: 0;
-    margin: 0 24px;
+    margin: 0 16px;
     gap: 24px;
   }
   
@@ -606,6 +607,7 @@ body.exiting .layout-wrapper {
   
   .header-card h1 {
     order: 1;
+    font-size: 24px; /* Reduced for mobile */
   }
   
   .quote {
@@ -613,6 +615,25 @@ body.exiting .layout-wrapper {
     text-align: left;
     font-size: 16px;
     align-self: flex-start;
+    line-height: 1.4;
+  }
+
+  .accordion-header {
+    padding: 16px; /* Smaller padding */
+  }
+
+  .accordion-header h2 {
+    font-size: 16px; /* Smaller heading */
+  }
+
+  .accordion-body {
+    padding: 0 16px 16px;
+    font-size: 14px; /* Smaller body text */
+  }
+
+  .tag-pill {
+    font-size: 12px;
+    padding: 6px 12px;
   }
   
   .tags-row {
@@ -752,7 +773,7 @@ body.exiting .layout-wrapper {
 }
 
 /* Mobile adjustments */
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .social-popup {
     left: 50%;
     top: 100%;

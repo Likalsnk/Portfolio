@@ -407,4 +407,32 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  // --- 7. Burger Menu Logic ---
+  const burgerBtn = document.querySelector('.burger-btn');
+  const mobileNavOverlay = document.querySelector('.mobile-nav-overlay');
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+  if (burgerBtn && mobileNavOverlay) {
+    burgerBtn.addEventListener('click', () => {
+      burgerBtn.classList.toggle('active');
+      mobileNavOverlay.classList.toggle('active');
+      
+      // Prevent scrolling when menu is open
+      if (mobileNavOverlay.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
+    });
+
+    // Close menu when clicking a link
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        burgerBtn.classList.remove('active');
+        mobileNavOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    });
+  }
 });

@@ -303,6 +303,49 @@
   .card-image-wrapper {
     aspect-ratio: 16/10;
   }
+
+  /* Typography Scaling */
+  .card-title {
+    font-size: 18px;
+  }
+
+  .year-badge {
+    font-size: 12px;
+    padding: 2px 6px;
+  }
+
+  .card-desc {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .tech-tag {
+    font-size: 11px;
+    padding: 3px 10px;
+  }
+
+  /* Animation Text Scaling */
+  .realface-text {
+    font-size: 28px;
+  }
+
+  .bg-title {
+    font-size: 32px;
+    letter-spacing: 2px;
+  }
+
+  .running-line span {
+    font-size: 24px;
+    -webkit-text-stroke-width: 0.5px;
+  }
+  
+  .running-line.small span {
+    font-size: 14px;
+  }
+  
+  .placeholder-img {
+    font-size: 32px;
+  }
   
   /* Always show button on touch devices or simplify hover */
   .card-overlay {
