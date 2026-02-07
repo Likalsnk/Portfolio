@@ -1,6 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // --- 1. Pixel Animation (Only for Home Page) ---
+  // --- 0. Theme & Image Setup ---
   const img = document.querySelector('.hero-full-image');
+  const lightImage = 'src/Photo/Frame 1321315845.png';
+  const darkImage = 'src/Photo/Black Mode.png';
+  
+  const themeKey = 'portfolio-theme';
+  const savedTheme = localStorage.getItem(themeKey) || 'light';
+  
+  // Set initial image if dark mode
+  if (img && savedTheme === 'dark') {
+    img.src = darkImage;
+  }
+
+  // --- 1. Pixel Animation (Only for Home Page) ---
   if (img) {
     const runPixelAnimation = () => {
       // Check if image loaded correctly
@@ -438,4 +450,274 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+
+  // --- 8. Theme Toggle Logic ---
+  const initTheme = () => {
+    const themeKey = 'portfolio-theme';
+    const savedTheme = localStorage.getItem(themeKey) || 'light';
+    
+    // Apply initial theme
+    document.documentElement.setAttribute('data-theme', savedTheme);
+
+    // Create toggle button if it doesn't exist
+    if (!document.querySelector('.theme-toggle')) {
+      const toggleBtn = document.createElement('button');
+      toggleBtn.className = 'theme-toggle';
+      toggleBtn.innerHTML = savedTheme === 'dark' ? '☀️' : '🌙';
+      toggleBtn.setAttribute('aria-label', 'Toggle theme');
+      
+      toggleBtn.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem(themeKey, newTheme);
+        toggleBtn.innerHTML = newTheme === 'dark' ? '☀️' : '🌙';
+
+        // Update Homepage Image if present
+        if (img) {
+          img.src = newTheme === 'dark' ? darkImage : lightImage;
+        }
+      });
+      
+      document.body.appendChild(toggleBtn);
+    }
+  };
+  
+  initTheme();
+
+  // --- 9. Chat Widget Logic ---
+  const initChatWidget = () => {
+    // Check if already exists to prevent duplicates
+    if (document.querySelector('.chat-widget-btn')) return;
+
+    // --- CONFIGURATION ---
+    // ⚠️ REPLACE THESE WITH YOUR ACTUAL DETAILS
+    // 1. Create a bot via @BotFather in Telegram and get the token.
+    // 2. Get your Chat ID via @userinfobot or similar.
+    const botToken = '8089410124:AAHlfy0FKlW2WW8fyY9bUWwIWNpTwtaArBE'; 
+    const chatId = '611158916';     
+    // ---------------------
+
+    // Create Button
+    const btn = document.createElement('div');
+    btn.className = 'chat-widget-btn';
+    btn.innerHTML = '💬';
+    btn.setAttribute('role', 'button');
+    btn.setAttribute('aria-label', 'Open Chat');
+    document.body.appendChild(btn);
+
+    // Create Window
+    const chatWindow = document.createElement('div');
+    chatWindow.className = 'chat-window';
+    chatWindow.innerHTML = `
+      <div class="chat-header">
+        <span class="chat-title">Chat with me</span>
+        <div class="chat-controls">
+            <button class="chat-end" title="End Chat">🗑️</button>
+            <button class="chat-close">×</button>
+        </div>
+      </div>
+      <div class="chat-messages" id="chat-messages">
+        <!-- Messages will be loaded here -->
+      </div>
+      <div class="chat-input-area">
+        <input type="text" class="chat-input" placeholder="Type a message..." />
+        <button class="chat-send">➤</button>
+      </div>
+    `;
+    document.body.appendChild(chatWindow);
+
+    // Elements
+    const closeBtn = chatWindow.querySelector('.chat-close');
+    const endBtn = chatWindow.querySelector('.chat-end');
+    const sendBtn = chatWindow.querySelector('.chat-send');
+    const input = chatWindow.querySelector('.chat-input');
+    const messagesContainer = chatWindow.querySelector('.chat-messages');
+
+    // --- Persistence Logic ---
+    const saveHistory = () => {
+        const messages = [];
+        messagesContainer.querySelectorAll('.chat-message').forEach(el => {
+            messages.push({
+                text: el.textContent,
+                sender: el.classList.contains('bot') ? 'bot' : 'user'
+            });
+        });
+        localStorage.setItem('chatHistory', JSON.stringify(messages));
+    };
+
+    const loadHistory = () => {
+        const history = JSON.parse(localStorage.getItem('chatHistory')) || [];
+        if (history.length === 0) {
+            // Default welcome message
+            addMessage("Hello! 👋 How can I help you today? Leave a message and I'll get back to you.", 'bot', false);
+            // We don't save initial welcome message until interaction, or we can. 
+            // Let's not save it immediately to keep storage clean until user chats.
+        } else {
+            history.forEach(msg => addMessage(msg.text, msg.sender, false));
+        }
+    };
+
+    // Toggle Visibility
+    const toggleChat = () => {
+      chatWindow.classList.toggle('active');
+      if (chatWindow.classList.contains('active')) {
+        input.focus();
+        btn.classList.remove('unread'); // Remove badge when opened
+      }
+    };
+
+    btn.addEventListener('click', toggleChat);
+    closeBtn.addEventListener('click', toggleChat);
+
+    // End Chat Logic
+    endBtn.addEventListener('click', () => {
+        if(confirm('Are you sure you want to end the chat and clear history?')) {
+            localStorage.removeItem('chatHistory');
+            messagesContainer.innerHTML = '';
+            // Reset to welcome message
+            addMessage("Chat ended. History cleared.", 'bot', false);
+            setTimeout(() => {
+                messagesContainer.innerHTML = '';
+                addMessage("Hello! 👋 How can I help you today? Leave a message and I'll get back to you.", 'bot', true); // Save this new state
+            }, 1500);
+        }
+    });
+
+    // Add Message to UI
+    const addMessage = (text, sender, save = true) => {
+      const msg = document.createElement('div');
+      msg.className = `chat-message ${sender}`;
+      msg.textContent = text;
+      messagesContainer.appendChild(msg);
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      
+      if (save) saveHistory();
+
+      // Show unread badge if chat is closed and message is from bot
+      if (sender === 'bot' && !chatWindow.classList.contains('active')) {
+        btn.classList.add('unread');
+      }
+    };
+
+    // Initialize History
+    loadHistory();
+
+    // --- Polling Logic ---
+    let lastUpdateId = 0;
+    const pollUpdates = async () => {
+        if (!botToken || botToken === 'YOUR_BOT_TOKEN') return;
+
+        try {
+          // Use offset to ignore already processed messages
+          const offsetParam = lastUpdateId ? `?offset=${lastUpdateId + 1}` : '';
+          const response = await fetch(`https://api.telegram.org/bot${botToken}/getUpdates${offsetParam}`);
+          const data = await response.json();
+
+          if (data.ok && data.result.length > 0) {
+            data.result.forEach(update => {
+              // Update the offset to the highest ID found
+              if (update.update_id > lastUpdateId) {
+                lastUpdateId = update.update_id;
+              }
+
+              // Check if the message is from the Site Owner (Chat ID)
+              if (update.message && String(update.message.chat.id) === chatId) {
+                 const text = update.message.text;
+                 if (text) {
+                   // Avoid duplicating if it's already the last message (basic check)
+                   // But since we use offset, we shouldn't get duplicates from API.
+                   addMessage(text, 'bot');
+                 }
+              }
+            });
+          }
+        } catch (error) {
+          console.error('Polling error:', error);
+        }
+    };
+
+    // Start polling
+    setInterval(pollUpdates, 3000);
+
+    // Send Message Logic
+    const sendMessage = async () => {
+      const text = input.value.trim();
+      if (!text) return;
+
+      addMessage(text, 'user');
+      input.value = '';
+
+      if (botToken === 'YOUR_BOT_TOKEN' || chatId === 'YOUR_CHAT_ID') {
+         setTimeout(() => {
+           addMessage('⚠️ Please configure the Bot Token and Chat ID in script.js to send messages.', 'bot');
+         }, 500);
+         return;
+      }
+
+      try {
+        const fullMessage = `<b>📩 New Message from Portfolio</b>\n\n` +
+                            `<b>📄 Page:</b> ${document.title}\n` +
+                            `<b>💬 Message:</b>\n${text}`;
+
+        const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            chat_id: chatId,
+            text: fullMessage,
+            parse_mode: 'HTML'
+          })
+        });
+
+        if (response.ok) {
+           setTimeout(() => {
+             addMessage('Message sent! I will get back to you soon.', 'bot');
+           }, 500);
+        } else {
+           const errorData = await response.json();
+           throw new Error(errorData.description || 'Failed to send');
+        }
+      } catch (error) {
+        console.error(error);
+        addMessage(`❌ Error: ${error.message}. Please make sure you have started the bot in Telegram.`, 'bot');
+      }
+    };
+
+    // Typing Indicator Logic (Visitor -> Telegram)
+    // Note: Displaying "Owner is typing" on the website is not supported by standard Telegram Bot API.
+    // The Bot API does not provide events for when the bot owner is typing in a private chat.
+    let isTyping = false;
+    let typingTimeout;
+
+    input.addEventListener('input', async () => {
+      if (!botToken || botToken === 'YOUR_BOT_TOKEN') return;
+      
+      if (!isTyping) {
+        isTyping = true;
+        try {
+          fetch(`https://api.telegram.org/bot${botToken}/sendChatAction`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ chat_id: chatId, action: 'typing' })
+          }).catch(() => {});
+        } catch (e) {}
+      }
+      
+      clearTimeout(typingTimeout);
+      typingTimeout = setTimeout(() => {
+        isTyping = false;
+      }, 3000);
+    });
+
+    sendBtn.addEventListener('click', sendMessage);
+    input.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') sendMessage();
+    });
+  };
+
+  initChatWidget();
 });

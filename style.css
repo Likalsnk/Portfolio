@@ -7,7 +7,35 @@
   --text: #18181B;
   --brand: #8B5CF6;
   --bg: #E4E4E7; /* Измененный цвет фона страницы */
+  --surface: rgba(255, 255, 255, 0.65);
+  --surface-border: rgba(255, 255, 255, 0.5);
+  --card-bg: #FFFFFF;
+  --tooltip-bg: #18181B;
+  --tooltip-text: #FFFFFF;
+  --text-secondary: #71717A;
+  --bg-secondary: #F4F4F5;
+  --border-light: #E4E4E7;
+  --shadow: rgba(0, 0, 0, 0.05);
+  --btn-border: rgba(0, 0, 0, 0.1);
+  --btn-bg: rgba(255, 255, 255, 0.8);
   --system: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+[data-theme="dark"] {
+  --text: #F4F4F5;
+  --bg: #09090B;
+  --surface: rgba(24, 24, 27, 0.65);
+  --surface-border: rgba(255, 255, 255, 0.1);
+  --card-bg: #27272A;
+  --tooltip-bg: #F4F4F5;
+  --tooltip-text: #18181B;
+  --text-secondary: #A1A1AA;
+  --bg-secondary: #18181B;
+  --border-light: #3F3F46;
+  --shadow: rgba(0, 0, 0, 0.5);
+  --btn-border: var(--surface-border);
+  --btn-bg: var(--surface);
+  --card-border-dark: rgba(255, 255, 255, 0.1);
 }
 
 @view-transition {
@@ -66,13 +94,13 @@ body {
   padding: 8px 16px;
   border-radius: 24px;
   /* Liquid Glass Effect */
-  background: rgba(255, 255, 255, 0.65);
+  background: var(--surface);
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  border: 1px solid var(--surface-border);
   box-shadow: 
-    0 4px 12px rgba(0, 0, 0, 0.05),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+    0 4px 12px var(--shadow),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
   font-family: Inter, sans-serif;
   font-size: 16px;
   font-weight: 500;
@@ -157,7 +185,7 @@ body {
   justify-content: center;
   align-items: center;
   border-radius: 8px; /* Corner radius 8px */
-  background-color: white; /* White background for the icon wrapper */
+  background-color: var(--card-bg); /* White background for the icon wrapper */
   transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); /* Плавное вращение с отскоком */
 }
 
@@ -168,7 +196,7 @@ body {
 
 .nav-button-text {
   padding: 8px 24px; /* Padding 8px top/bottom, 24px left/right */
-  background-color: white; /* Цвет текстового поля - белый */
+  background-color: var(--card-bg); /* Цвет текстового поля - белый */
   border-radius: 8px; /* Скругление 8 пикс. для текстового поля */
   font-size: 18px; /* Font size 18px */
   line-height: 32px; /* Line height 32px */
@@ -202,13 +230,13 @@ body {
   width: max-content; /* Allow width to fit text naturally, up to a max */
   max-width: 260px;
   padding: 8px 12px;
-  background: #18181B; /* Dark tooltip */
+  background: var(--tooltip-bg); /* Dark tooltip */
   border-radius: 8px;
   font-family: Inter, sans-serif;
   font-size: 13px;
   font-weight: 500;
   line-height: 1.4;
-  color: #fff; /* White text */
+  color: var(--tooltip-text); /* White text */
   text-align: center;
   opacity: 0;
   visibility: hidden;
@@ -236,7 +264,7 @@ body {
   transform: translateX(-50%) rotate(45deg);
   width: 8px;
   height: 8px;
-  background: #18181B;
+  background: var(--tooltip-bg);
   border-radius: 1px;
   border: none;
   box-shadow: none;
@@ -267,10 +295,10 @@ body {
   left: 0;
   width: 100%;
   z-index: 1000;
-  background: rgba(228, 228, 231, 0.8); /* Glass effect */
+  background: var(--surface); /* Glass effect */
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  border-bottom: 1px solid var(--surface-border);
 }
 
 .mobile-logo {
@@ -512,6 +540,200 @@ body {
   }
 }
 
+/* --- Chat Widget --- */
+.chat-widget-btn {
+  position: fixed;
+  bottom: 84px; /* Above theme toggle */
+  right: 24px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--btn-bg);
+  border: 1px solid var(--btn-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 4px 12px var(--shadow);
+  transition: all 0.3s ease;
+  font-size: 20px;
+}
+
+.chat-widget-btn.unread::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 12px;
+  height: 12px;
+  background-color: #ff4d4d;
+  border-radius: 50%;
+  border: 2px solid var(--bg);
+  animation: pulse-badge 2s infinite;
+}
+
+@keyframes pulse-badge {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 77, 77, 0.7); }
+  70% { transform: scale(1.1); box-shadow: 0 0 0 4px rgba(255, 77, 77, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 77, 77, 0); }
+}
+
+.chat-widget-btn:hover {
+  transform: translateY(-2px);
+  color: var(--brand);
+}
+
+.chat-window {
+  position: fixed;
+  bottom: 144px;
+  right: 24px;
+  width: 300px;
+  height: 400px;
+  background: var(--bg);
+  border: 1px solid var(--surface-border);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px var(--shadow);
+  display: flex;
+  flex-direction: column;
+  z-index: 1001;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px) scale(0.95);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.chat-window.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.chat-header {
+  padding: 16px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--surface-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-title {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.chat-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.chat-close, .chat-end {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.chat-end:hover {
+  color: #ff4d4d; /* Red for destructive action */
+}
+
+.chat-close:hover {
+  color: var(--text);
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.chat-message {
+  max-width: 80%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.chat-message.bot {
+  background: var(--surface);
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+
+.chat-message.user {
+  background: var(--brand);
+  color: white;
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+
+.chat-input-area {
+  padding: 12px;
+  border-top: 1px solid var(--surface-border);
+  display: flex;
+  gap: 8px;
+  background: var(--surface);
+}
+
+.chat-input {
+  flex: 1;
+  border: 1px solid var(--surface-border);
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-family: inherit;
+  font-size: 14px;
+  background: var(--bg);
+  color: var(--text);
+  outline: none;
+}
+
+.chat-send {
+  background: var(--brand);
+  color: white;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+  padding: 0;
+  font-size: 14px;
+}
+
+.chat-send:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .chat-widget-btn {
+    bottom: 80px;
+    right: 20px;
+  }
+  .chat-window {
+    width: calc(100% - 40px);
+    right: 20px;
+    bottom: 140px;
+  }
+}
+
 /* =============================================
    Interactive Page Transitions
    ============================================= */
@@ -558,4 +780,39 @@ body.exiting .nav-buttons {
 body.exiting .footer-text {
   opacity: 0;
   transition-delay: 0.2s;
+}
+
+/* --- Theme Toggle --- */
+.theme-toggle {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--btn-bg);
+  border: 1px solid var(--btn-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 4px 12px var(--shadow);
+  transition: all 0.3s ease;
+  font-size: 20px;
+}
+
+.theme-toggle:hover {
+  transform: translateY(-2px);
+  color: var(--brand);
+}
+
+@media (max-width: 768px) {
+  .theme-toggle {
+    bottom: 20px;
+    right: 20px;
+  }
 }

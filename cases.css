@@ -25,14 +25,18 @@
   aspect-ratio: 4/3; /* Classic portfolio ratio */
   border-radius: 20px;
   overflow: hidden;
-  background: #F4F4F5; /* Neutral placeholder */
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  background: var(--bg-secondary); /* Neutral placeholder */
+  box-shadow: 0 4px 6px -1px var(--shadow), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
   transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
   
   /* Fix for border-radius overflow during animation */
   -webkit-mask-image: -webkit-radial-gradient(white, black);
   mask-image: radial-gradient(white, black);
   transform: translateZ(0);
+}
+
+[data-theme="dark"] .card-image-wrapper {
+  border: 1px solid var(--card-border-dark);
 }
 
 .card-image-wrapper:hover {
@@ -117,7 +121,7 @@
 
 .running-line.small span {
   font-size: 20px; /* Smaller size */
-  color: #000; /* Black color */
+  color: #18181B; /* Black color */
   -webkit-text-stroke: 0; /* No stroke for black text */
   opacity: 0.7;
 }
@@ -207,7 +211,7 @@
   font-family: 'Inter', sans-serif;
   font-size: 20px;
   font-weight: 600;
-  color: #18181B;
+  color: var(--text);
   margin: 0;
   letter-spacing: -0.01em;
 }
@@ -220,6 +224,11 @@
   padding: 2px 8px;
   border-radius: 12px;
   font-weight: 500;
+}
+
+[data-theme="dark"] .year-badge {
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .card-desc {
@@ -241,9 +250,9 @@
 .tech-tag {
   font-family: 'Inter', sans-serif;
   font-size: 12px;
-  color: #52525B;
-  background: #fff; /* White background */
-  border: 1px solid #E4E4E7; /* Visible border */
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border: none;
   padding: 4px 12px; /* Pill padding */
   border-radius: 100px; /* Full pill shape */
   font-weight: 500;
@@ -659,8 +668,8 @@
 /* Sidebar */
 .admin-sidebar {
   width: 50px;
-  background: #F8FAFC;
-  border-right: 1px solid #F1F5F9;
+  background: #F4F4F5;
+  border-right: 1px solid #E4E4E7;
   padding: 15px 0;
   display: flex;
   flex-direction: column;
@@ -681,7 +690,7 @@
 .admin-sidebar-item {
   width: 26px;
   height: 6px;
-  background: #E2E8F0;
+  background: #E4E4E7;
   border-radius: 3px;
   transition: all 0.3s ease;
 }
@@ -1187,4 +1196,25 @@
   0% { transform: translate(0, 0) rotate(8deg); }
   50% { transform: translate(-10px, -20px) rotate(15deg); }
   100% { transform: translate(0, 0) rotate(8deg); }
+}
+
+/* Shared Classes for Case Pages */
+.back-to-cases {
+  text-decoration: none;
+  color: var(--text-secondary) !important;
+  font-size: 14px;
+  margin-bottom: 8px;
+  display: inline-block;
+  transition: color 0.2s ease;
+}
+.back-to-cases:hover {
+  color: var(--brand) !important;
+}
+
+.project-details-card {
+  background: var(--card-bg) !important;
+  padding: 32px;
+  border-radius: 24px;
+  border: 1px solid var(--border-light) !important;
+  color: var(--text);
 }
