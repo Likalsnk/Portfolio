@@ -299,6 +299,9 @@ document.addEventListener('DOMContentLoaded', () => {
       // If linking to home page (index.html), let it do a full reload without SPA animation
       if (href === 'index.html' || href === '/' || href.endsWith('index.html')) return;
       
+      // If link involves directory traversal (going up), do a full reload to ensure relative links remain valid
+      if (href.startsWith('..')) return;
+      
       e.preventDefault();
       
       // If clicking current page, do nothing
