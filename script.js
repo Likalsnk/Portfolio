@@ -1,8 +1,40 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // --- 0. Env Loader ---
+  const loadEnv = async () => {
+    try {
+      const response = await fetch('.env');
+      if (!response.ok) {
+        throw new Error('Failed to load .env file');
+      }
+      const text = await response.text();
+      const config = {};
+      
+      text.split('\n').forEach(line => {
+        line = line.trim();
+        if (line && !line.startsWith('#')) {
+          const [key, value] = line.split('=');
+          if (key && value) {
+            config[key.trim()] = value.trim();
+          }
+        }
+      });
+      
+      window.CONFIG = config;
+      console.log('Environment variables loaded successfully');
+    } catch (error) {
+      console.warn('Could not load .env file:', error);
+      // Fallback to existing window.CONFIG if available (from config.js)
+    }
+  };
+
   // --- 0. Theme & Image Setup ---
   const img = document.querySelector('.hero-full-image');
   const lightImage = 'src/Photo/Frame 1321315845.png';
   const darkImage = 'src/Photo/Black Mode.png';
+  
+  // Call loadEnv immediately, but don't block other sync initializations
+  // We will wait for it before initializing the Chat Widget
+  const envPromise = loadEnv();
   
   const themeKey = 'portfolio-theme';
   const savedTheme = localStorage.getItem(themeKey) || 'light';
@@ -369,6 +401,12 @@ document.addEventListener('DOMContentLoaded', () => {
           // For accordions, HTML <details> works automatically.
           initTabs();
           initTilt();
+
+          // Re-apply translations
+          const currentLang = localStorage.getItem('portfolio-lang') || 'en';
+          if (window.updatePortfolioLanguage) {
+            window.updatePortfolioLanguage(currentLang);
+          }
           
         }, 300);
         
@@ -486,18 +524,118 @@ document.addEventListener('DOMContentLoaded', () => {
   
   initTheme();
 
+  // --- 8.5. Language Switcher Logic ---
+  const initLanguage = () => {
+    const langKey = 'portfolio-lang';
+    const savedLang = localStorage.getItem(langKey) || 'en';
+    
+    // Function to update texts
+    const updateTexts = (lang) => {
+      // 1. Text Content
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (typeof translations !== 'undefined' && translations[lang] && translations[lang][key]) {
+          el.innerHTML = translations[lang][key];
+        }
+      });
+      
+      // 2. Tooltips (data-tooltip attribute)
+      document.querySelectorAll('[data-i18n-tooltip]').forEach(el => {
+        const key = el.getAttribute('data-i18n-tooltip');
+        if (typeof translations !== 'undefined' && translations[lang] && translations[lang][key]) {
+          el.setAttribute('data-tooltip', translations[lang][key]);
+        }
+      });
+
+      // 3. Placeholders
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (typeof translations !== 'undefined' && translations[lang] && translations[lang][key]) {
+          el.setAttribute('placeholder', translations[lang][key]);
+        }
+      });
+
+      // 4. Titles
+      document.querySelectorAll('[data-i18n-title]').forEach(el => {
+        const key = el.getAttribute('data-i18n-title');
+        if (typeof translations !== 'undefined' && translations[lang] && translations[lang][key]) {
+          el.setAttribute('title', translations[lang][key]);
+        }
+      });
+
+      // Update html lang attribute
+      document.documentElement.lang = lang;
+    };
+
+    // Expose update function globally
+    window.updatePortfolioLanguage = updateTexts;
+
+    // Apply initial language
+    updateTexts(savedLang);
+
+    // Create toggle button if it doesn't exist
+    if (!document.querySelector('.lang-toggle')) {
+      const toggleBtn = document.createElement('button');
+      toggleBtn.className = 'lang-toggle';
+      // Show target language
+      toggleBtn.innerHTML = savedLang === 'en' ? 'UA' : 'EN';
+      toggleBtn.setAttribute('aria-label', 'Switch language');
+      
+      toggleBtn.addEventListener('click', () => {
+        const currentLang = localStorage.getItem(langKey) || 'en';
+        const newLang = currentLang === 'en' ? 'ua' : 'en';
+        
+        localStorage.setItem(langKey, newLang);
+        updateTexts(newLang);
+        // Update button to show target language
+        toggleBtn.innerHTML = newLang === 'en' ? 'UA' : 'EN';
+      });
+      
+      document.body.appendChild(toggleBtn);
+    }
+  };
+
+  // Ensure translations are loaded
+  if (typeof translations !== 'undefined') {
+    initLanguage();
+  } else {
+    window.addEventListener('load', () => {
+       if (typeof translations !== 'undefined') initLanguage();
+    });
+  }
+
   // --- 9. Chat Widget Logic ---
-  const initChatWidget = () => {
+  const initChatWidget = async () => {
+    // Wait for env to load if it hasn't already
+    if (typeof envPromise !== 'undefined') {
+        await envPromise;
+    }
+
     // Check if already exists to prevent duplicates
     if (document.querySelector('.chat-widget-btn')) return;
 
     // --- CONFIGURATION ---
-    // ⚠️ REPLACE THESE WITH YOUR ACTUAL DETAILS
-    // 1. Create a bot via @BotFather in Telegram and get the token.
-    // 2. Get your Chat ID via @userinfobot or similar.
-    const botToken = '8089410124:AAHlfy0FKlW2WW8fyY9bUWwIWNpTwtaArBE'; 
-    const chatId = '611158916';     
+    // Loaded from .env (via loadEnv)
+    const config = window.CONFIG || {};
+    console.log('Checking CONFIG...', config);
+
+    const botToken = config.TELEGRAM_BOT_TOKEN || ''; 
+    const chatId = config.TELEGRAM_CHAT_ID || '';
+    
+    if (!botToken || !chatId) {
+        console.error('Telegram Bot configuration missing! Check .env file');
+        console.log('botToken:', botToken, 'chatId:', chatId);
+        return;
+    }
     // ---------------------
+
+    // Helper to get text based on current language
+    const getText = (key) => {
+        const lang = localStorage.getItem('portfolio-lang') || 'en';
+        return (typeof translations !== 'undefined' && translations[lang] && translations[lang][key]) 
+            ? translations[lang][key] 
+            : key;
+    };
 
     // Create Button
     const btn = document.createElement('div');
@@ -512,9 +650,9 @@ document.addEventListener('DOMContentLoaded', () => {
     chatWindow.className = 'chat-window';
     chatWindow.innerHTML = `
       <div class="chat-header">
-        <span class="chat-title">Chat with me</span>
+        <span class="chat-title" data-i18n="chat.title">Chat with me</span>
         <div class="chat-controls">
-            <button class="chat-end" title="End Chat">🗑️</button>
+            <button class="chat-end" title="End Chat" data-i18n-title="chat.end_btn">🗑️</button>
             <button class="chat-close">×</button>
         </div>
       </div>
@@ -522,11 +660,16 @@ document.addEventListener('DOMContentLoaded', () => {
         <!-- Messages will be loaded here -->
       </div>
       <div class="chat-input-area">
-        <input type="text" class="chat-input" placeholder="Type a message..." />
+        <textarea class="chat-input" placeholder="Type a message..." data-i18n-placeholder="chat.placeholder" rows="1"></textarea>
         <button class="chat-send">➤</button>
       </div>
     `;
     document.body.appendChild(chatWindow);
+
+    // Apply translations immediately
+    if (window.updatePortfolioLanguage) {
+        window.updatePortfolioLanguage(localStorage.getItem('portfolio-lang') || 'en');
+    }
 
     // Elements
     const closeBtn = chatWindow.querySelector('.chat-close');
@@ -534,6 +677,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const sendBtn = chatWindow.querySelector('.chat-send');
     const input = chatWindow.querySelector('.chat-input');
     const messagesContainer = chatWindow.querySelector('.chat-messages');
+
+    // --- Helpers ---
+    const playNotificationSound = () => {
+        // Soft, elegant glass "ding"
+        const audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2864/2864-preview.mp3'); 
+        audio.volume = 0.25; // Keep it quiet
+        audio.play().catch(e => console.log('Audio play failed (interaction required first):', e));
+    };
+
+    const setUnread = (state) => {
+        if (state) {
+            btn.classList.add('unread');
+            localStorage.setItem('chatUnread', 'true');
+        } else {
+            btn.classList.remove('unread');
+            localStorage.removeItem('chatUnread');
+        }
+    };
 
     // --- Persistence Logic ---
     const saveHistory = () => {
@@ -551,9 +712,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const history = JSON.parse(localStorage.getItem('chatHistory')) || [];
         if (history.length === 0) {
             // Default welcome message
-            addMessage("Hello! 👋 How can I help you today? Leave a message and I'll get back to you.", 'bot', false);
-            // We don't save initial welcome message until interaction, or we can. 
-            // Let's not save it immediately to keep storage clean until user chats.
+            addMessage(getText('chat.bot.welcome'), 'bot', false);
         } else {
             history.forEach(msg => addMessage(msg.text, msg.sender, false));
         }
@@ -564,29 +723,90 @@ document.addEventListener('DOMContentLoaded', () => {
       chatWindow.classList.toggle('active');
       if (chatWindow.classList.contains('active')) {
         input.focus();
-        btn.classList.remove('unread'); // Remove badge when opened
+        setUnread(false); // Remove badge and storage when opened
       }
     };
 
     btn.addEventListener('click', toggleChat);
     closeBtn.addEventListener('click', toggleChat);
 
-    // End Chat Logic
-    endBtn.addEventListener('click', () => {
-        if(confirm('Are you sure you want to end the chat and clear history?')) {
-            localStorage.removeItem('chatHistory');
+    // Create Confirmation Popup
+    const confirmationOverlay = document.createElement('div');
+    confirmationOverlay.className = 'chat-confirmation-overlay';
+    confirmationOverlay.innerHTML = `
+      <div class="chat-confirmation-modal">
+        <div class="chat-confirmation-title" data-i18n="chat.confirm.title">End Chat?</div>
+        <div class="chat-confirmation-text" data-i18n="chat.confirm.text">Are you sure you want to end the chat and clear history?</div>
+        <div class="chat-confirmation-buttons">
+          <button class="chat-confirm-btn cancel" data-i18n="chat.confirm.cancel">Cancel</button>
+          <button class="chat-confirm-btn delete" data-i18n="chat.confirm.end">End Chat</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(confirmationOverlay);
+    
+    // Apply translations to confirmation overlay
+    if (window.updatePortfolioLanguage) {
+        window.updatePortfolioLanguage(localStorage.getItem('portfolio-lang') || 'en');
+    }
+
+    const confirmCancelBtn = confirmationOverlay.querySelector('.cancel');
+    const confirmDeleteBtn = confirmationOverlay.querySelector('.delete');
+
+    const closeConfirmation = () => {
+        confirmationOverlay.classList.remove('active');
+    };
+
+    const openConfirmation = () => {
+        confirmationOverlay.classList.add('active');
+    };
+
+    confirmCancelBtn.addEventListener('click', closeConfirmation);
+
+    confirmDeleteBtn.addEventListener('click', () => {
+        localStorage.removeItem('chatHistory');
+        messagesContainer.innerHTML = '';
+        // Reset to welcome message
+        addMessage(getText('chat.bot.ended'), 'bot', false);
+        setTimeout(() => {
             messagesContainer.innerHTML = '';
-            // Reset to welcome message
-            addMessage("Chat ended. History cleared.", 'bot', false);
-            setTimeout(() => {
-                messagesContainer.innerHTML = '';
-                addMessage("Hello! 👋 How can I help you today? Leave a message and I'll get back to you.", 'bot', true); // Save this new state
-            }, 1500);
+            addMessage(getText('chat.bot.welcome'), 'bot', true); // Save this new state
+        }, 1500);
+        closeConfirmation();
+    });
+
+    // Close on click outside modal
+    confirmationOverlay.addEventListener('click', (e) => {
+        if (e.target === confirmationOverlay) {
+            closeConfirmation();
         }
     });
 
+    // End Chat Logic
+    endBtn.addEventListener('click', openConfirmation);
+
+    // Typing Indicator UI
+    const showTypingIndicator = () => {
+        if (messagesContainer.querySelector('.chat-typing')) return;
+        const typing = document.createElement('div');
+        typing.className = 'chat-typing';
+        typing.innerHTML = `
+            <div class="chat-typing-dot"></div>
+            <div class="chat-typing-dot"></div>
+            <div class="chat-typing-dot"></div>
+        `;
+        messagesContainer.appendChild(typing);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    };
+
+    const hideTypingIndicator = () => {
+        const typing = messagesContainer.querySelector('.chat-typing');
+        if (typing) typing.remove();
+    };
+
     // Add Message to UI
     const addMessage = (text, sender, save = true) => {
+      hideTypingIndicator(); // Ensure typing is removed before adding message
       const msg = document.createElement('div');
       msg.className = `chat-message ${sender}`;
       msg.textContent = text;
@@ -596,13 +816,22 @@ document.addEventListener('DOMContentLoaded', () => {
       if (save) saveHistory();
 
       // Show unread badge if chat is closed and message is from bot
-      if (sender === 'bot' && !chatWindow.classList.contains('active')) {
-        btn.classList.add('unread');
+      // Only play sound and show badge for NEW messages (save=true)
+      if (save && sender === 'bot') {
+        playNotificationSound();
+        if (!chatWindow.classList.contains('active')) {
+            setUnread(true);
+        }
       }
     };
 
     // Initialize History
     loadHistory();
+
+    // Restore unread state
+    if (localStorage.getItem('chatUnread') === 'true') {
+        btn.classList.add('unread');
+    }
 
     // --- Polling Logic ---
     let lastUpdateId = 0;
@@ -626,9 +855,10 @@ document.addEventListener('DOMContentLoaded', () => {
               if (update.message && String(update.message.chat.id) === chatId) {
                  const text = update.message.text;
                  if (text) {
-                   // Avoid duplicating if it's already the last message (basic check)
-                   // But since we use offset, we shouldn't get duplicates from API.
-                   addMessage(text, 'bot');
+                   showTypingIndicator();
+                   setTimeout(() => {
+                     addMessage(text, 'bot');
+                   }, 1500);
                  }
               }
             });
@@ -674,16 +904,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if (response.ok) {
+           showTypingIndicator();
            setTimeout(() => {
-             addMessage('Message sent! I will get back to you soon.', 'bot');
-           }, 500);
+             addMessage(getText('chat.bot.sent'), 'bot');
+           }, 1500);
         } else {
            const errorData = await response.json();
            throw new Error(errorData.description || 'Failed to send');
         }
       } catch (error) {
         console.error(error);
-        addMessage(`❌ Error: ${error.message}. Please make sure you have started the bot in Telegram.`, 'bot');
+        addMessage(`${getText('chat.bot.error')}: ${error.message}`, 'bot');
       }
     };
 
@@ -713,9 +944,26 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 3000);
     });
 
-    sendBtn.addEventListener('click', sendMessage);
-    input.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') sendMessage();
+    // Auto-resize textarea
+    input.addEventListener('input', function() {
+        this.style.height = 'auto';
+        this.style.height = (this.scrollHeight) + 'px';
+        if (this.value === '') {
+            this.style.height = '';
+        }
+    });
+
+    sendBtn.addEventListener('click', () => {
+        sendMessage();
+        input.style.height = ''; // Reset height after sending
+    });
+
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+        input.style.height = ''; // Reset height after sending
+      }
     });
   };
 

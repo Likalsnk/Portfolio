@@ -3,40 +3,120 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Itreal — Anzhelika Liashenko</title>
+  <title>RealFace — Anzhelika Liashenko</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Briem+Hand:wght@200;400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../style.css">
   <link rel="stylesheet" href="../../about.css">
   <link rel="stylesheet" href="../../cases.css">
+  <style>
+    /* Project-specific styles for RealFace */
+    .case-layout {
+      gap: 24px;
+    }
+
+    .case-hero {
+      background: transparent;
+      box-shadow: none;
+      padding: 0;
+      margin-bottom: 0;
+    }
+
+
+  </style>
 </head>
 <body>
   <div class="layout-wrapper">
     <aside class="sidebar">
-      <div class="sidebar-top">
-        <a href="../../index.html" class="back-link" data-tooltip="Back to Home">🏠</a>
-      </div>
       <nav class="sidebar-nav">
         <div class="nav-indicator"></div>
-        <a href="../../about.html" class="sidebar-item" data-tooltip="About Me"><span class="icon-box">👋</span></a>
-        <a href="../../skills.html" class="sidebar-item" data-tooltip="Tools & Skills"><span class="icon-box">🛠️</span></a>
-        <a href="../../cases.html" class="sidebar-item active" data-tooltip="Cases"><span class="icon-box">💼</span></a>
-        <a href="../../faq.html" class="sidebar-item" data-tooltip="FAQ"><span class="icon-box">❓</span></a>
+        <a href="../../index.html" class="sidebar-item" data-tooltip="Home" data-i18n-tooltip="nav.home">
+          <span class="icon-box">🏠</span>
+        </a>
+        <a href="../../about.html" class="sidebar-item" data-tooltip="About Me" data-i18n-tooltip="nav.about">
+          <span class="icon-box">👋</span>
+        </a>
+        <a href="../../skills.html" class="sidebar-item" data-tooltip="Tools & Skills" data-i18n-tooltip="nav.skills">
+          <span class="icon-box">🛠️</span>
+        </a>
+        <a href="../../cases.html" class="sidebar-item active" data-tooltip="Cases" data-i18n-tooltip="nav.cases">
+          <span class="icon-box">💼</span>
+        </a>
+        <a href="../../faq.html" class="sidebar-item" data-tooltip="FAQ" data-i18n-tooltip="nav.faq">
+          <span class="icon-box">❓</span>
+        </a>
+
+        <div class="nav-separator"></div>
+
+        <div class="sidebar-social-group">
+          <div class="social-trigger" data-tooltip="Social Media">
+            <span class="icon-box">🔗</span>
+          </div>
+          
+          <div class="social-popup">
+            <a href="https://www.behance.net/anjelikali508d" target="_blank" class="sidebar-social-link behance" data-tooltip="Behance">
+              <img src="../../src/Photo/Logos/behance.svg" alt="Behance" class="sidebar-social-img">
+            </a>
+            <a href="https://www.linkedin.com/in/anjelikaliashenko/" target="_blank" class="sidebar-social-link linkedin" data-tooltip="LinkedIn">
+              <img src="../../src/Photo/Logos/Linkedin.svg" alt="LinkedIn" class="sidebar-social-img">
+            </a>
+            <a href="https://github.com/Likalsnk" target="_blank" class="sidebar-social-link github" data-tooltip="GitHub">
+              <img src="../../src/Photo/Logos/github.svg" alt="GitHub" class="sidebar-social-img">
+            </a>
+            <a href="https://t.me/likalsnk" target="_blank" class="sidebar-social-link telegram" data-tooltip="Telegram">
+              <img src="../../src/Photo/Logos/telegram.svg" alt="Telegram" class="sidebar-social-img">
+            </a>
+            <a href="mailto:anjelika.liashenko@gmail.com" target="_blank" class="sidebar-social-link gmail" data-tooltip="Gmail">
+              <img src="../../src/Photo/Logos/Gmail.svg" alt="Gmail" class="sidebar-social-img">
+            </a>
+          </div>
+        </div>
       </nav>
     </aside>
+
     <main class="main-content">
-      <div class="header-card">
-        <div class="header-left">
-          <a href="../../cases.html" class="back-to-cases">← Back to Cases</a>
-          <h1>Itreal</h1>
-        </div>
-      </div>
-      <div class="project-details-card">
-        <p>Details for Itreal project will be here.</p>
+      <div class="case-layout">
+        
+        <!-- Header -->
+        <header class="case-hero">
+          <div class="case-header-left">
+            <a href="../../cases.html" class="back-to-cases" data-i18n="case.nav.back">← Back to Cases</a>
+          </div>
+          <a href="../hub/index.html" class="back-to-cases" data-i18n="case.realface.next">Next Project: Languages Of Love →</a>
+        </header>
+
+        <!-- Interactive Prototype -->
+        <section class="interactive-showcase">
+          <div class="laptop-frame">
+            <div class="laptop-screen">
+              <iframe src="https://real-face.com/onboarding" title="RealFace Project Preview" loading="lazy" style="width: 200%; height: 200%; transform: scale(0.5); transform-origin: top left; border: none; background-color: #fff;"></iframe>
+            </div>
+          </div>
+          <p style="text-align: center; color: var(--text-secondary); margin-top: 16px; font-size: 14px;">
+            <span data-i18n="case.realface.caption">Interactive preview of the platform.</span><br>
+            <a href="https://real-face.com/onboarding" target="_blank" style="color: #8B5CF6; font-weight: 600; text-decoration: none; margin-top: 8px; display: inline-block;" data-i18n="case.visit.website">Visit Live Website ↗</a>
+          </p>
+        </section>
+
+        <!-- Project Details -->
+        <section class="case-content-grid">
+          <div class="content-block">
+            <h3 data-i18n="case.concept.title">Concept</h3>
+            <p data-i18n="case.realface.concept.desc">RealFace is a SAAS platform designed to streamline facial recognition integration for businesses. The interface focuses on clarity and ease of use, with a modern, tech-forward aesthetic.</p>
+          </div>
+          <div class="content-block">
+            <h3 data-i18n="case.features.title">Key Features</h3>
+            <p data-i18n="case.realface.features.desc">Real-time analytics, user management, and seamless API integration were the core requirements. The dashboard provides actionable insights at a glance.</p>
+          </div>
+        </section>
+
       </div>
     </main>
   </div>
+  
+  <script src="../../translations.js"></script>
+  <script src="../../config.js"></script>
   <script src="../../script.js" defer></script>
 </body>
 </html>

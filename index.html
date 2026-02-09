@@ -24,11 +24,11 @@
   <!-- Mobile Nav Overlay -->
   <div class="mobile-nav-overlay">
     <nav class="mobile-nav-links">
-      <a href="index.html" class="mobile-nav-link"><span>🏠</span> Home</a>
-      <a href="about.html" class="mobile-nav-link"><span>🙋‍♀️</span> About Me</a>
-      <a href="skills.html" class="mobile-nav-link"><span>🛠️</span> Tools & Skills</a>
-      <a href="cases.html" class="mobile-nav-link"><span>💼</span> Cases</a>
-      <a href="faq.html" class="mobile-nav-link"><span>❓</span> FAQ</a>
+      <a href="index.html" class="mobile-nav-link"><span>🏠</span> <span data-i18n="nav.home">Home</span></a>
+      <a href="about.html" class="mobile-nav-link"><span>🙋‍♀️</span> <span data-i18n="nav.about">About Me</span></a>
+      <a href="skills.html" class="mobile-nav-link"><span>🛠️</span> <span data-i18n="nav.skills">Tools & Skills</span></a>
+      <a href="cases.html" class="mobile-nav-link"><span>💼</span> <span data-i18n="nav.cases">Cases</span></a>
+      <a href="faq.html" class="mobile-nav-link"><span>❓</span> <span data-i18n="nav.faq">FAQ</span></a>
     </nav>
     
     <div class="mobile-social-icons">
@@ -52,12 +52,12 @@
 
   <main class="wrapper">
     <!-- 1. Title -->
-    <h1 class="page-title">Portfolio</h1>
+    <h1 class="page-title" data-i18n="title.portfolio">Portfolio</h1>
 
     <!-- 2. Glassmorphism tags -->
     <div class="tags">
-      <span class="tag"><span>#Anzhelika Liashenko</span> <span>🧑‍💻</span></span>
-      <span class="tag"><span>#UI/UX-Graphic Designer</span> <span>🖥️</span></span>
+      <span class="tag"><span data-i18n="tag.name">#Anzhelika Liashenko</span> <span>👩‍💻</span></span>
+      <span class="tag"><span data-i18n="tag.role">#UI/UX-Graphic Designer</span> <span>🖥️</span></span>
     </div>
 
     <!-- 3. Hero block: text + profile photo -->
@@ -71,40 +71,41 @@
     <!-- 4. Bottom navigation cards -->
     <nav class="nav-buttons">
       <a href="about.html" class="nav-button">
-        <div class="tooltip">Curious if I'm the right match for your project? Discover my background, expertise, and tangible time/money savings.</div>
+        <div class="tooltip" data-i18n="tooltip.about">Curious if I'm the right match for your project? Discover my background, expertise, and tangible time/money savings.</div>
         <div class="nav-button-icon-wrapper">
           <span class="nav-button-icon">🙋‍♀️</span>
         </div>
-        <span class="nav-button-text">About Me</span>
+        <span class="nav-button-text" data-i18n="btn.about">About Me</span>
       </a>
       <a href="skills.html" class="nav-button">
-        <div class="tooltip">Overview of my key skills and the tools I master. Find the perfect combination for your needs.</div>
+        <div class="tooltip" data-i18n="tooltip.skills">Overview of my key skills and the tools I master. Find the perfect combination for your needs.</div>
         <div class="nav-button-icon-wrapper">
           <span class="nav-button-icon">🛠️</span>
         </div>
-        <span class="nav-button-text">Tools & Skills</span>
+        <span class="nav-button-text" data-i18n="btn.skills">Tools & Skills</span>
       </a>
       <a href="cases.html" class="nav-button">
-        <div class="tooltip">Selected projects showcasing my design approach, problem-solving, and final outcomes.</div>
+        <div class="tooltip" data-i18n="tooltip.cases">Selected projects showcasing my design approach, problem-solving, and final outcomes.</div>
         <div class="nav-button-icon-wrapper">
           <span class="nav-button-icon">💼</span>
         </div>
-        <span class="nav-button-text">Cases</span>
+        <span class="nav-button-text" data-i18n="btn.cases">Cases</span>
       </a>
       <a href="faq.html" class="nav-button">
-        <div class="tooltip">Frequently asked questions about my work process, terms, and conditions.</div>
+        <div class="tooltip" data-i18n="tooltip.faq">Frequently asked questions about my work process, terms, and conditions.</div>
         <div class="nav-button-icon-wrapper">
           <span class="nav-button-icon">❓</span>
         </div>
-        <span class="nav-button-text">FAQ</span>
+        <span class="nav-button-text" data-i18n="btn.faq">FAQ</span>
       </a>
     </nav>
 
     <!-- 5. Footer text -->
-    <p class="footer-text">
+    <p class="footer-text" data-i18n="footer.text">
       Take your time to explore the page, review the details that matter to you, and get in touch when it feels right. I'm always open to discussing ideas, clarifying requirements, and finding the best solution for your project.
     </p>
   </main>
+  <script src="translations.js"></script>
   <script src="script.js" defer></script>
 </body>
 </html>

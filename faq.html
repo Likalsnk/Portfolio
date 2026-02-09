@@ -24,11 +24,11 @@
   <!-- Mobile Nav Overlay -->
   <div class="mobile-nav-overlay">
     <nav class="mobile-nav-links">
-      <a href="index.html" class="mobile-nav-link"><span>🏠</span> Home</a>
-      <a href="about.html" class="mobile-nav-link"><span>🙋‍♀️</span> About Me</a>
-      <a href="skills.html" class="mobile-nav-link"><span>🛠️</span> Tools & Skills</a>
-      <a href="cases.html" class="mobile-nav-link"><span>💼</span> Cases</a>
-      <a href="faq.html" class="mobile-nav-link"><span>❓</span> FAQ</a>
+      <a href="index.html" class="mobile-nav-link"><span>🏠</span> <span data-i18n="nav.home">Home</span></a>
+      <a href="about.html" class="mobile-nav-link"><span>🙋‍♀️</span> <span data-i18n="nav.about">About Me</span></a>
+      <a href="skills.html" class="mobile-nav-link"><span>🛠️</span> <span data-i18n="nav.skills">Tools & Skills</span></a>
+      <a href="cases.html" class="mobile-nav-link"><span>💼</span> <span data-i18n="nav.cases">Cases</span></a>
+      <a href="faq.html" class="mobile-nav-link"><span>❓</span> <span data-i18n="nav.faq">FAQ</span></a>
     </nav>
     
     <div class="mobile-social-icons">
@@ -56,19 +56,19 @@
       
       <nav class="sidebar-nav">
         <div class="nav-indicator"></div>
-        <a href="index.html" class="sidebar-item" data-tooltip="Home">
+        <a href="index.html" class="sidebar-item" data-tooltip="Home" data-i18n-tooltip="nav.home">
           <span class="icon-box">🏠</span>
         </a>
-        <a href="about.html" class="sidebar-item" data-tooltip="About Me">
+        <a href="about.html" class="sidebar-item" data-tooltip="About Me" data-i18n-tooltip="nav.about">
           <span class="icon-box">👋</span>
         </a>
-        <a href="skills.html" class="sidebar-item" data-tooltip="Tools & Skills">
+        <a href="skills.html" class="sidebar-item" data-tooltip="Tools & Skills" data-i18n-tooltip="nav.skills">
           <span class="icon-box">🛠️</span>
         </a>
-        <a href="cases.html" class="sidebar-item" data-tooltip="Cases">
+        <a href="cases.html" class="sidebar-item" data-tooltip="Cases" data-i18n-tooltip="nav.cases">
           <span class="icon-box">💼</span>
         </a>
-        <a href="faq.html" class="sidebar-item active" data-tooltip="FAQ">
+        <a href="faq.html" class="sidebar-item active" data-tooltip="FAQ" data-i18n-tooltip="nav.faq">
           <span class="icon-box">❓</span>
         </a>
 
@@ -105,30 +105,374 @@
     <main class="main-content">
       <div class="header-card">
         <div class="header-left">
-          <h1>FAQ</h1>
+          <h1 data-i18n="faq.title">"FAQ"</h1>
           <div class="tags-row">
-            <span class="tag-pill">#questions ❓</span>
-            <span class="tag-pill">#answers 💡</span>
+            <span class="tag-pill" data-i18n="faq.tag.questions">#questions ❓</span>
+            <span class="tag-pill" data-i18n="faq.tag.answers">#answers 💡</span>
           </div>
         </div>
-        <p class="quote">Answers to common<br>questions about<br>working together</p>
+        <p class="quote" data-i18n="faq.quote">"Answers to common<br>questions about<br>working together"</p>
       </div>
 
-      <div class="accordion-container">
-        <!-- Placeholder for FAQ items -->
-        <details class="accordion-item" open>
-          <summary class="accordion-header">
-            <h2>❓ General Questions</h2>
-            <span class="arrow"></span>
-          </summary>
-          <div class="accordion-body">
-            <p><strong>How do we start working together?</strong></p>
-            <p>Reach out to me via email or social media to discuss your project. We'll set up a call to understand your needs and goals.</p>
-          </div>
-        </details>
+      <!-- Tabs Navigation -->
+      <div class="tabs-nav-container">
+        <nav class="tabs-nav">
+          <button class="tab-button active" data-tab="hr">
+            <span class="tab-icon-wrapper">👔</span>
+            <span class="tab-text" data-i18n="faq.tab.hr">HR Questions</span>
+          </button>
+          <button class="tab-button" data-tab="tech">
+            <span class="tab-icon-wrapper">💻</span>
+            <span class="tab-text" data-i18n="faq.tab.tech">Technical Questions</span>
+          </button>
+        </nav>
+      </div>
+
+      <!-- Tab 1: HR Questions -->
+      <div id="hr-tab" class="tab-content active">
+        <div class="accordion-container">
+          
+          <details class="accordion-item" open>
+            <summary class="accordion-header">
+              <h2 data-i18n="faq.hr.about.title">👋 Tell us about yourself and how you got into design</h2>
+              <span class="arrow"></span>
+            </summary>
+            <div class="accordion-body">
+              <p><strong data-i18n="faq.hr.about.start.title">Start of the journey</strong><br>
+              <span data-i18n="faq.hr.about.start.text">In 2017, I found myself surrounded by developers, and this had a strong influence on me — I saw how directly design can impact a product and its users. By trying different roles, I quickly realized that design was what truly resonated with me: the ability to see results immediately, test hypotheses, and improve people’s experience in real time.</span></p>
+
+            <p><strong data-i18n="faq.hr.about.growth.title">Professional Growth</strong><br>
+            <span data-i18n="faq.hr.about.growth.text">Since then, I have fully dedicated myself to UI/UX, progressing from freelance and outsourcing work to an in-house product company. I have worked with:</span></p>
+              <ul>
+                <li data-i18n="faq.hr.about.growth.list.1">🔹 B2B SaaS platforms</li>
+                <li data-i18n="faq.hr.about.growth.list.2">🔹 Mobile applications</li>
+                <li data-i18n="faq.hr.about.growth.list.3">🔹 Admin panels</li>
+                <li data-i18n="faq.hr.about.growth.list.4">🔹 Websites</li>
+              </ul>
+              <p data-i18n="faq.hr.about.growth.text2">I continuously learn new tools and technologies to bring maximum value to both the product and the team.</p>
+            </div>
+          </details>
+
+          <details class="accordion-item">
+            <summary class="accordion-header">
+              <h2 data-i18n="faq.hr.workflow.title">⚙️ Describe your workflow (design process)</h2>
+              <span class="arrow"></span>
+            </summary>
+            <div class="accordion-body">
+              <p data-i18n="faq.hr.workflow.intro">My process is flexible and always depends on the project: timeline, budget, client requirements, and the product stage. I start by aligning with stakeholders on constraints to choose the most appropriate approach.</p>
+              
+              <div class="timeline-item">
+                <h4 data-i18n="faq.hr.workflow.short.title">Short projects / small budget</h4>
+                <span class="meta" data-i18n="faq.hr.workflow.short.meta">(2–4 weeks)</span>
+                <p data-i18n="faq.hr.workflow.short.text">Quick research (data analysis + 3–5 interviews) → sketches → mid-fidelity prototype → testing with the client/teammates → high-fidelity design in Figma → handoff in Dev Mode.</p>
+              </div>
+
+              <div class="timeline-item">
+                <h4 data-i18n="faq.hr.workflow.standard.title">Standard projects / product teams</h4>
+                <span class="meta" data-i18n="faq.hr.workflow.standard.meta">(1–4 months)</span>
+                <p data-i18n="faq.hr.workflow.standard.text">Full cycle: in-depth research (interviews, analytics, CJM, personas) → ideation (brainstorming, sketches) → mid-fidelity prototypes → high-fidelity UI with a UI kit → testing (usability, A/B) → data-driven iterations → detailed handoff + documentation.</p>
+              </div>
+
+              <div class="timeline-item">
+                <h4 data-i18n="faq.hr.workflow.complex.title">Complex projects</h4>
+                <span class="meta" data-i18n="faq.hr.workflow.complex.meta">(B2B, fintech, enterprise)</span>
+                <p data-i18n="faq.hr.workflow.complex.text">I additionally include accessibility checks, edge-case analysis, user roles modeling, and expert reviews.</p>
+              </div>
+
+              <p data-i18n="faq.hr.workflow.outro">In all cases, I iterate based on feedback and data. The main goal is to deliver real value to the product in real-world conditions, not to rigidly follow a fixed framework.</p>
+            </div>
+          </details>
+
+          <details class="accordion-item">
+            <summary class="accordion-header">
+              <h2 data-i18n="faq.hr.handoff.title">📦 How do you hand off your projects to developers?</h2>
+              <span class="arrow"></span>
+            </summary>
+            <div class="accordion-body">
+              <p data-i18n="faq.hr.handoff.text1">I make the handoff as clear and developer-friendly as possible. In Figma, I use Dev Mode with well-structured components, variants, auto layout, and variables/tokens. I create a dedicated file or page with a UI kit (colors, typography, spacing, icons). I also add detailed specifications: sizes, spacing, states (hover, active, disabled), and motion guidelines.</p>
+              
+              <p data-i18n="faq.hr.handoff.text2">All flows and logic are documented in Notion or Zeroheight: flowcharts, user flows, and edge cases. When needed, I run walkthrough sessions with developers. This approach significantly reduces questions and speeds up development by 1.5–2x.</p>
+            </div>
+          </details>
+
+          <details class="accordion-item">
+            <summary class="accordion-header">
+              <h2 data-i18n="faq.hr.challenge.title">🔥 Tell us about your most challenging project</h2>
+              <span class="arrow"></span>
+            </summary>
+            <div class="accordion-body">
+              <p data-i18n="faq.hr.challenge.intro">The most challenging tasks usually come with new experiences, when there are no ready-made templates to rely on. For me, this was an admin panel project for a large e-commerce company — I had never worked with internal systems before.</p>
+              
+              <p><strong data-i18n="faq.hr.challenge.p1.title">😰 The Challenge</strong><br>
+              <span data-i18n="faq.hr.challenge.p1.text">At first, I felt disoriented: large volumes of data, complex logic, and multiple user roles.</span></p>
+              
+              <p><strong data-i18n="faq.hr.challenge.p2.title">🚀 The Solution</strong><br>
+              <span data-i18n="faq.hr.challenge.p2.text">I started by diving deep into the domain context to understand the specifics of warehouse logistics. My process included:</span>
+              <ul>
+                <li data-i18n="faq.hr.challenge.p2.list.1">Studied Material Design guidelines for enterprise products</li>
+                <li data-i18n="faq.hr.challenge.p2.list.2">Conducted interviews with the product manager to clarify business logic</li>
+                <li data-i18n="faq.hr.challenge.p2.list.3">Created a high-fidelity prototype in Figma to test navigation flows</li>
+              </ul></p>
+
+              <p><strong data-i18n="faq.hr.challenge.p3.title">✅ The Result</strong><br>
+              <span data-i18n="faq.hr.challenge.p3.text">I built a clear information architecture, optimized navigation, and reduced the number of input errors. The project was successfully launched, and I gained invaluable experience with B2B interfaces, as well as confidence in my ability to quickly adapt to new domains.</span></p>
+            </div>
+          </details>
+
+          <details class="accordion-item">
+            <summary class="accordion-header">
+              <h2 data-i18n="faq.hr.failure.title">💡 Tell us about your failures (mistakes, setbacks) at work</h2>
+              <span class="arrow"></span>
+            </summary>
+            <div class="accordion-body">
+              <p data-i18n="faq.hr.failure.intro">One of the key responsibilities of a designer is the ability to justify decisions and advocate for users. In a mobile application project, we had already reached the high-fidelity design stage when the client suddenly requested a fully neon lime background — “very bright and trendy.”</p>
+              
+              <p><strong data-i18n="faq.hr.failure.p1.title">⚠️ The Risk</strong><br>
+              <span data-i18n="faq.hr.failure.p1.text">I clearly understood the risks: poor text readability (contrast below 3:1 according to WCAG), eye strain, accessibility issues, and potentially high bounce rates.</span></p>
+              
+              <p><strong data-i18n="faq.hr.failure.p2.title">🛡️ My Approach</strong><br>
+              <span data-i18n="faq.hr.failure.p2.text">I prepared structured arguments for the meeting:</span></p>
+              <ul>
+                <li data-i18n="faq.hr.failure.p2.list.1">📉 WCAG AA/AAA contrast standards</li>
+                <li data-i18n="faq.hr.failure.p2.list.2">📉 Research from the Nielsen Norman Group on the impact of bright backgrounds on usability</li>
+                <li data-i18n="faq.hr.failure.p2.list.3">📉 A/B tests from similar cases, where overly bright colors reduced conversion rates by 15–30%</li>
+              </ul>
+              
+              <p><strong data-i18n="faq.hr.failure.p3.title">🏁 The Outcome</strong><br>
+              <span data-i18n="faq.hr.failure.p3.text">However, the client insisted — it was a gift for his wife, and neon green was her favorite color. I proposed a compromise: to create two versions — his preferred one and a more user-friendly alternative. After reviewing both, he still chose his option.</span></p>
+              
+              <p><strong data-i18n="faq.hr.failure.p4.title">🎓 Lesson Learned</strong><br>
+              <span data-i18n="faq.hr.failure.p4.text">I clearly documented all risks and ways to mitigate them. The app was released, and this case taught me an important lesson: <em>not all decisions are rational, but it is crucial to remain an honest advisor to the client and clearly communicate the potential consequences.</em></span></p>
+            </div>
+          </details>
+
+          <details class="accordion-item">
+            <summary class="accordion-header">
+              <h2 data-i18n="faq.hr.leading.title">🧭 Have you had experience leading projects independently?</h2>
+              <span class="arrow"></span>
+            </summary>
+            <div class="accordion-body">
+              <p data-i18n="faq.hr.leading.text">Yes, both in teams and independently. In freelance and outsourcing projects, I led the full cycle from brief to release: research, design, handoff, and sometimes even light product management. In a product company, I also took ownership of features — from ideation to post-release analysis.</p>
+            </div>
+          </details>
+
+          <details class="accordion-item">
+            <summary class="accordion-header">
+              <h2 data-i18n="faq.hr.deadlines.title">⏳ Do you meet deadlines? How do you work in a multitasking environment?</h2>
+              <span class="arrow"></span>
+            </summary>
+            <div class="accordion-body">
+              <p data-i18n="faq.hr.deadlines.text">Yes, I consistently meet deadlines. I plan tasks in Notion or Trello, always leaving buffer time for iterations. In multitasking environments, I rely on prioritization frameworks (MoSCoW or Eisenhower), daily stand-ups, and focus blocks (Pomodoro). If a deadline is tight, I immediately inform the team and suggest trade-offs, such as scope reduction. Over the past few years, I have not missed any deadlines due to my fault.</p>
+            </div>
+          </details>
+
+          <details class="accordion-item">
+            <summary class="accordion-header">
+              <h2 data-i18n="faq.hr.feedback.title">👂 How do you react to negative feedback on your work?</h2>
+              <span class="arrow"></span>
+            </summary>
+            <div class="accordion-body">
+              <p data-i18n="faq.hr.feedback.text1">Calmly and constructively — negative feedback is always an opportunity to improve. First, I listen without becoming defensive and ask clarifying questions (“What exactly feels inconvenient?”, “Which user scenario causes the issue?”). Then I analyze the feedback: if it is well-founded, I acknowledge it and propose improvements. If it is subjective, I support my decision with arguments based on data, testing, and design guidelines. In any case, I thank the person for the feedback, as it helps me grow.</p>
+              
+              <p data-i18n="faq.hr.feedback.text2">For example, once a stakeholder wanted to remove a CTA button; after running a test, we brought it back and increased conversion by 12%.</p>
+            </div>
+          </details>
+
+          <details class="accordion-item">
+            <summary class="accordion-header">
+              <h2 data-i18n="faq.hr.weaknesses.title">🚧 What are your weaknesses?</h2>
+              <span class="arrow"></span>
+            </summary>
+            <div class="accordion-body">
+              <p data-i18n="faq.hr.weaknesses.text">I tend to be quite anxious — sometimes I worry too much about quality and deadlines and may overcheck my work. However, I have learned to manage this: I use clear checklists, apply time-boxing for reviews, and discuss risks with the team in advance. This helps me turn anxiety into attention to detail and reliability.</p>
+            </div>
+          </details>
+
+          <details class="accordion-item">
+            <summary class="accordion-header">
+              <h2 data-i18n="faq.hr.trends.title">📚 How do you stay up to date with design trends and new technologies?</h2>
+              <span class="arrow"></span>
+            </summary>
+            <div class="accordion-body">
+              <p data-i18n="faq.hr.trends.text1">I follow a range of newsletters and channels, including Nielsen Norman Group, UX Collective, Awwwards, Muz.li, The Verdict, the Figma Blog, and Designer News. I also follow designers who inspire me, such as Dasha — “Vsyo i tak yasno,” “Design Systems” by Vladislav Renk, and many others.</p>
+              
+              <p data-i18n="faq.hr.trends.text2">Whenever I come across a promising technology, I try to adopt it right away. For example, as soon as I learned about vibe coding and AI-assisted design, I tested it in a personal project and now actively use it to quickly generate and explore ideas.</p>
+            </div>
+          </details>
+
+          <details class="accordion-item">
+            <summary class="accordion-header">
+              <h2>✨ Describe your ideal working environment</h2>
+              <span class="arrow"></span>
+            </summary>
+            <div class="accordion-body">
+              <p>I’m looking for a friendly and supportive team that values its members and strives to build transparent, effective processes. In such an environment, it’s possible to grow both the product and personally, experiment with approaches, improve team workflows, and create solutions that genuinely help users.</p>
+            </div>
+          </details>
+
+          <details class="accordion-item">
+            <summary class="accordion-header">
+              <h2>🔍 Why are you looking for a new job?</h2>
+              <span class="arrow"></span>
+            </summary>
+            <div class="accordion-body">
+              <p>The current project has been successfully completed, and no new large-scale challenges are expected in the near future. I want to continue growing and working on products with a strong user focus. I am looking for a company where there are meaningful challenges, the opportunity to influence the product, and a team that actively experiments with new approaches.</p>
+            </div>
+          </details>
+
+          <details class="accordion-item">
+            <summary class="accordion-header">
+              <h2>🔮 Where do you see yourself in five years?</h2>
+              <span class="arrow"></span>
+            </summary>
+            <div class="accordion-body">
+              <p>In five years, I see myself in a senior or lead UX designer role, or as a design lead of a small team. I want to deeply develop my expertise in product design, user research, and strategic thinking — helping companies build products that genuinely solve user problems. I plan to mentor junior designers, contribute to building design systems, and influence product strategy. Ideally, I want to grow within a strong team where design has equal standing with business and development.</p>
+            </div>
+          </details>
+
+        </div>
+      </div>
+
+      <!-- Tab 2: Technical Interview -->
+      <div id="tech-tab" class="tab-content">
+        <div class="accordion-container">
+
+          <details class="accordion-item">
+            <summary class="accordion-header">
+              <h2 data-i18n="faq.tech.requirements.title">🎯 How do you define feature requirements and priorities?</h2>
+              <span class="arrow"></span>
+            </summary>
+            <div class="accordion-body">
+              <p data-i18n="faq.tech.requirements.text1">I start by aligning with the product team and stakeholders on goals, user needs, and constraints (technical, budget, timeline). Then I conduct research: analyzing existing data, interviewing users, and reviewing competitors and current solutions.</p>
+              
+              <p data-i18n="faq.tech.requirements.text2">In practice, even with a small team (3–4 people), I use a simple prioritization approach: I list all features, evaluate them based on user and business impact, and estimate implementation complexity. For example, in a mobile app project for a B2B store, we identified the top three features that solved key user pain points — improving product search, quick access to orders, and status notifications. These features were implemented in the first iteration, while less critical ones were scheduled for the next sprint.</p>
+            </div>
+          </details>
+
+          <details class="accordion-item">
+            <summary class="accordion-header">
+              <h2 data-i18n="faq.tech.figma.title">🎨 Describe your workflow in Figma</h2>
+              <span class="arrow"></span>
+            </summary>
+            <div class="accordion-body">
+              <p data-i18n="faq.tech.figma.text">I start with research → create user flows in FigJam → low-fidelity wireframes → mid/high-fidelity designs using auto-layout. Everything is built with components and variants. I store colors, spacing, and typography in variables (with modes for light/dark). I hand off to Dev Mode and, if needed, provide a component specification.</p>
+            </div>
+          </details>
+
+          <details class="accordion-item">
+            <summary class="accordion-header">
+              <h2 data-i18n="faq.tech.consistency.title">🏗️ How do you maintain consistency when working on a large project?</h2>
+              <span class="arrow"></span>
+            </summary>
+            <div class="accordion-body">
+              <p data-i18n="faq.tech.consistency.text">I maintain consistency by creating and managing a design system: foundation (colors, typography, spacing, icons) and components with variants. I use variables and tokens so changes propagate automatically across the interface. All components are documented in Figma or Notion. Regular design reviews and team syncs ensure a unified style, while auto-layout and standardized naming minimize errors.</p>
+            </div>
+          </details>
+
+          <details class="accordion-item">
+            <summary class="accordion-header">
+              <h2 data-i18n="faq.tech.designsystem.title">📐 How do you organize a design system in Figma?</h2>
+              <span class="arrow"></span>
+            </summary>
+            <div class="accordion-body">
+              <p data-i18n="faq.tech.designsystem.text">I create a separate library file with the foundation (colors, typography, icons, spacing) and components (buttons, cards, forms). Everything is built with variants and properties. Naming follows a BEM-like or Atomic Design structure, e.g., foundation/color/primary, components/button/primary/large. I also include documentation within the file in a separate frame.</p>
+            </div>
+          </details>
+
+          <details class="accordion-item">
+            <summary class="accordion-header">
+              <h2 data-i18n="faq.tech.variables.title">🔢 How do you work with variables in Figma?</h2>
+              <span class="arrow"></span>
+            </summary>
+            <div class="accordion-body">
+              <p data-i18n="faq.tech.variables.text">I create collections for colors (primary, accent, neutral, semantic — success/error), spacing (4px base → multiples), and typography (font family + scale: headline, body, caption). I set up modes: light/dark, brand A/brand B, dense/normal. All variables are linked to components — when a mode changes, the entire interface updates automatically.</p>
+            </div>
+          </details>
+
+          <details class="accordion-item">
+            <summary class="accordion-header">
+              <h2 data-i18n="faq.tech.hierarchy.title">👁️ What is visual hierarchy and how do you establish it?</h2>
+              <span class="arrow"></span>
+            </summary>
+            <div class="accordion-body">
+              <p data-i18n="faq.tech.hierarchy.text">Visual hierarchy is how a user’s eye immediately understands what’s important. I create it using size, contrast, color, spacing, and position. The most important elements are larger, brighter, higher, and more to the left. I check in black-and-white mode — if everything is readable, the hierarchy works.</p>
+            </div>
+          </details>
+
+          <details class="accordion-item">
+            <summary class="accordion-header">
+              <h2 data-i18n="faq.tech.typography.title">🔠 How do you work with a typography scale?</h2>
+              <span class="arrow"></span>
+            </summary>
+            <div class="accordion-body">
+              <p data-i18n="faq.tech.typography.text">I use a modular scale (e.g., 1.25 or 1.333). Base text is 16px, headlines range from 24px to 48px. I implement fluid typography with variables so it scales proportionally across mobile and desktop.</p>
+            </div>
+          </details>
+
+          <details class="accordion-item">
+            <summary class="accordion-header">
+              <h2 data-i18n="faq.tech.responsive.title">📱 How do you handle responsive/adaptive design?</h2>
+              <span class="arrow"></span>
+            </summary>
+            <div class="accordion-body">
+              <p data-i18n="faq.tech.responsive.text">I follow a mobile-first approach. I use auto-layout with min/max width, wrap, hug/fill. Breakpoints: 360–428px for mobile, 768px for tablet, 1024–1440px for desktop. I test in prototypes with different frame sizes.</p>
+            </div>
+          </details>
+
+          <details class="accordion-item">
+            <summary class="accordion-header">
+              <h2 data-i18n="faq.tech.color.title">🌗 How do you ensure color accessibility?</h2>
+              <span class="arrow"></span>
+            </summary>
+            <div class="accordion-body">
+              <p data-i18n="faq.tech.color.text">I check contrast according to WCAG 2.2: at least 4.5:1 for normal text, 3:1 for large text. I use Figma plugins like Stark or Contrast. Semantic colors are always verified for text-on-background and interactive states.</p>
+            </div>
+          </details>
+
+          <details class="accordion-item">
+            <summary class="accordion-header">
+              <h2 data-i18n="faq.tech.inclusivity.title">♿ How do you ensure inclusivity and accessibility?</h2>
+              <span class="arrow"></span>
+            </summary>
+            <div class="accordion-body">
+              <p data-i18n="faq.tech.inclusivity.text">I consider it from the first screen: contrast, keyboard navigation, alt texts, large touch targets (min 44×44px), and simple language. I test with tools like axe DevTools and, if possible, with people with different abilities.</p>
+            </div>
+          </details>
+
+          <details class="accordion-item">
+            <summary class="accordion-header">
+              <h2 data-i18n="faq.tech.handoff.title">📦 How do you hand off designs to developers?</h2>
+              <span class="arrow"></span>
+            </summary>
+            <div class="accordion-body">
+              <p data-i18n="faq.tech.handoff.text">Via Figma Dev Mode: developers can inspect and copy CSS / iOS / Android values. For large systems, I export tokens (JSON) using the Tokens Studio plugin and provide them to the codebase. I also create redlines for spacing and write a brief specification in Notion or Jira.</p>
+            </div>
+          </details>
+
+          <details class="accordion-item">
+            <summary class="accordion-header">
+              <h2 data-i18n="faq.tech.abtesting.title">🧪 Experience with A/B testing and making data-driven decisions</h2>
+              <span class="arrow"></span>
+            </summary>
+            <div class="accordion-body">
+              <p data-i18n="faq.tech.abtesting.text">I use A/B testing to validate hypotheses and assess the impact of changes on users. For example, I tested different CTA button variants — based on conversion data, we selected the version that increased conversion by 12%. I make data-driven decisions using metrics like engagement, conversion rates, heatmaps, and behavior analytics. If results are inconclusive, I conduct additional tests or user interviews to understand the reasons.</p>
+            </div>
+          </details>
+
+          <details class="accordion-item">
+            <summary class="accordion-header">
+              <h2 data-i18n="faq.tech.ai.title">🤖 What is your approach to AI in design?</h2>
+              <span class="arrow"></span>
+            </summary>
+            <div class="accordion-body">
+              <p data-i18n="faq.tech.ai.text">AI is useful at the ideation stage and for generating variants (Midjourney, Galileo, Figma AI for layout). However, I always refine the final design manually — AI doesn’t yet understand context, brand, or accessibility fully.</p>
+            </div>
+          </details>
+        </div>
       </div>
     </main>
   </div>
+  <script src="translations.js"></script>
   <script src="script.js" defer></script>
 </body>
 </html>

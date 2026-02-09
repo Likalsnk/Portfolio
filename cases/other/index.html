@@ -3,40 +3,290 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>New Project — Anzhelika Liashenko</title>
+  <title>RefillArena — Anzhelika Liashenko</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Briem+Hand:wght@200;400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../style.css">
   <link rel="stylesheet" href="../../about.css">
   <link rel="stylesheet" href="../../cases.css">
+  <style>
+    /* Project-specific styles for RefillArena */
+    .case-layout {
+      gap: 24px;
+    }
+
+    .case-hero {
+      background: transparent;
+      box-shadow: none;
+      padding: 0;
+      margin-bottom: 0;
+    }
+
+
+
+    /* RefillArena Gaming Styles */
+    .ra-container {
+      background: #0B0E14;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Inter', sans-serif;
+      color: #fff;
+    }
+    
+    .ra-header {
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #1F2937;
+    }
+    
+    .ra-logo {
+      font-weight: 800;
+      font-size: 20px;
+      letter-spacing: -1px;
+      background: linear-gradient(90deg, #F59E0B, #EF4444);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .ra-cart {
+      position: relative;
+      cursor: pointer;
+    }
+    
+    .ra-cart-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: #EF4444;
+      color: white;
+      font-size: 10px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      transform: scale(0);
+      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    .ra-cart-badge.show {
+      transform: scale(1);
+    }
+    
+    .ra-hero-banner {
+      height: 120px;
+      background: linear-gradient(45deg, #111827, #1F2937);
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      margin: 20px;
+      border-radius: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .ra-hero-banner::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 70% 50%, rgba(245, 158, 11, 0.15), transparent 50%);
+    }
+    
+    .ra-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 16px;
+      padding: 0 20px 20px 20px;
+      overflow-y: auto;
+    }
+    
+    .ra-card {
+      background: #1F2937;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #374151;
+      transition: all 0.3s;
+      position: relative;
+      cursor: pointer;
+    }
+    
+    .ra-card:hover {
+      transform: translateY(-4px);
+      border-color: #F59E0B;
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.2);
+    }
+    
+    .ra-card-img {
+      height: 100px;
+      background: #111827;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      position: relative;
+    }
+    
+    .ra-card-content {
+      padding: 12px;
+    }
+    
+    .ra-title { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+    .ra-price { color: #F59E0B; font-weight: 600; font-size: 14px; }
+    
+    .ra-btn {
+      margin-top: 8px;
+      width: 100%;
+      padding: 6px;
+      background: #374151;
+      border: none;
+      border-radius: 6px;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .ra-card:hover .ra-btn {
+      background: #F59E0B;
+      color: #000;
+    }
+    
+    .ra-btn:active {
+      transform: scale(0.95);
+    }
+    
+    /* Glitch Effect on Hover */
+    @keyframes glitch {
+      0% { transform: translate(0); }
+      20% { transform: translate(-2px, 2px); }
+      40% { transform: translate(-2px, -2px); }
+      60% { transform: translate(2px, 2px); }
+      80% { transform: translate(2px, -2px); }
+      100% { transform: translate(0); }
+    }
+    
+    .ra-card:hover .ra-card-img {
+      animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+    }
+    
+  </style>
 </head>
 <body>
   <div class="layout-wrapper">
     <aside class="sidebar">
-      <div class="sidebar-top">
-        <a href="../../index.html" class="back-link" data-tooltip="Back to Home">🏠</a>
-      </div>
       <nav class="sidebar-nav">
         <div class="nav-indicator"></div>
-        <a href="../../about.html" class="sidebar-item" data-tooltip="About Me"><span class="icon-box">👋</span></a>
-        <a href="../../skills.html" class="sidebar-item" data-tooltip="Tools & Skills"><span class="icon-box">🛠️</span></a>
-        <a href="../../cases.html" class="sidebar-item active" data-tooltip="Cases"><span class="icon-box">💼</span></a>
-        <a href="../../faq.html" class="sidebar-item" data-tooltip="FAQ"><span class="icon-box">❓</span></a>
+        <a href="../../index.html" class="sidebar-item" data-tooltip="Home" data-i18n-tooltip="nav.home">
+          <span class="icon-box">🏠</span>
+        </a>
+        <a href="../../about.html" class="sidebar-item" data-tooltip="About Me" data-i18n-tooltip="nav.about">
+          <span class="icon-box">👋</span>
+        </a>
+        <a href="../../skills.html" class="sidebar-item" data-tooltip="Tools & Skills" data-i18n-tooltip="nav.skills">
+          <span class="icon-box">🛠️</span>
+        </a>
+        <a href="../../cases.html" class="sidebar-item active" data-tooltip="Cases" data-i18n-tooltip="nav.cases">
+          <span class="icon-box">💼</span>
+        </a>
+        <a href="../../faq.html" class="sidebar-item" data-tooltip="FAQ" data-i18n-tooltip="nav.faq">
+          <span class="icon-box">❓</span>
+        </a>
+
+        <div class="nav-separator"></div>
+
+        <div class="sidebar-social-group">
+          <div class="social-trigger" data-tooltip="Social Media">
+            <span class="icon-box">🔗</span>
+          </div>
+          
+          <div class="social-popup">
+            <a href="https://www.behance.net/anjelikali508d" target="_blank" class="sidebar-social-link behance" data-tooltip="Behance">
+              <img src="../../src/Photo/Logos/behance.svg" alt="Behance" class="sidebar-social-img">
+            </a>
+            <a href="https://www.linkedin.com/in/anjelikaliashenko/" target="_blank" class="sidebar-social-link linkedin" data-tooltip="LinkedIn">
+              <img src="../../src/Photo/Logos/Linkedin.svg" alt="LinkedIn" class="sidebar-social-img">
+            </a>
+            <a href="https://github.com/Likalsnk" target="_blank" class="sidebar-social-link github" data-tooltip="GitHub">
+              <img src="../../src/Photo/Logos/github.svg" alt="GitHub" class="sidebar-social-img">
+            </a>
+            <a href="https://t.me/likalsnk" target="_blank" class="sidebar-social-link telegram" data-tooltip="Telegram">
+              <img src="../../src/Photo/Logos/telegram.svg" alt="Telegram" class="sidebar-social-img">
+            </a>
+            <a href="mailto:anjelika.liashenko@gmail.com" target="_blank" class="sidebar-social-link gmail" data-tooltip="Gmail">
+              <img src="../../src/Photo/Logos/Gmail.svg" alt="Gmail" class="sidebar-social-img">
+            </a>
+          </div>
+        </div>
       </nav>
     </aside>
+
     <main class="main-content">
-      <div class="header-card">
-        <div class="header-left">
-          <a href="../../cases.html" style="text-decoration: none; color: #52525B; font-size: 14px; margin-bottom: 8px; display: inline-block;">← Back to Cases</a>
-          <h1>New Project</h1>
-        </div>
-      </div>
-      <div class="project-details-card">
-        <p>Details for New Project will be here.</p>
+      <div class="case-layout">
+        
+        <!-- Header -->
+        <header class="case-hero">
+          <div class="case-header-left">
+            <a href="../../cases.html" class="back-to-cases" data-i18n="case.nav.back">← Back to Cases</a>
+          </div>
+          <a href="../sunrise/index.html" class="back-to-cases" data-i18n="case.refillarena.next">Next Project: Sunrise →</a>
+        </header>
+
+        <!-- Interactive Prototype -->
+        <section class="interactive-showcase">
+          <div class="laptop-frame">
+            <div class="laptop-screen">
+              <iframe src="https://refillarena.com/en" style="width: 200%; height: 200%; border: none; transform: scale(0.5); transform-origin: 0 0;" title="Refill Arena Website Preview"></iframe>
+            </div>
+          </div>
+          <p style="text-align: center; color: var(--text-secondary); margin-top: 16px; font-size: 14px;">
+            <span data-i18n="case.refillarena.caption">Interactive Store — Click to explore</span> <br>
+            <a href="https://refillarena.com/en" target="_blank" style="color: #8B5CF6; text-decoration: none; font-weight: 600; margin-top: 8px; display: inline-block;" data-i18n="case.visit.website">Visit Live Website ↗</a>
+          </p>
+        </section>
+
+        <!-- Project Details -->
+        <section class="case-content-grid">
+          <div class="content-block">
+            <h3 data-i18n="case.concept.title">Concept</h3>
+            <p data-i18n="case.refillarena.concept.desc">RefillArena aims to bridge the gap between traditional gaming top-ups and modern Web3 assets. The dark UI reduces eye strain for gamers, while the vibrant accent colors highlight call-to-actions.</p>
+          </div>
+          <div class="content-block">
+            <h3 data-i18n="case.refillarena.ux.title">UX Focus</h3>
+            <p data-i18n="case.refillarena.ux.desc">Speed is key. The checkout flow was optimized to require only 3 clicks from browsing to payment completion. Micro-interactions (like the glitch effect) add a layer of immersion.</p>
+          </div>
+        </section>
+
       </div>
     </main>
   </div>
+  
+  <script src="../../translations.js"></script>
   <script src="../../script.js" defer></script>
+  <script>
+    let cartCount = 0;
+    function addToCart() {
+      cartCount++;
+      const badge = document.getElementById('cartBadge');
+      badge.textContent = cartCount;
+      badge.classList.add('show');
+      
+      // Reset animation
+      badge.style.transform = 'scale(1.2)';
+      setTimeout(() => {
+        badge.style.transform = 'scale(1)';
+      }, 150);
+    }
+  </script>
 </body>
 </html>

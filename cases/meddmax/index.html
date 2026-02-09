@@ -3,40 +3,986 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MeddMax — Anzhelika Liashenko</title>
+  <title>Learning Hub — Anzhelika Liashenko</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Briem+Hand:wght@200;400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../style.css">
   <link rel="stylesheet" href="../../about.css">
   <link rel="stylesheet" href="../../cases.css">
+  <style>
+    /* Project-specific styles for Learning Hub */
+    .case-layout {
+      gap: 24px;
+    }
+
+    .case-hero {
+      background: transparent;
+      box-shadow: none;
+      padding: 0;
+      margin-bottom: 0;
+    }
+
+
+
+    /* Learning Hub Interactive Styles - TeacherHub Redesign (Compact) */
+    .lh-container {
+      background: #FAFAFA;
+      height: 100%;
+      display: flex;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      overflow: hidden;
+      color: #111827;
+    }
+
+    /* Sidebar */
+    .lh-sidebar {
+      width: 180px;
+      background: #FFFFFF;
+      border-right: 1px solid #E5E7EB;
+      display: flex;
+      flex-direction: column;
+      padding: 16px 10px;
+      flex-shrink: 0;
+    }
+
+    .lh-brand-section {
+      margin-bottom: 20px;
+      padding-left: 6px;
+    }
+
+    .lh-brand-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #000;
+      margin-bottom: 2px;
+      line-height: 1.2;
+    }
+
+    .lh-brand-subtitle {
+      font-size: 11px;
+      color: #6B7280;
+    }
+
+    .lh-nav {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    
+    .lh-nav-item {
+      padding: 6px 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #374151;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      border-radius: 6px;
+    }
+
+    .lh-nav-item:hover {
+      background: #F3F4F6;
+      color: #111827;
+    }
+
+    .lh-nav-item.active {
+      background: #000000;
+      color: #FFFFFF;
+    }
+
+    .lh-nav-icon {
+      width: 14px;
+      height: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+
+    .lh-profile {
+      border-top: 1px solid #E5E7EB;
+      padding-top: 10px;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .lh-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #000;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 10px;
+    }
+
+    .lh-profile-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .lh-profile-name {
+      font-size: 11px;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .lh-profile-role {
+      font-size: 9px;
+      color: #6B7280;
+    }
+
+    /* Main Content */
+    .lh-main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      padding: 16px 20px;
+    }
+
+    .lh-back-link {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      color: #374151;
+      font-weight: 500;
+      text-decoration: none;
+      margin-bottom: 12px;
+      cursor: pointer;
+    }
+
+    .lh-header-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 2px;
+    }
+
+    .lh-header-subtitle {
+      font-size: 12px;
+      color: #6B7280;
+      margin-bottom: 12px;
+    }
+
+    .lh-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      border-bottom: 1px solid #E5E7EB;
+      padding-bottom: 0;
+    }
+
+    .lh-tabs {
+      display: flex;
+      gap: 12px;
+    }
+
+    .lh-tab-pill {
+      background: #fff;
+      padding: 4px 10px;
+      border-radius: 20px;
+      border: 1px solid #E5E7EB;
+      font-size: 11px;
+      color: #374151;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+    
+    .lh-tab-pill.active {
+      background: #F3F4F6;
+      font-weight: 600;
+      color: #111827;
+      border-color: #E5E7EB;
+    }
+
+    .lh-dropdown {
+      padding: 4px 8px;
+      background: #F3F4F6;
+      border-radius: 6px;
+      border: none;
+      font-size: 11px;
+      font-weight: 500;
+      color: #374151;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Stats Grid */
+    .lh-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .lh-card {
+      background: #FFFFFF;
+      border-radius: 8px;
+      padding: 12px;
+      border: 1px solid #E5E7EB;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+      position: relative;
+    }
+
+    .lh-stat-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 6px;
+    }
+
+    .lh-stat-label {
+      font-size: 11px;
+      color: #6B7280;
+      font-weight: 500;
+    }
+
+    .lh-stat-icon {
+      width: 24px;
+      height: 24px;
+      background: #F9FAFB;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #374151;
+      font-size: 12px;
+    }
+
+    .lh-stat-value {
+      font-size: 18px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 2px;
+    }
+
+    .lh-stat-sub {
+      font-size: 10px;
+      color: #6B7280;
+    }
+
+    .lh-stat-link {
+      font-size: 10px;
+      color: #EF4444;
+      text-decoration: underline;
+      cursor: pointer;
+      margin-top: 2px;
+      display: block;
+    }
+
+    /* Chart Section */
+    .lh-chart-container {
+      background: #fff;
+      border: 1px solid #E5E7EB;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+
+    .lh-chart-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    
+    .lh-chart-title {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .lh-chart-legend {
+      display: flex;
+      gap: 10px;
+      font-size: 10px;
+      color: #6B7280;
+    }
+
+    .lh-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    
+    .lh-dot { width: 6px; height: 2px; border-radius: 1px; }
+    .lh-dot-blue { background: #3B82F6; }
+    .lh-dot-gray { background: #9CA3AF; border-style: dashed; }
+
+    .lh-chart-visual {
+      height: 120px;
+      width: 100%;
+      position: relative;
+      border-left: 1px solid #E5E7EB;
+      border-bottom: 1px solid #E5E7EB;
+    }
+    
+    /* Simple CSS Chart approximation */
+    .lh-chart-line {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    
+    .lh-info-box {
+      background: #EFF6FF;
+      border: 1px solid #DBEAFE;
+      border-radius: 6px;
+      padding: 10px 12px;
+      font-size: 11px;
+      color: #1E40AF;
+      line-height: 1.4;
+    }
+
+    /* Views Management */
+    .lh-view {
+      display: none;
+      animation: fadeIn 0.2s ease-out;
+    }
+
+    .lh-view.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Course Grid (Dashboard View) */
+    .lh-courses-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .lh-course-card {
+      background: #fff;
+      border: 1px solid #E5E7EB;
+      border-radius: 8px;
+      padding: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .lh-course-card:hover {
+      border-color: #3B82F6;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .lh-course-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .lh-course-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .lh-course-code {
+      font-size: 10px;
+      color: #6B7280;
+      background: #F3F4F6;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .lh-progress-bar {
+      height: 4px;
+      background: #F3F4F6;
+      border-radius: 2px;
+      margin: 8px 0;
+      overflow: hidden;
+    }
+
+    .lh-progress-fill {
+      height: 100%;
+      background: #3B82F6;
+      border-radius: 2px;
+    }
+
+    .lh-course-stats {
+      display: flex;
+      gap: 12px;
+      font-size: 10px;
+      color: #6B7280;
+    }
+
+    /* Students Table (Students View) */
+    .lh-table-container {
+      background: #fff;
+      border: 1px solid #E5E7EB;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .lh-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+    }
+
+    .lh-table th {
+      text-align: left;
+      padding: 10px 12px;
+      background: #F9FAFB;
+      color: #6B7280;
+      font-weight: 500;
+      border-bottom: 1px solid #E5E7EB;
+    }
+
+    .lh-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #E5E7EB;
+      color: #374151;
+    }
+
+    .lh-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .lh-student-cell {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .lh-student-avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #E5E7EB;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 600;
+      color: #6B7280;
+    }
+
+    .lh-status-badge {
+      padding: 2px 6px;
+      border-radius: 10px;
+      font-size: 9px;
+      font-weight: 500;
+    }
+    
+    .lh-status-good { background: #ECFDF5; color: #059669; }
+    .lh-status-risk { background: #FEF2F2; color: #DC2626; }
+
+    /* Utility */
+    .text-red { color: #EF4444; }
+    .bg-red-light { background: #FEF2F2; color: #EF4444; }
+    .text-green { color: #10B981; }
+   </style>
 </head>
 <body>
   <div class="layout-wrapper">
     <aside class="sidebar">
-      <div class="sidebar-top">
-        <a href="../../index.html" class="back-link" data-tooltip="Back to Home">🏠</a>
-      </div>
       <nav class="sidebar-nav">
         <div class="nav-indicator"></div>
-        <a href="../../about.html" class="sidebar-item" data-tooltip="About Me"><span class="icon-box">👋</span></a>
-        <a href="../../skills.html" class="sidebar-item" data-tooltip="Tools & Skills"><span class="icon-box">🛠️</span></a>
-        <a href="../../cases.html" class="sidebar-item active" data-tooltip="Cases"><span class="icon-box">💼</span></a>
-        <a href="../../faq.html" class="sidebar-item" data-tooltip="FAQ"><span class="icon-box">❓</span></a>
+        <a href="../../index.html" class="sidebar-item" data-tooltip="Home" data-i18n-tooltip="nav.home">
+          <span class="icon-box">🏠</span>
+        </a>
+        <a href="../../about.html" class="sidebar-item" data-tooltip="About Me" data-i18n-tooltip="nav.about">
+          <span class="icon-box">👋</span>
+        </a>
+        <a href="../../skills.html" class="sidebar-item" data-tooltip="Tools & Skills" data-i18n-tooltip="nav.skills">
+          <span class="icon-box">🛠️</span>
+        </a>
+        <a href="../../cases.html" class="sidebar-item active" data-tooltip="Cases" data-i18n-tooltip="nav.cases">
+          <span class="icon-box">💼</span>
+        </a>
+        <a href="../../faq.html" class="sidebar-item" data-tooltip="FAQ" data-i18n-tooltip="nav.faq">
+          <span class="icon-box">❓</span>
+        </a>
+
+        <div class="nav-separator"></div>
+
+        <div class="sidebar-social-group">
+          <div class="social-trigger" data-tooltip="Social Media">
+            <span class="icon-box">🔗</span>
+          </div>
+          
+          <div class="social-popup">
+            <a href="https://www.behance.net/anjelikali508d" target="_blank" class="sidebar-social-link behance" data-tooltip="Behance">
+              <img src="../../src/Photo/Logos/behance.svg" alt="Behance" class="sidebar-social-img">
+            </a>
+            <a href="https://www.linkedin.com/in/anjelikaliashenko/" target="_blank" class="sidebar-social-link linkedin" data-tooltip="LinkedIn">
+              <img src="../../src/Photo/Logos/Linkedin.svg" alt="LinkedIn" class="sidebar-social-img">
+            </a>
+            <a href="https://github.com/Likalsnk" target="_blank" class="sidebar-social-link github" data-tooltip="GitHub">
+              <img src="../../src/Photo/Logos/github.svg" alt="GitHub" class="sidebar-social-img">
+            </a>
+            <a href="https://t.me/likalsnk" target="_blank" class="sidebar-social-link telegram" data-tooltip="Telegram">
+              <img src="../../src/Photo/Logos/telegram.svg" alt="Telegram" class="sidebar-social-img">
+            </a>
+            <a href="mailto:anjelika.liashenko@gmail.com" target="_blank" class="sidebar-social-link gmail" data-tooltip="Gmail">
+              <img src="../../src/Photo/Logos/Gmail.svg" alt="Gmail" class="sidebar-social-img">
+            </a>
+          </div>
+        </div>
       </nav>
     </aside>
+
     <main class="main-content">
-      <div class="header-card">
-        <div class="header-left">
-          <a href="../../cases.html" style="text-decoration: none; color: #52525B; font-size: 14px; margin-bottom: 8px; display: inline-block;">← Back to Cases</a>
-          <h1>MeddMax</h1>
-        </div>
-      </div>
-      <div class="project-details-card">
-        <p>Details for MeddMax project will be here.</p>
+      <div class="case-layout">
+        
+        <!-- Header -->
+        <header class="case-hero">
+          <div class="case-header-left">
+            <a href="../../cases.html" class="back-to-cases" data-i18n="case.nav.back">← Back to Cases</a>
+          </div>
+          <a href="../other/index.html" class="back-to-cases" data-i18n="case.learninghub.next">Next Project: RefillArena →</a>
+        </header>
+
+        <!-- Interactive Prototype -->
+        <section class="interactive-showcase">
+          <div class="laptop-frame">
+            <div class="laptop-screen">
+              <div class="lh-container">
+                <!-- Sidebar -->
+                <aside class="lh-sidebar">
+                  <div class="lh-brand-section">
+                    <div class="lh-brand-title">TeacherHub</div>
+                    <div class="lh-brand-subtitle">Welcome back, Sarah</div>
+                  </div>
+                  
+                  <nav class="lh-nav">
+                    <div class="lh-nav-item active">
+                      <span class="lh-nav-icon">🏠</span> Dashboard
+                    </div>
+                    <div class="lh-nav-item">
+                      <span class="lh-nav-icon">👥</span> Groups
+                    </div>
+                    <div class="lh-nav-item">
+                      <span class="lh-nav-icon">📖</span> Students
+                    </div>
+                    <div class="lh-nav-item">
+                      <span class="lh-nav-icon">📝</span> Assignments
+                    </div>
+                    <div class="lh-nav-item">
+                      <span class="lh-nav-icon">📊</span> Analytics
+                    </div>
+                  </nav>
+
+                  <div class="lh-profile">
+                    <div class="lh-avatar">MS</div>
+                    <div class="lh-profile-info">
+                      <div class="lh-profile-name">Ms. Sarah Thompson</div>
+                      <div class="lh-profile-role">Mathematics Dept.</div>
+                    </div>
+                  </div>
+                </aside>
+
+                <!-- Main Content -->
+                <main class="lh-main">
+                  
+                  <!-- View: Dashboard Overview -->
+                  <div id="view-dashboard" class="lh-view active">
+                    <div class="lh-header-title">Dashboard Overview</div>
+                    <div class="lh-header-subtitle">Fall 2025 Semester</div>
+
+                    <div class="lh-stats-grid">
+                      <div class="lh-card">
+                        <div class="lh-stat-header">
+                          <span class="lh-stat-label">Total Students</span>
+                          <div class="lh-stat-icon">👥</div>
+                        </div>
+                        <div class="lh-stat-value">48</div>
+                      </div>
+                      <div class="lh-card">
+                        <div class="lh-stat-header">
+                          <span class="lh-stat-label">Avg Attendance</span>
+                          <div class="lh-stat-icon">📅</div>
+                        </div>
+                        <div class="lh-stat-value">92%</div>
+                      </div>
+                      <div class="lh-card">
+                        <div class="lh-stat-header">
+                          <span class="lh-stat-label">Assignments</span>
+                          <div class="lh-stat-icon">📝</div>
+                        </div>
+                        <div class="lh-stat-value">12</div>
+                        <div class="lh-stat-sub">To grade</div>
+                      </div>
+                      <div class="lh-card">
+                        <div class="lh-stat-header">
+                          <span class="lh-stat-label">Alerts</span>
+                          <div class="lh-stat-icon bg-red-light text-red">!</div>
+                        </div>
+                        <div class="lh-stat-value">4</div>
+                      </div>
+                    </div>
+
+                    <div class="lh-header-title" style="font-size: 14px; margin: 16px 0 8px;">Your Courses</div>
+                    <div class="lh-courses-grid">
+                      <!-- Mathematics 101A Card -->
+                      <div class="lh-course-card" onclick="switchView('view-course-overview')">
+                        <div class="lh-course-header">
+                          <div class="lh-course-title">Mathematics 101A</div>
+                          <div class="lh-course-code">MAT-101</div>
+                        </div>
+                        <div class="lh-progress-bar">
+                          <div class="lh-progress-fill" style="width: 78%"></div>
+                        </div>
+                        <div class="lh-course-stats">
+                          <span>10 Students</span>
+                          <span>78% Avg. Grade</span>
+                        </div>
+                      </div>
+
+                      <!-- Physics 202 Card -->
+                      <div class="lh-course-card">
+                        <div class="lh-course-header">
+                          <div class="lh-course-title">Physics 202</div>
+                          <div class="lh-course-code">PHY-202</div>
+                        </div>
+                        <div class="lh-progress-bar">
+                          <div class="lh-progress-fill" style="width: 45%"></div>
+                        </div>
+                        <div class="lh-course-stats">
+                          <span>18 Students</span>
+                          <span>82% Avg. Grade</span>
+                        </div>
+                      </div>
+
+                      <!-- History 301 Card -->
+                      <div class="lh-course-card">
+                        <div class="lh-course-header">
+                          <div class="lh-course-title">History 301</div>
+                          <div class="lh-course-code">HIS-301</div>
+                        </div>
+                        <div class="lh-progress-bar">
+                          <div class="lh-progress-fill" style="width: 90%"></div>
+                        </div>
+                        <div class="lh-course-stats">
+                          <span>20 Students</span>
+                          <span>88% Avg. Grade</span>
+                        </div>
+                      </div>
+
+                       <!-- Chemistry 101 Card -->
+                       <div class="lh-course-card">
+                        <div class="lh-course-header">
+                          <div class="lh-course-title">Chemistry 101</div>
+                          <div class="lh-course-code">CHE-101</div>
+                        </div>
+                        <div class="lh-progress-bar">
+                          <div class="lh-progress-fill" style="width: 60%"></div>
+                        </div>
+                        <div class="lh-course-stats">
+                          <span>12 Students</span>
+                          <span>75% Avg. Grade</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- View: Course Overview -->
+                  <div id="view-course-overview" class="lh-view">
+                    <div class="lh-back-link" onclick="switchView('view-dashboard')">← Back to Dashboard</div>
+                    
+                    <div class="lh-header-title">Mathematics 101A</div>
+                    <div class="lh-header-subtitle">10 students • 89% completion rate</div>
+
+                    <div class="lh-controls">
+                      <div class="lh-tabs">
+                        <div class="lh-tab-pill active">Overview</div>
+                        <div class="lh-tab-pill" onclick="switchView('view-students')">Students</div>
+                        <div class="lh-tab-pill">Analytics</div>
+                      </div>
+                      <div class="lh-dropdown">
+                        Fall 2025 <span>▼</span>
+                      </div>
+                    </div>
+
+                    <div class="lh-stats-grid">
+                      <!-- Card 1 -->
+                      <div class="lh-card">
+                        <div class="lh-stat-header">
+                          <span class="lh-stat-label">Total Students</span>
+                          <div class="lh-stat-icon">👥</div>
+                        </div>
+                        <div class="lh-stat-value">10</div>
+                        <div class="lh-stat-sub">+0 this fall</div>
+                      </div>
+
+                      <!-- Card 2 -->
+                      <div class="lh-card">
+                        <div class="lh-stat-header">
+                          <span class="lh-stat-label">Students at Risk</span>
+                          <div class="lh-stat-icon bg-red-light text-red">!</div>
+                        </div>
+                        <div class="lh-stat-value">4</div>
+                        <div class="lh-stat-link" onclick="switchView('view-students')">Click to view breakdown</div>
+                      </div>
+
+                      <!-- Card 3 -->
+                      <div class="lh-card">
+                        <div class="lh-stat-header">
+                          <span class="lh-stat-label">Completion Rate</span>
+                          <div class="lh-stat-icon">✓</div>
+                        </div>
+                        <div class="lh-stat-value">89%</div>
+                        <div class="lh-stat-sub">+3% from prior fall</div>
+                      </div>
+
+                      <!-- Card 4 -->
+                      <div class="lh-card">
+                        <div class="lh-stat-header">
+                          <span class="lh-stat-label">Average Progress</span>
+                          <div class="lh-stat-icon">📈</div>
+                        </div>
+                        <div class="lh-stat-value">78%</div>
+                        <div class="lh-stat-sub">+2.4% from prior fall</div>
+                      </div>
+                    </div>
+
+                    <!-- Chart Section -->
+                    <div class="lh-chart-container">
+                      <div class="lh-chart-header">
+                        <div class="lh-chart-title">Progress Over Time</div>
+                        <div class="lh-chart-legend">
+                          <div class="lh-legend-item">
+                            <div class="lh-dot lh-dot-blue"></div> Fall 2025 (Current)
+                          </div>
+                          <div class="lh-legend-item">
+                            <div class="lh-dot lh-dot-gray"></div> Fall 2024 (Prior)
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="lh-chart-visual">
+                        <!-- SVG Chart Simulation -->
+                        <svg width="100%" height="100%" viewBox="0 0 800 200" preserveAspectRatio="none">
+                          <!-- Grid Lines -->
+                          <line x1="0" y1="50" x2="800" y2="50" stroke="#F3F4F6" stroke-dasharray="4" />
+                          <line x1="0" y1="100" x2="800" y2="100" stroke="#F3F4F6" stroke-dasharray="4" />
+                          <line x1="0" y1="150" x2="800" y2="150" stroke="#F3F4F6" stroke-dasharray="4" />
+                          
+                          <!-- Prior Year (Gray Dashed) -->
+                          <polyline points="0,120 100,100 200,90 300,70 400,60 500,50 600,40 700,30 800,20" 
+                                    fill="none" stroke="#9CA3AF" stroke-width="2" stroke-dasharray="5,5" />
+                          <circle cx="0" cy="120" r="3" fill="#9CA3AF" />
+                          <circle cx="200" cy="90" r="3" fill="#9CA3AF" />
+                          <circle cx="400" cy="60" r="3" fill="#9CA3AF" />
+                          <circle cx="600" cy="40" r="3" fill="#9CA3AF" />
+                          <circle cx="800" cy="20" r="3" fill="#9CA3AF" />
+
+                          <!-- Current Year (Blue Solid) -->
+                          <polyline points="0,110 150,90 300,70 450,40" 
+                                    fill="none" stroke="#3B82F6" stroke-width="2" />
+                          <circle cx="0" cy="110" r="4" fill="#3B82F6" stroke="white" stroke-width="2" />
+                          <circle cx="150" cy="90" r="4" fill="#3B82F6" stroke="white" stroke-width="2" />
+                          <circle cx="300" cy="70" r="4" fill="#3B82F6" stroke="white" stroke-width="2" />
+                          <circle cx="450" cy="40" r="4" fill="#3B82F6" stroke="white" stroke-width="2" />
+                        </svg>
+                        
+                        <!-- X Axis Labels (Simulated) -->
+                        <div style="position: absolute; bottom: -16px; width: 100%; display: flex; justify-content: space-between; font-size: 9px; color: #9CA3AF;">
+                          <span>Module 1</span>
+                          <span>Module 3</span>
+                          <span>Module 5</span>
+                          <span>Module 7</span>
+                          <span>Module 9</span>
+                          <span>Module 11</span>
+                          <span>Module 13</span>
+                          <span>Module 15</span>
+                        </div>
+                      </div>
+                      <div style="margin-top: 20px;"></div> <!-- Spacer for labels -->
+                    </div>
+
+                    <div class="lh-info-box">
+                      <strong>Semester Roadmap:</strong> Showing all 15 modules. Current progress extends through Module 6 (Nov). Comparison with Fall 2024 helps track performance trajectory.
+                    </div>
+                  </div>
+
+                  <!-- View: Students List -->
+                  <div id="view-students" class="lh-view">
+                    <div class="lh-back-link" onclick="switchView('view-course-overview')">← Back to Course</div>
+                    
+                    <div class="lh-header-title">Students</div>
+                    <div class="lh-header-subtitle">Mathematics 101A • 10 Total</div>
+
+                    <div class="lh-controls">
+                      <div class="lh-tabs">
+                        <div class="lh-tab-pill" onclick="switchView('view-course-overview')">Overview</div>
+                        <div class="lh-tab-pill active">Students</div>
+                        <div class="lh-tab-pill">Analytics</div>
+                      </div>
+                      <div class="lh-dropdown">
+                        Filter: All <span>▼</span>
+                      </div>
+                    </div>
+
+                    <div class="lh-table-container">
+                      <table class="lh-table">
+                        <thead>
+                          <tr>
+                            <th>Student</th>
+                            <th>ID</th>
+                            <th>Attendance</th>
+                            <th>Grade</th>
+                            <th>Status</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>
+                              <div class="lh-student-cell">
+                                <div class="lh-student-avatar">JD</div>
+                                <span>John Doe</span>
+                              </div>
+                            </td>
+                            <td>#1023</td>
+                            <td>95%</td>
+                            <td>88%</td>
+                            <td><span class="lh-status-badge lh-status-good">On Track</span></td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="lh-student-cell">
+                                <div class="lh-student-avatar" style="background: #FDE68A; color: #92400E">AS</div>
+                                <span>Alice Smith</span>
+                              </div>
+                            </td>
+                            <td>#1024</td>
+                            <td>92%</td>
+                            <td>91%</td>
+                            <td><span class="lh-status-badge lh-status-good">On Track</span></td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="lh-student-cell">
+                                <div class="lh-student-avatar" style="background: #FECACA; color: #991B1B">RJ</div>
+                                <span>Robert Johnson</span>
+                              </div>
+                            </td>
+                            <td>#1025</td>
+                            <td>75%</td>
+                            <td>62%</td>
+                            <td><span class="lh-status-badge lh-status-risk">At Risk</span></td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="lh-student-cell">
+                                <div class="lh-student-avatar">EM</div>
+                                <span>Emily Miller</span>
+                              </div>
+                            </td>
+                            <td>#1026</td>
+                            <td>98%</td>
+                            <td>95%</td>
+                            <td><span class="lh-status-badge lh-status-good">On Track</span></td>
+                          </tr>
+                           <tr>
+                            <td>
+                              <div class="lh-student-cell">
+                                <div class="lh-student-avatar" style="background: #FECACA; color: #991B1B">MW</div>
+                                <span>Michael Wong</span>
+                              </div>
+                            </td>
+                            <td>#1027</td>
+                            <td>60%</td>
+                            <td>55%</td>
+                            <td><span class="lh-status-badge lh-status-risk">At Risk</span></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                </main>
+              </div>
+            </div>
+          </div>
+          <p style="text-align: center; color: var(--text-secondary); margin-top: 16px; font-size: 14px;" data-i18n="case.learninghub.caption">Interactive Dashboard — Click tabs to filter courses</p>
+        </section>
+
+        <!-- Project Details -->
+        <section class="case-content-grid">
+          <div class="content-block">
+            <h3 data-i18n="case.learninghub.overview.title">Overview</h3>
+            <p data-i18n="case.learninghub.overview.desc">Learning Hub is an all-in-one platform for educational institutions. The main challenge was to design an interface that handles complex data (thousands of students and courses) without overwhelming the administrator.</p>
+          </div>
+          <div class="content-block">
+            <h3 data-i18n="case.learninghub.design.title">Design System</h3>
+            <p data-i18n="case.learninghub.design.desc">We used a clean, card-based layout with a purple accent color (#7C3AED) to evoke creativity and wisdom. The typography is set in Inter for maximum readability on data-heavy screens.</p>
+          </div>
+        </section>
+
       </div>
     </main>
   </div>
+  
+  <script src="../../translations.js"></script>
   <script src="../../script.js" defer></script>
+  <script>
+    // View Switching Logic
+    function switchView(viewId) {
+      // Hide all views
+      document.querySelectorAll('.lh-view').forEach(view => {
+        view.classList.remove('active');
+      });
+      
+      // Show target view
+      const targetView = document.getElementById(viewId);
+      if (targetView) {
+        targetView.classList.add('active');
+      }
+
+      // Update Navigation State based on view
+      updateNavigationState(viewId);
+    }
+
+    function updateNavigationState(viewId) {
+      // Update Sidebar Nav
+      document.querySelectorAll('.lh-nav-item').forEach(item => item.classList.remove('active'));
+      
+      if (viewId === 'view-dashboard') {
+        document.querySelector('.lh-nav-item:nth-child(1)').classList.add('active');
+      } else if (viewId === 'view-course-overview' || viewId === 'view-students') {
+        document.querySelector('.lh-nav-item:nth-child(1)').classList.add('active');
+      }
+    }
+
+    // Add click handlers for Sidebar Nav
+    const navItems = document.querySelectorAll('.lh-nav-item');
+    if (navItems.length > 0) {
+        navItems[0].addEventListener('click', () => switchView('view-dashboard'));
+    }
+    
+    // Simple tab interaction
+    document.querySelectorAll('.lh-tab-pill').forEach(pill => {
+      pill.addEventListener('click', (e) => {
+        const parent = pill.closest('.lh-tabs');
+        if (parent) {
+          parent.querySelectorAll('.lh-tab-pill').forEach(p => p.classList.remove('active'));
+          pill.classList.add('active');
+        }
+      });
+    });
+  </script>
 </body>
 </html>

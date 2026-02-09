@@ -25,11 +25,11 @@
   <!-- Mobile Nav Overlay -->
   <div class="mobile-nav-overlay">
     <nav class="mobile-nav-links">
-      <a href="index.html" class="mobile-nav-link"><span>🏠</span> Home</a>
-      <a href="about.html" class="mobile-nav-link"><span>🙋‍♀️</span> About Me</a>
-      <a href="skills.html" class="mobile-nav-link"><span>🛠️</span> Tools & Skills</a>
-      <a href="cases.html" class="mobile-nav-link"><span>💼</span> Cases</a>
-      <a href="faq.html" class="mobile-nav-link"><span>❓</span> FAQ</a>
+      <a href="index.html" class="mobile-nav-link"><span>🏠</span> <span data-i18n="nav.home">Home</span></a>
+      <a href="about.html" class="mobile-nav-link"><span>🙋‍♀️</span> <span data-i18n="nav.about">About Me</span></a>
+      <a href="skills.html" class="mobile-nav-link"><span>🛠️</span> <span data-i18n="nav.skills">Tools & Skills</span></a>
+      <a href="cases.html" class="mobile-nav-link"><span>💼</span> <span data-i18n="nav.cases">Cases</span></a>
+      <a href="faq.html" class="mobile-nav-link"><span>❓</span> <span data-i18n="nav.faq">FAQ</span></a>
     </nav>
     
     <div class="mobile-social-icons">
@@ -57,19 +57,19 @@
       
       <nav class="sidebar-nav">
         <div class="nav-indicator"></div>
-        <a href="index.html" class="sidebar-item" data-tooltip="Home">
+        <a href="index.html" class="sidebar-item" data-tooltip="Home" data-i18n-tooltip="nav.home">
           <span class="icon-box">🏠</span>
         </a>
-        <a href="about.html" class="sidebar-item" data-tooltip="About Me">
+        <a href="about.html" class="sidebar-item" data-tooltip="About Me" data-i18n-tooltip="nav.about">
           <span class="icon-box">👋</span>
         </a>
-        <a href="skills.html" class="sidebar-item active" data-tooltip="Tools & Skills">
+        <a href="skills.html" class="sidebar-item active" data-tooltip="Tools & Skills" data-i18n-tooltip="nav.skills">
           <span class="icon-box">🛠️</span>
         </a>
-        <a href="cases.html" class="sidebar-item" data-tooltip="Cases">
+        <a href="cases.html" class="sidebar-item" data-tooltip="Cases" data-i18n-tooltip="nav.cases">
           <span class="icon-box">💼</span>
         </a>
-        <a href="faq.html" class="sidebar-item" data-tooltip="FAQ">
+        <a href="faq.html" class="sidebar-item" data-tooltip="FAQ" data-i18n-tooltip="nav.faq">
           <span class="icon-box">❓</span>
         </a>
 
@@ -106,15 +106,15 @@
     <main class="main-content">
       <div class="header-card">
         <div class="header-left">
-          <h1>Tools & Skills</h1>
+          <h1 data-i18n="skills.title">"Tools & Skills"</h1>
           <div class="tags-row">
-            <span class="tag-pill">#tools 🛠️</span>
-            <span class="tag-pill">#skills 🧠</span>
-            <span class="tag-pill">#vision 👁️</span>
-            <span class="tag-pill">#decisions 🎯</span>
+            <span class="tag-pill" data-i18n="skills.tag.tools">#tools 🛠️</span>
+            <span class="tag-pill" data-i18n="skills.tag.skills">#skills 🧠</span>
+            <span class="tag-pill" data-i18n="skills.tag.vision">#vision 👁️</span>
+            <span class="tag-pill" data-i18n="skills.tag.decisions">#decisions 🎯</span>
           </div>
         </div>
-        <p class="quote">How i thoughtfully<br>apply modern tools<br>in my work</p>
+        <p class="quote" data-i18n="skills.quote">"How i thoughtfully<br>apply modern tools<br>in my work"</p>
       </div>
 
       <!-- Tab Navigation -->
@@ -122,11 +122,11 @@
         <div class="tabs-nav">
           <button class="tab-button active" data-tab="tools">
             <span class="tab-icon-wrapper">🛠️</span>
-            <span class="tab-text">Tools</span>
+            <span class="tab-text" data-i18n="skills.tab.tools">Tools</span>
           </button>
           <button class="tab-button" data-tab="skills">
             <span class="tab-icon-wrapper">🧠</span>
-            <span class="tab-text">Skills</span>
+            <span class="tab-text" data-i18n="skills.tab.skills">Skills</span>
           </button>
         </div>
       </div>
@@ -137,7 +137,7 @@
         <!-- Section 1: Interface & Prototyping -->
         <details class="accordion-item" open>
           <summary class="accordion-header">
-            <h2>🎨 Interface & Prototyping</h2>
+            <h2 data-i18n="skills.acc.interface.title">🎨 Interface & Prototyping</h2>
             <span class="arrow"></span>
           </summary>
           <div class="accordion-body">
@@ -145,36 +145,36 @@
               <div class="tool-item">
                 <img src="src/Photo/Logos/Figma.jpg" alt="Figma" class="tool-icon" width="64" height="64">
                 <div class="tool-info">
-                  <h4>Figma</h4>
-                  <p>UI/UX design for web and mobile, design systems and component libraries, interactive prototypes, user flows, Auto Layout, responsive and adaptive layouts, developer handoff</p>
+                  <h4 data-i18n="skills.tool.figma.title">Figma</h4>
+                  <p data-i18n="skills.tool.figma.desc">UI/UX design for web and mobile, design systems and component libraries, interactive prototypes, user flows, Auto Layout, responsive and adaptive layouts, developer handoff</p>
                 </div>
               </div>
               <div class="tool-item">
                 <img src="src/Photo/Logos/Photoshop.jpg" alt="Adobe Photoshop" class="tool-icon" width="64" height="64">
                 <div class="tool-info">
-                  <h4>Adobe Photoshop</h4>
-                  <p>Image editing and retouching, photo manipulation and compositing, marketing and product visuals, working with layers and masks, visual optimization for digital products</p>
+                  <h4 data-i18n="skills.tool.photoshop.title">Adobe Photoshop</h4>
+                  <p data-i18n="skills.tool.photoshop.desc">Image editing and retouching, photo manipulation and compositing, marketing and product visuals, working with layers and masks, visual optimization for digital products</p>
                 </div>
               </div>
               <div class="tool-item">
                 <img src="src/Photo/Logos/Illustrator.jpg" alt="Adobe Illustrator" class="tool-icon" width="64" height="64">
                 <div class="tool-info">
-                  <h4>Adobe Illustrator</h4>
-                  <p>Vector graphics and illustrations, logo design, branding assets, icons and UI elements, scalable graphics for digital and print, clean vector workflows</p>
+                  <h4 data-i18n="skills.tool.illustrator.title">Adobe Illustrator</h4>
+                  <p data-i18n="skills.tool.illustrator.desc">Vector graphics and illustrations, logo design, branding assets, icons and UI elements, scalable graphics for digital and print, clean vector workflows</p>
                 </div>
               </div>
               <div class="tool-item">
                 <img src="src/Photo/Logos/Lightroom.jpg" alt="Adobe Lightroom" class="tool-icon" width="64" height="64">
                 <div class="tool-info">
-                  <h4>Adobe Lightroom</h4>
-                  <p>Professional photo color correction, tone and color balancing, presets creation, batch processing, visual consistency across photo sets, image preparation for web and branding</p>
+                  <h4 data-i18n="skills.tool.lightroom.title">Adobe Lightroom</h4>
+                  <p data-i18n="skills.tool.lightroom.desc">Professional photo color correction, tone and color balancing, presets creation, batch processing, visual consistency across photo sets, image preparation for web and branding</p>
                 </div>
               </div>
               <div class="tool-item">
                 <img src="src/Photo/Logos/Premiere Pro.jpg" alt="Adobe Premiere Pro" class="tool-icon" width="64" height="64">
                 <div class="tool-info">
-                  <h4>Adobe Premiere Pro</h4>
-                  <p>Basic video editing, trimming and cuts, simple transitions, adding text and titles, basic effects, short-form video preparation for web and social media</p>
+                  <h4 data-i18n="skills.tool.premiere.title">Adobe Premiere Pro</h4>
+                  <p data-i18n="skills.tool.premiere.desc">Basic video editing, trimming and cuts, simple transitions, adding text and titles, basic effects, short-form video preparation for web and social media</p>
                 </div>
               </div>
             </div>
@@ -184,7 +184,7 @@
         <!-- Section 2: UX Research & Analytics -->
         <details class="accordion-item" open>
           <summary class="accordion-header">
-            <h2>🧠 UX Research & Analytics</h2>
+            <h2 data-i18n="skills.acc.research.title">🧠 UX Research & Analytics</h2>
             <span class="arrow"></span>
           </summary>
           <div class="accordion-body">
@@ -192,22 +192,22 @@
               <div class="tool-item">
                 <img src="src/Photo/Logos/Hotjar.jpg" alt="Hotjar" class="tool-icon" width="64" height="64">
                 <div class="tool-info">
-                  <h4>Hotjar</h4>
-                  <p>Heatmaps, session recordings, user behavior analysis, usability insights, UX problem identification, data-driven design decisions</p>
+                  <h4 data-i18n="skills.tool.hotjar.title">Hotjar</h4>
+                  <p data-i18n="skills.tool.hotjar.desc">Heatmaps, session recordings, user behavior analysis, usability insights, UX problem identification, data-driven design decisions</p>
                 </div>
               </div>
               <div class="tool-item">
                 <img src="src/Photo/Logos/GoogleAnalytics.jpg" alt="Google Analytics" class="tool-icon" width="64" height="64">
                 <div class="tool-info">
-                  <h4>Google Analytics</h4>
-                  <p>User behavior tracking, traffic analysis, conversion funnels, UX performance insights, data interpretation for design optimization</p>
+                  <h4 data-i18n="skills.tool.analytics.title">Google Analytics</h4>
+                  <p data-i18n="skills.tool.analytics.desc">User behavior tracking, traffic analysis, conversion funnels, UX performance insights, data interpretation for design optimization</p>
                 </div>
               </div>
               <div class="tool-item">
                 <img src="src/Photo/Logos/Notion.jpg" alt="Notion" class="tool-icon" width="64" height="64">
                 <div class="tool-info">
-                  <h4>Notion</h4>
-                  <p>UX documentation, research synthesis, project structuring, design process organization, knowledge base creation, client-ready documentation</p>
+                  <h4 data-i18n="skills.tool.notion.title">Notion</h4>
+                  <p data-i18n="skills.tool.notion.desc">UX documentation, research synthesis, project structuring, design process organization, knowledge base creation, client-ready documentation</p>
                 </div>
               </div>
             </div>
@@ -217,7 +217,7 @@
         <!-- Section 3: Project & Collaboration -->
         <details class="accordion-item" open>
           <summary class="accordion-header">
-            <h2>👥 Project & Collaboration</h2>
+            <h2 data-i18n="skills.acc.collab.title">👥 Project & Collaboration</h2>
             <span class="arrow"></span>
           </summary>
           <div class="accordion-body">
@@ -225,22 +225,22 @@
               <div class="tool-item">
                 <img src="src/Photo/Logos/Mirro.jpg" alt="Miro" class="tool-icon" width="64" height="64">
                 <div class="tool-info">
-                  <h4>Miro</h4>
-                  <p>UX mapping, user journeys, information architecture, brainstorming, ideation workshops, collaborative UX processes</p>
+                  <h4 data-i18n="skills.tool.miro.title">Miro</h4>
+                  <p data-i18n="skills.tool.miro.desc">UX mapping, user journeys, information architecture, brainstorming, ideation workshops, collaborative UX processes</p>
                 </div>
               </div>
               <div class="tool-item">
                 <img src="src/Photo/Logos/Trello.jpg" alt="Trello" class="tool-icon" width="64" height="64">
                 <div class="tool-info">
-                  <h4>Trello</h4>
-                  <p>Task and project management, workflow structuring, sprint planning, progress tracking, transparent collaboration</p>
+                  <h4 data-i18n="skills.tool.trello.title">Trello</h4>
+                  <p data-i18n="skills.tool.trello.desc">Task and project management, workflow structuring, sprint planning, progress tracking, transparent collaboration</p>
                 </div>
               </div>
               <div class="tool-item">
                 <img src="src/Photo/Logos/Slack.jpg" alt="Slack" class="tool-icon" width="64" height="64">
                 <div class="tool-info">
-                  <h4>Slack</h4>
-                  <p>Team communication, design discussions, feedback coordination, async collaboration, workflow alignment with stakeholders</p>
+                  <h4 data-i18n="skills.tool.slack.title">Slack</h4>
+                  <p data-i18n="skills.tool.slack.desc">Team communication, design discussions, feedback coordination, async collaboration, workflow alignment with stakeholders</p>
                 </div>
               </div>
             </div>
@@ -250,7 +250,7 @@
         <!-- Section 4: AI Tools -->
         <details class="accordion-item" open>
           <summary class="accordion-header">
-            <h2>🤖 AI Tools</h2>
+            <h2 data-i18n="skills.acc.ai.title">🤖 AI Tools</h2>
             <span class="arrow"></span>
           </summary>
           <div class="accordion-body">
@@ -260,186 +260,186 @@
                   <!-- Set 1 -->
                   <a href="https://www.midjourney.com/home" target="_blank" class="ai-icon-wrapper">
                     <img src="src/Photo/Logos/midjourney.jpg" alt="Midjourney" class="ai-icon">
-                    <div class="tooltip">Midjourney</div>
+                    <div class="tooltip" data-i18n="skills.ai.midjourney">Midjourney</div>
                   </a>
                   <a href="https://openai.com/chatgpt/overview/" target="_blank" class="ai-icon-wrapper">
                     <img src="src/Photo/Logos/ChatGPT.jpg" alt="ChatGPT" class="ai-icon">
-                    <div class="tooltip">ChatGPT</div>
+                    <div class="tooltip" data-i18n="skills.ai.chatgpt">ChatGPT</div>
                   </a>
                   <a href="https://claude.ai/login?returnTo=%2F%3F" target="_blank" class="ai-icon-wrapper">
                     <img src="src/Photo/Logos/Claude.jpg" alt="Claude" class="ai-icon">
-                    <div class="tooltip">Claude</div>
+                    <div class="tooltip" data-i18n="skills.ai.claude">Claude</div>
                   </a>
                   <a href="https://www.deepseek.com/en/" target="_blank" class="ai-icon-wrapper">
                     <img src="src/Photo/Logos/DeepSeek.jpg" alt="DeepSeek" class="ai-icon">
-                    <div class="tooltip">DeepSeek</div>
+                    <div class="tooltip" data-i18n="skills.ai.deepseek">DeepSeek</div>
                   </a>
                   <a href="https://gemini.google.com/" target="_blank" class="ai-icon-wrapper">
                     <img src="src/Photo/Logos/Gemini.jpg" alt="Gemini" class="ai-icon">
-                    <div class="tooltip">Gemini</div>
+                    <div class="tooltip" data-i18n="skills.ai.gemini">Gemini</div>
                   </a>
                   <a href="https://leonardo.ai/" target="_blank" class="ai-icon-wrapper">
                     <img src="src/Photo/Logos/Leonardo.jpg" alt="Leonardo" class="ai-icon">
-                    <div class="tooltip">Leonardo</div>
+                    <div class="tooltip" data-i18n="skills.ai.leonardo">Leonardo</div>
                   </a>
                   <a href="https://grok.x.ai/" target="_blank" class="ai-icon-wrapper">
                     <img src="src/Photo/Logos/Grok.jpg" alt="Grok" class="ai-icon">
-                    <div class="tooltip">Grok</div>
+                    <div class="tooltip" data-i18n="skills.ai.grok">Grok</div>
                   </a>
                   <a href="https://www.perplexity.ai/" target="_blank" class="ai-icon-wrapper">
                     <img src="src/Photo/Logos/Perplexity.jpg" alt="Perplexity" class="ai-icon">
-                    <div class="tooltip">Perplexity</div>
+                    <div class="tooltip" data-i18n="skills.ai.perplexity">Perplexity</div>
                   </a>
                   <a href="https://www.trae.ai/" target="_blank" class="ai-icon-wrapper">
                     <img src="src/Photo/Logos/Trae.jpg" alt="Trae" class="ai-icon">
-                    <div class="tooltip">Trae</div>
+                    <div class="tooltip" data-i18n="skills.ai.trae">Trae</div>
                   </a>
                   <a href="https://www.cursor.com/" target="_blank" class="ai-icon-wrapper">
                     <img src="src/Photo/Logos/Cursor.jpg" alt="Cursor" class="ai-icon">
-                    <div class="tooltip">Cursor</div>
+                    <div class="tooltip" data-i18n="skills.ai.cursor">Cursor</div>
                   </a>
 
                   <!-- Set 2 -->
                   <a href="https://www.midjourney.com/home" target="_blank" class="ai-icon-wrapper">
                     <img src="src/Photo/Logos/midjourney.jpg" alt="Midjourney" class="ai-icon">
-                    <div class="tooltip">Midjourney</div>
+                    <div class="tooltip" data-i18n="skills.ai.midjourney">Midjourney</div>
                   </a>
                   <a href="https://openai.com/chatgpt/overview/" target="_blank" class="ai-icon-wrapper">
                     <img src="src/Photo/Logos/ChatGPT.jpg" alt="ChatGPT" class="ai-icon">
-                    <div class="tooltip">ChatGPT</div>
+                    <div class="tooltip" data-i18n="skills.ai.chatgpt">ChatGPT</div>
                   </a>
                   <a href="https://claude.ai/login?returnTo=%2F%3F" target="_blank" class="ai-icon-wrapper">
                     <img src="src/Photo/Logos/Claude.jpg" alt="Claude" class="ai-icon">
-                    <div class="tooltip">Claude</div>
+                    <div class="tooltip" data-i18n="skills.ai.claude">Claude</div>
                   </a>
                   <a href="https://www.deepseek.com/en/" target="_blank" class="ai-icon-wrapper">
                     <img src="src/Photo/Logos/DeepSeek.jpg" alt="DeepSeek" class="ai-icon">
-                    <div class="tooltip">DeepSeek</div>
+                    <div class="tooltip" data-i18n="skills.ai.deepseek">DeepSeek</div>
                   </a>
                   <a href="https://gemini.google.com/" target="_blank" class="ai-icon-wrapper">
                     <img src="src/Photo/Logos/Gemini.jpg" alt="Gemini" class="ai-icon">
-                    <div class="tooltip">Gemini</div>
+                    <div class="tooltip" data-i18n="skills.ai.gemini">Gemini</div>
                   </a>
                   <a href="https://leonardo.ai/" target="_blank" class="ai-icon-wrapper">
                     <img src="src/Photo/Logos/Leonardo.jpg" alt="Leonardo" class="ai-icon">
-                    <div class="tooltip">Leonardo</div>
+                    <div class="tooltip" data-i18n="skills.ai.leonardo">Leonardo</div>
                   </a>
                   <a href="https://grok.x.ai/" target="_blank" class="ai-icon-wrapper">
                     <img src="src/Photo/Logos/Grok.jpg" alt="Grok" class="ai-icon">
-                    <div class="tooltip">Grok</div>
+                    <div class="tooltip" data-i18n="skills.ai.grok">Grok</div>
                   </a>
                   <a href="https://www.perplexity.ai/" target="_blank" class="ai-icon-wrapper">
                     <img src="src/Photo/Logos/Perplexity.jpg" alt="Perplexity" class="ai-icon">
-                    <div class="tooltip">Perplexity</div>
+                    <div class="tooltip" data-i18n="skills.ai.perplexity">Perplexity</div>
                   </a>
                   <a href="https://www.trae.ai/" target="_blank" class="ai-icon-wrapper">
                     <img src="src/Photo/Logos/Trae.jpg" alt="Trae" class="ai-icon">
-                    <div class="tooltip">Trae</div>
+                    <div class="tooltip" data-i18n="skills.ai.trae">Trae</div>
                   </a>
                   <a href="https://www.cursor.com/" target="_blank" class="ai-icon-wrapper">
                     <img src="src/Photo/Logos/Cursor.jpg" alt="Cursor" class="ai-icon">
-                    <div class="tooltip">Cursor</div>
+                    <div class="tooltip" data-i18n="skills.ai.cursor">Cursor</div>
                   </a>
 
                   <!-- Set 3 -->
                   <a href="https://www.midjourney.com/home" target="_blank" class="ai-icon-wrapper">
                     <img src="src/Photo/Logos/midjourney.jpg" alt="Midjourney" class="ai-icon">
-                    <div class="tooltip">Midjourney</div>
+                    <div class="tooltip" data-i18n="skills.ai.midjourney">Midjourney</div>
                   </a>
                   <a href="https://openai.com/chatgpt/overview/" target="_blank" class="ai-icon-wrapper">
                     <img src="src/Photo/Logos/ChatGPT.jpg" alt="ChatGPT" class="ai-icon">
-                    <div class="tooltip">ChatGPT</div>
+                    <div class="tooltip" data-i18n="skills.ai.chatgpt">ChatGPT</div>
                   </a>
                   <a href="https://claude.ai/login?returnTo=%2F%3F" target="_blank" class="ai-icon-wrapper">
                     <img src="src/Photo/Logos/Claude.jpg" alt="Claude" class="ai-icon">
-                    <div class="tooltip">Claude</div>
+                    <div class="tooltip" data-i18n="skills.ai.claude">Claude</div>
                   </a>
                   <a href="https://www.deepseek.com/en/" target="_blank" class="ai-icon-wrapper">
                     <img src="src/Photo/Logos/DeepSeek.jpg" alt="DeepSeek" class="ai-icon">
-                    <div class="tooltip">DeepSeek</div>
+                    <div class="tooltip" data-i18n="skills.ai.deepseek">DeepSeek</div>
                   </a>
                   <a href="https://gemini.google.com/" target="_blank" class="ai-icon-wrapper">
                     <img src="src/Photo/Logos/Gemini.jpg" alt="Gemini" class="ai-icon">
-                    <div class="tooltip">Gemini</div>
+                    <div class="tooltip" data-i18n="skills.ai.gemini">Gemini</div>
                   </a>
                   <a href="https://leonardo.ai/" target="_blank" class="ai-icon-wrapper">
                     <img src="src/Photo/Logos/Leonardo.jpg" alt="Leonardo" class="ai-icon">
-                    <div class="tooltip">Leonardo</div>
+                    <div class="tooltip" data-i18n="skills.ai.leonardo">Leonardo</div>
                   </a>
                   <a href="https://grok.x.ai/" target="_blank" class="ai-icon-wrapper">
                     <img src="src/Photo/Logos/Grok.jpg" alt="Grok" class="ai-icon">
-                    <div class="tooltip">Grok</div>
+                    <div class="tooltip" data-i18n="skills.ai.grok">Grok</div>
                   </a>
                   <a href="https://www.perplexity.ai/" target="_blank" class="ai-icon-wrapper">
                     <img src="src/Photo/Logos/Perplexity.jpg" alt="Perplexity" class="ai-icon">
-                    <div class="tooltip">Perplexity</div>
+                    <div class="tooltip" data-i18n="skills.ai.perplexity">Perplexity</div>
                   </a>
                   <a href="https://www.trae.ai/" target="_blank" class="ai-icon-wrapper">
                     <img src="src/Photo/Logos/Trae.jpg" alt="Trae" class="ai-icon">
-                    <div class="tooltip">Trae</div>
+                    <div class="tooltip" data-i18n="skills.ai.trae">Trae</div>
                   </a>
                   <a href="https://www.cursor.com/" target="_blank" class="ai-icon-wrapper">
                     <img src="src/Photo/Logos/Cursor.jpg" alt="Cursor" class="ai-icon">
-                    <div class="tooltip">Cursor</div>
+                    <div class="tooltip" data-i18n="skills.ai.cursor">Cursor</div>
                   </a>
 
                   <!-- Set 4 -->
                   <a href="https://www.midjourney.com/home" target="_blank" class="ai-icon-wrapper">
                     <img src="src/Photo/Logos/midjourney.jpg" alt="Midjourney" class="ai-icon">
-                    <div class="tooltip">Midjourney</div>
+                    <div class="tooltip" data-i18n="skills.ai.midjourney">Midjourney</div>
                   </a>
                   <a href="https://openai.com/chatgpt/overview/" target="_blank" class="ai-icon-wrapper">
                     <img src="src/Photo/Logos/ChatGPT.jpg" alt="ChatGPT" class="ai-icon">
-                    <div class="tooltip">ChatGPT</div>
+                    <div class="tooltip" data-i18n="skills.ai.chatgpt">ChatGPT</div>
                   </a>
                   <a href="https://claude.ai/login?returnTo=%2F%3F" target="_blank" class="ai-icon-wrapper">
                     <img src="src/Photo/Logos/Claude.jpg" alt="Claude" class="ai-icon">
-                    <div class="tooltip">Claude</div>
+                    <div class="tooltip" data-i18n="skills.ai.claude">Claude</div>
                   </a>
                   <a href="https://www.deepseek.com/en/" target="_blank" class="ai-icon-wrapper">
                     <img src="src/Photo/Logos/DeepSeek.jpg" alt="DeepSeek" class="ai-icon">
-                    <div class="tooltip">DeepSeek</div>
+                    <div class="tooltip" data-i18n="skills.ai.deepseek">DeepSeek</div>
                   </a>
                   <a href="https://gemini.google.com/" target="_blank" class="ai-icon-wrapper">
                     <img src="src/Photo/Logos/Gemini.jpg" alt="Gemini" class="ai-icon">
-                    <div class="tooltip">Gemini</div>
+                    <div class="tooltip" data-i18n="skills.ai.gemini">Gemini</div>
                   </a>
                   <a href="https://leonardo.ai/" target="_blank" class="ai-icon-wrapper">
                     <img src="src/Photo/Logos/Leonardo.jpg" alt="Leonardo" class="ai-icon">
-                    <div class="tooltip">Leonardo</div>
+                    <div class="tooltip" data-i18n="skills.ai.leonardo">Leonardo</div>
                   </a>
                   <a href="https://grok.x.ai/" target="_blank" class="ai-icon-wrapper">
                     <img src="src/Photo/Logos/Grok.jpg" alt="Grok" class="ai-icon">
-                    <div class="tooltip">Grok</div>
+                    <div class="tooltip" data-i18n="skills.ai.grok">Grok</div>
                   </a>
                   <a href="https://www.perplexity.ai/" target="_blank" class="ai-icon-wrapper">
                     <img src="src/Photo/Logos/Perplexity.jpg" alt="Perplexity" class="ai-icon">
-                    <div class="tooltip">Perplexity</div>
+                    <div class="tooltip" data-i18n="skills.ai.perplexity">Perplexity</div>
                   </a>
                   <a href="https://www.trae.ai/" target="_blank" class="ai-icon-wrapper">
                     <img src="src/Photo/Logos/Trae.jpg" alt="Trae" class="ai-icon">
-                    <div class="tooltip">Trae</div>
+                    <div class="tooltip" data-i18n="skills.ai.trae">Trae</div>
                   </a>
                   <a href="https://www.cursor.com/" target="_blank" class="ai-icon-wrapper">
                     <img src="src/Photo/Logos/Cursor.jpg" alt="Cursor" class="ai-icon">
-                    <div class="tooltip">Cursor</div>
+                    <div class="tooltip" data-i18n="skills.ai.cursor">Cursor</div>
                   </a>
                 </div>
               </div>
               <div class="ai-description">
                 <ul>
-                  <li>I use AI tools as a support layer in my design workflow — to enhance research, ideation, and interface exploration, not to replace design thinking.</li>
-                  <li>AI helps me quickly generate and compare interface concepts, explore visual directions, and create early variations of UI elements. I use it to test layouts, component ideas, and stylistic approaches at the concept stage, while all final UX decisions, structure, and visual refinement are carefully designed and validated by me.</li>
-                  <li><strong>In my work, AI is used to:</strong></li>
+                  <li data-i18n="skills.ai.desc.1">I use AI tools as a support layer in my design workflow — to enhance research, ideation, and interface exploration, not to replace design thinking.</li>
+                  <li data-i18n="skills.ai.desc.2">AI helps me quickly generate and compare interface concepts, explore visual directions, and create early variations of UI elements. I use it to test layouts, component ideas, and stylistic approaches at the concept stage, while all final UX decisions, structure, and visual refinement are carefully designed and validated by me.</li>
+                  <li><strong data-i18n="skills.ai.desc.list.title">In my work, AI is used to:</strong></li>
                   <ul>
-                    <li>Speed up research synthesis and insight clustering</li>
-                    <li>Generate and compare interface concepts</li>
-                    <li>Explore visual styles and layout directions</li>
-                    <li>Create early variations of UI elements and components</li>
-                    <li>Support UX writing and microcopy drafts</li>
-                    <li>Improve efficiency without compromising quality</li>
+                    <li data-i18n="skills.ai.desc.list.1">Speed up research synthesis and insight clustering</li>
+                    <li data-i18n="skills.ai.desc.list.2">Generate and compare interface concepts</li>
+                    <li data-i18n="skills.ai.desc.list.3">Explore visual styles and layout directions</li>
+                    <li data-i18n="skills.ai.desc.list.4">Create early variations of UI elements and components</li>
+                    <li data-i18n="skills.ai.desc.list.5">Support UX writing and microcopy drafts</li>
+                    <li data-i18n="skills.ai.desc.list.6">Improve efficiency without compromising quality</li>
                   </ul>
-                  <li>AI allows me to focus more on strategy, logic, and user experience — where real design value is created.</li>
+                  <li data-i18n="skills.ai.desc.3">AI allows me to focus more on strategy, logic, and user experience — where real design value is created.</li>
                 </ul>
               </div>
             </div>
@@ -454,7 +454,7 @@
         <!-- Section 1: Hard Skills -->
         <details class="accordion-item" open>
           <summary class="accordion-header">
-            <h2>💪 Hard Skills</h2>
+            <h2 data-i18n="skills.acc.hard.title">💪 Hard Skills</h2>
             <span class="arrow"></span>
           </summary>
           <div class="accordion-body">
@@ -462,74 +462,74 @@
               <div class="tool-item">
                 <div class="tool-icon-placeholder">⚡</div>
                 <div class="tool-info">
-                  <h4>Vibe Coding & AI-accelerated prototyping</h4>
-                  <p>I describe the desired feeling and logic of an interface in natural language → rapidly generate clickable prototypes and iteratively refine them until the “vibe” is perfect. This approach lets me validate concepts in hours or days instead of weeks, keeping the focus on user experience rather than manual busywork.</p>
-                  <p class="skill-quote">“Vibe coding is when you say: ‘I want it warm, confident, and instant’ — and a few iterations later it’s already clickable.”</p>
+                  <h4 data-i18n="skills.hard.vibe.title">Vibe Coding & AI-accelerated prototyping</h4>
+                  <p data-i18n="skills.hard.vibe.desc">I describe the desired feeling and logic of an interface in natural language → rapidly generate clickable prototypes and iteratively refine them until the “vibe” is perfect. This approach lets me validate concepts in hours or days instead of weeks, keeping the focus on user experience rather than manual busywork.</p>
+                  <p class="skill-quote" data-i18n="skills.hard.vibe.quote">“Vibe coding is when you say: ‘I want it warm, confident, and instant’ — and a few iterations later it’s already clickable.”</p>
                 </div>
               </div>
               <div class="tool-item">
                 <div class="tool-icon-placeholder">🧩</div>
                 <div class="tool-info">
-                  <h4>Design Systems & Component-driven design</h4>
-                  <p>I build and evolve production-ready design systems: tokens, variables, complex components with states, modes, and built-in accessibility. These systems scale across multiple products / brands, drastically reduce design-dev handoff issues, and speed up both design and development cycles.</p>
-                  <p class="skill-quote">“A great design system is one where components practically tell you how to use them correctly.”</p>
+                  <h4 data-i18n="skills.hard.systems.title">Design Systems & Component-driven design</h4>
+                  <p data-i18n="skills.hard.systems.desc">I build and evolve production-ready design systems: tokens, variables, complex components with states, modes, and built-in accessibility. These systems scale across multiple products / brands, drastically reduce design-dev handoff issues, and speed up both design and development cycles.</p>
+                  <p class="skill-quote" data-i18n="skills.hard.systems.quote">“A great design system is one where components practically tell you how to use them correctly.”</p>
                 </div>
               </div>
               <div class="tool-item">
                 <div class="tool-icon-placeholder">🔍</div>
                 <div class="tool-info">
-                  <h4>User Research & Deep user understanding</h4>
-                  <p>I conduct interviews, map user flows, create journey maps and information architecture. I turn qualitative insights and behavioral data into clear, actionable product decisions.</p>
+                  <h4 data-i18n="skills.hard.research.title">User Research & Deep user understanding</h4>
+                  <p data-i18n="skills.hard.research.desc">I conduct interviews, map user flows, create journey maps and information architecture. I turn qualitative insights and behavioral data into clear, actionable product decisions.</p>
                 </div>
               </div>
               <div class="tool-item">
                 <div class="tool-icon-placeholder">📐</div>
                 <div class="tool-info">
-                  <h4>Wireframing, Prototyping & Interaction Design</h4>
-                  <p>From low-fidelity sketches and user flows to high-fidelity interactive prototypes with logic, micro-interactions, and motion that clearly communicate behavior.</p>
+                  <h4 data-i18n="skills.hard.wireframe.title">Wireframing, Prototyping & Interaction Design</h4>
+                  <p data-i18n="skills.hard.wireframe.desc">From low-fidelity sketches and user flows to high-fidelity interactive prototypes with logic, micro-interactions, and motion that clearly communicate behavior.</p>
                 </div>
               </div>
               <div class="tool-item">
                 <div class="tool-icon-placeholder">🧪</div>
                 <div class="tool-info">
-                  <h4>Usability Testing & Validation</h4>
-                  <p>I run moderated and unmoderated tests, analyze user behavior, and iteratively improve solutions based on real feedback.</p>
-                  <p class="skill-quote">“An interface shouldn’t just work — it should feel right from the very first touch.”</p>
+                  <h4 data-i18n="skills.hard.testing.title">Usability Testing & Validation</h4>
+                  <p data-i18n="skills.hard.testing.desc">I run moderated and unmoderated tests, analyze user behavior, and iteratively improve solutions based on real feedback.</p>
+                  <p class="skill-quote" data-i18n="skills.hard.testing.quote">“An interface shouldn’t just work — it should feel right from the very first touch.”</p>
                 </div>
               </div>
               <div class="tool-item">
                 <div class="tool-icon-placeholder">🎨</div>
                 <div class="tool-info">
-                  <h4>Visual & UI Design</h4>
-                  <p>Clean typography, emotionally resonant color systems, custom iconography & illustration, layouts that perform beautifully on any screen.</p>
+                  <h4 data-i18n="skills.hard.visual.title">Visual & UI Design</h4>
+                  <p data-i18n="skills.hard.visual.desc">Clean typography, emotionally resonant color systems, custom iconography & illustration, layouts that perform beautifully on any screen.</p>
                 </div>
               </div>
               <div class="tool-item">
                 <div class="tool-icon-placeholder">📱</div>
                 <div class="tool-info">
-                  <h4>Responsive & Adaptive Design</h4>
-                  <p>Mobile-first approach + full adaptation for tablets, desktops, different pixel densities, and modes (light / dark / high-contrast).</p>
+                  <h4 data-i18n="skills.hard.responsive.title">Responsive & Adaptive Design</h4>
+                  <p data-i18n="skills.hard.responsive.desc">Mobile-first approach + full adaptation for tablets, desktops, different pixel densities, and modes (light / dark / high-contrast).</p>
                 </div>
               </div>
               <div class="tool-item">
                 <div class="tool-icon-placeholder">♿</div>
                 <div class="tool-info">
-                  <h4>Accessibility & Inclusive Design</h4>
-                  <p>WCAG 2.2 / 2.3 AA+ compliance built in from the first layout: contrast, semantics, keyboard navigation, screen-reader support — tested at every stage.</p>
+                  <h4 data-i18n="skills.hard.a11y.title">Accessibility & Inclusive Design</h4>
+                  <p data-i18n="skills.hard.a11y.desc">WCAG 2.2 / 2.3 AA+ compliance built in from the first layout: contrast, semantics, keyboard navigation, screen-reader support — tested at every stage.</p>
                 </div>
               </div>
               <div class="tool-item">
                 <div class="tool-icon-placeholder">✨</div>
                 <div class="tool-info">
-                  <h4>Microinteractions & Motion Design</h4>
-                  <p>Animations and transitions that guide attention, explain logic, and strengthen emotional connection — never just decoration.</p>
+                  <h4 data-i18n="skills.hard.motion.title">Microinteractions & Motion Design</h4>
+                  <p data-i18n="skills.hard.motion.desc">Animations and transitions that guide attention, explain logic, and strengthen emotional connection — never just decoration.</p>
                 </div>
               </div>
               <div class="tool-item">
                 <div class="tool-icon-placeholder">🖼️</div>
                 <div class="tool-info">
-                  <h4>High-fidelity Mockups</h4>
-                  <p>Detailed, pixel-perfect mockups ready for development handoff, user testing, or stakeholder presentations.</p>
+                  <h4 data-i18n="skills.hard.mockups.title">High-fidelity Mockups</h4>
+                  <p data-i18n="skills.hard.mockups.desc">Detailed, pixel-perfect mockups ready for development handoff, user testing, or stakeholder presentations.</p>
                 </div>
               </div>
             </div>
@@ -539,7 +539,7 @@
         <!-- Section 2: Soft Skills -->
         <details class="accordion-item" open>
           <summary class="accordion-header">
-            <h2>🤝 Soft Skills</h2>
+            <h2 data-i18n="skills.acc.soft.title">🤝 Soft Skills</h2>
             <span class="arrow"></span>
           </summary>
           <div class="accordion-body">
@@ -547,37 +547,37 @@
               <div class="tool-item">
                 <div class="tool-icon-placeholder">🎓</div>
                 <div class="tool-info">
-                  <h4>Mentoring & Teaching on courses</h4>
-                  <p>I mentor and teach on online UX/UI and product design courses (groups + 1:1). I work with students from beginner to junior+ level — helping them build strong case studies, portfolios, design systems, master vibe coding and systemic thinking. I run group sessions, individual reviews, project feedback — and regularly see students move on to land their first freelance clients or full-time product roles.</p>
-                  <p class="skill-quote">“The best part of mentoring is watching a student who was afraid of high-fidelity six months ago now confidently deliver their first commercial project.”</p>
+                  <h4 data-i18n="skills.soft.mentor.title">Mentoring & Teaching on courses</h4>
+                  <p data-i18n="skills.soft.mentor.desc">I mentor and teach on online UX/UI and product design courses (groups + 1:1). I work with students from beginner to junior+ level — helping them build strong case studies, portfolios, design systems, master vibe coding and systemic thinking. I run group sessions, individual reviews, project feedback — and regularly see students move on to land their first freelance clients or full-time product roles.</p>
+                  <p class="skill-quote" data-i18n="skills.soft.mentor.quote">“The best part of mentoring is watching a student who was afraid of high-fidelity six months ago now confidently deliver their first commercial project.”</p>
                 </div>
               </div>
               <div class="tool-item">
                 <div class="tool-icon-placeholder">🌐</div>
                 <div class="tool-info">
-                  <h4>Systems Thinking</h4>
-                  <p>I see products as ecosystems, not collections of screens. I help (and teach others to) correctly frame problems, set priorities, and design solutions that scale.</p>
+                  <h4 data-i18n="skills.soft.systems.title">Systems Thinking</h4>
+                  <p data-i18n="skills.soft.systems.desc">I see products as ecosystems, not collections of screens. I help (and teach others to) correctly frame problems, set priorities, and design solutions that scale.</p>
                 </div>
               </div>
               <div class="tool-item">
                 <div class="tool-icon-placeholder">🎯</div>
                 <div class="tool-info">
-                  <h4>Strategic Problem Framing</h4>
-                  <p>I start with “what vibe should this product have and why does it matter to users and business?” — not with “how do I draw this screen?”</p>
+                  <h4 data-i18n="skills.soft.strategy.title">Strategic Problem Framing</h4>
+                  <p data-i18n="skills.soft.strategy.desc">I start with “what vibe should this product have and why does it matter to users and business?” — not with “how do I draw this screen?”</p>
                 </div>
               </div>
               <div class="tool-item">
                 <div class="tool-icon-placeholder">❤️</div>
                 <div class="tool-info">
-                  <h4>Empathy + Business Orientation</h4>
-                  <p>I deeply understand users while keeping business metrics in focus (conversion, retention, satisfaction). I can explain this connection clearly — both to students on courses and to cross-functional teams.</p>
+                  <h4 data-i18n="skills.soft.empathy.title">Empathy + Business Orientation</h4>
+                  <p data-i18n="skills.soft.empathy.desc">I deeply understand users while keeping business metrics in focus (conversion, retention, satisfaction). I can explain this connection clearly — both to students on courses and to cross-functional teams.</p>
                 </div>
               </div>
               <div class="tool-item">
                 <div class="tool-icon-placeholder">🚀</div>
                 <div class="tool-info">
-                  <h4>Fast iteration & Experimental mindset</h4>
-                  <p>I prefer to test ideas on live prototypes as early as possible — vibe coding is my primary accelerator. I pass this mindset to students so they avoid getting stuck in perfectionism.</p>
+                  <h4 data-i18n="skills.soft.iteration.title">Fast iteration & Experimental mindset</h4>
+                  <p data-i18n="skills.soft.iteration.desc">I prefer to test ideas on live prototypes as early as possible — vibe coding is my primary accelerator. I pass this mindset to students so they avoid getting stuck in perfectionism.</p>
                 </div>
               </div>
             </div>
@@ -587,6 +587,7 @@
     </div>
   </main>
   </div>
+  <script src="translations.js"></script>
   <script src="script.js" defer></script>
 </body>
 </html>
