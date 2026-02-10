@@ -536,6 +536,10 @@
 
 /* Responsive */
 @media (max-width: 768px) {
+  .case-layout {
+    gap: 16px;
+  }
+
   .laptop-frame {
     margin: 20px;
   }
