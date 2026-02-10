@@ -1,5 +1,11 @@
 /* Cases Page Modern Gallery Style */
 
+/* Shared Main Content Constraint to match individual case layout */
+.main-content {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
 .cases-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
@@ -211,7 +217,7 @@
   gap: 40px;
   padding-bottom: 80px;
   width: 100%;
-  max-width: 1000px;
+  max-width: 1400px;
   margin: 0 auto;
   align-items: stretch; /* Ensure children stretch to full width */
   box-sizing: border-box;
