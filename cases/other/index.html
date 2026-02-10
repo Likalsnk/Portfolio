@@ -10,177 +10,6 @@
   <link rel="stylesheet" href="../../style.css">
   <link rel="stylesheet" href="../../about.css">
   <link rel="stylesheet" href="../../cases.css">
-  <style>
-    /* Project-specific styles for RefillArena */
-    .case-layout {
-      gap: 24px;
-    }
-
-    .case-hero {
-      background: transparent;
-      box-shadow: none;
-      padding: 0;
-      margin-bottom: 0;
-    }
-
-
-
-    /* RefillArena Gaming Styles */
-    .ra-container {
-      background: #0B0E14;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      font-family: 'Inter', sans-serif;
-      color: #fff;
-    }
-    
-    .ra-header {
-      padding: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #1F2937;
-    }
-    
-    .ra-logo {
-      font-weight: 800;
-      font-size: 20px;
-      letter-spacing: -1px;
-      background: linear-gradient(90deg, #F59E0B, #EF4444);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    
-    .ra-cart {
-      position: relative;
-      cursor: pointer;
-    }
-    
-    .ra-cart-badge {
-      position: absolute;
-      top: -5px;
-      right: -5px;
-      background: #EF4444;
-      color: white;
-      font-size: 10px;
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      transform: scale(0);
-      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-    
-    .ra-cart-badge.show {
-      transform: scale(1);
-    }
-    
-    .ra-hero-banner {
-      height: 120px;
-      background: linear-gradient(45deg, #111827, #1F2937);
-      display: flex;
-      align-items: center;
-      padding: 0 24px;
-      margin: 20px;
-      border-radius: 16px;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .ra-hero-banner::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at 70% 50%, rgba(245, 158, 11, 0.15), transparent 50%);
-    }
-    
-    .ra-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-      gap: 16px;
-      padding: 0 20px 20px 20px;
-      overflow-y: auto;
-    }
-    
-    .ra-card {
-      background: #1F2937;
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid #374151;
-      transition: all 0.3s;
-      position: relative;
-      cursor: pointer;
-    }
-    
-    .ra-card:hover {
-      transform: translateY(-4px);
-      border-color: #F59E0B;
-      box-shadow: 0 0 20px rgba(245, 158, 11, 0.2);
-    }
-    
-    .ra-card-img {
-      height: 100px;
-      background: #111827;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 40px;
-      position: relative;
-    }
-    
-    .ra-card-content {
-      padding: 12px;
-    }
-    
-    .ra-title { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
-    .ra-price { color: #F59E0B; font-weight: 600; font-size: 14px; }
-    
-    .ra-btn {
-      margin-top: 8px;
-      width: 100%;
-      padding: 6px;
-      background: #374151;
-      border: none;
-      border-radius: 6px;
-      color: #fff;
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    
-    .ra-card:hover .ra-btn {
-      background: #F59E0B;
-      color: #000;
-    }
-    
-    .ra-btn:active {
-      transform: scale(0.95);
-    }
-    
-    /* Glitch Effect on Hover */
-    @keyframes glitch {
-      0% { transform: translate(0); }
-      20% { transform: translate(-2px, 2px); }
-      40% { transform: translate(-2px, -2px); }
-      60% { transform: translate(2px, 2px); }
-      80% { transform: translate(2px, -2px); }
-      100% { transform: translate(0); }
-    }
-    
-    .ra-card:hover .ra-card-img {
-      animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
-    }
-    
-  </style>
 </head>
 <body>
   <div class="layout-wrapper">
@@ -257,36 +86,37 @@
 
         <!-- Project Details -->
         <section class="case-content-grid">
-          <div class="content-block">
-            <h3 data-i18n="case.concept.title">Concept</h3>
-            <p data-i18n="case.refillarena.concept.desc">RefillArena aims to bridge the gap between traditional gaming top-ups and modern Web3 assets. The dark UI reduces eye strain for gamers, while the vibrant accent colors highlight call-to-actions.</p>
-          </div>
-          <div class="content-block">
-            <h3 data-i18n="case.refillarena.ux.title">UX Focus</h3>
-            <p data-i18n="case.refillarena.ux.desc">Speed is key. The checkout flow was optimized to require only 3 clicks from browsing to payment completion. Micro-interactions (like the glitch effect) add a layer of immersion.</p>
-          </div>
+            <div class="content-block problem-section">
+                <h3 data-i18n="case.refillarena.problem.title">Problem: Trust in Crypto</h3>
+                <div data-i18n="case.refillarena.problem.desc">
+                    <p>Users are often skeptical of crypto-based marketplaces due to scams and complex UX. The challenge was to build a platform that feels as familiar and safe as a standard e-commerce store while handling blockchain transactions.</p>
+                </div>
+            </div>
+
+            <div class="content-block solution-section">
+                <h3 data-i18n="case.refillarena.solution.title">Solution: E-commerce Familiarity</h3>
+                <div data-i18n="case.refillarena.solution.desc">
+                    <p>We stripped away the "Web3 jargon" and built a clean, grid-based store layout. The checkout process was simplified to 3 steps, mirroring familiar flows like Amazon or Shopify, reducing friction and increasing conversion.</p>
+                </div>
+            </div>
+
+            <div class="content-block benefits-section">
+                <h3 data-i18n="case.refillarena.benefits.title">Key Benefits</h3>
+                <div data-i18n="case.refillarena.benefits.desc">
+                    <ul>
+                        <li><b>Instant Delivery</b> — automated system delivers gift cards immediately after blockchain confirmation.</li>
+                        <li><b>No Registration</b> — guest checkout option lowers the barrier to entry for casual users.</li>
+                        <li><b>Visual Clarity</b> — dark mode with neon accents appeals to gamers without sacrificing readability.</li>
+                    </ul>
+                </div>
+            </div>
         </section>
 
       </div>
     </main>
   </div>
   
-  <script src="../../translations.js"></script>
+  <script src="../../translations.js?v=4"></script>
   <script src="../../script.js" defer></script>
-  <script>
-    let cartCount = 0;
-    function addToCart() {
-      cartCount++;
-      const badge = document.getElementById('cartBadge');
-      badge.textContent = cartCount;
-      badge.classList.add('show');
-      
-      // Reset animation
-      badge.style.transform = 'scale(1.2)';
-      setTimeout(() => {
-        badge.style.transform = 'scale(1)';
-      }, 150);
-    }
-  </script>
 </body>
 </html>

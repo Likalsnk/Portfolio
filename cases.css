@@ -418,10 +418,23 @@
   color: var(--text);
 }
 
-.content-block p {
+.content-block p,
+.content-block > div {
   color: var(--text-secondary);
   line-height: 1.6;
   margin-bottom: 24px;
+}
+
+.content-block ul {
+  margin: 0 0 24px;
+  padding-left: 0;
+  list-style-position: inside;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.content-block li + li {
+  margin-top: 8px;
 }
 
 /* Gallery */
@@ -1529,3 +1542,149 @@
   border: 1px solid var(--border-light) !important;
   color: var(--text);
 }
+
+/* Standardized Case Study Content Grid */
+.case-content-grid {
+  display: flex !important;
+  flex-direction: column;
+  gap: 40px;
+  max-width: 900px;
+  margin: 60px auto 0;
+}
+
+.content-block h3 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: -0.02em;
+  margin-top: 0;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.5rem;
+  color: var(--text);
+}
+
+/* Reset last child margin to ensure even padding */
+.content-block > div > :last-child {
+  margin-bottom: 0 !important;
+}
+
+/* 1. Problem Section */
+.problem-section {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  padding: 24px;
+  border-radius: 24px;
+  position: relative;
+}
+
+.problem-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0;
+}
+
+.problem-section li {
+  position: relative;
+  padding-left: 28px;
+  margin-bottom: 16px;
+  color: var(--text-secondary);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.problem-section li::before {
+  content: '×';
+  position: absolute;
+  left: 0;
+  color: #EF4444;
+  font-weight: bold;
+  font-size: 1.2em;
+  line-height: 1;
+}
+
+/* 2. Solution Section */
+.solution-section {
+  background: var(--card-bg);
+  border: 1px solid var(--border-light);
+  border-left: 4px solid #8B5CF6; /* Brand Purple for Tech Solution */
+  padding: 24px;
+  border-radius: 24px;
+  box-shadow: 0 10px 30px -5px var(--shadow);
+}
+
+.solution-section ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 24px;
+}
+
+.solution-section li {
+  position: relative;
+  padding-left: 28px;
+  margin-bottom: 16px;
+  color: var(--text-secondary);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.solution-section li::before {
+  content: '⚡';
+  position: absolute;
+  left: 0;
+  font-size: 1em;
+  color: #8B5CF6;
+}
+
+.solution-section b {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* Result highlight (Last paragraph/bold text) */
+.solution-section div > p:last-child,
+.solution-section b:last-of-type { 
+  color: var(--text);
+  display: block;
+  margin-top: 24px;
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+/* 3. Benefits Section - Grid */
+.benefits-section ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  padding: 0;
+  list-style: none;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.benefits-section li {
+  background: var(--card-bg);
+  padding: 16px;
+  border-radius: 20px;
+  border: 1px solid var(--border-light);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 6px -1px var(--shadow);
+  height: 100%; /* Ensure full height in grid */
+  box-sizing: border-box; /* Include padding/border in height */
+  margin-top: 0 !important; /* Reset margin from .content-block li + li */
+}
+
+.benefits-section li b {
+  color: var(--text);
+  /* display: block; Removed to keep inline */
+  /* margin-bottom: 8px; Removed */
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+}
+

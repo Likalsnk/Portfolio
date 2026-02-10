@@ -12,16 +12,6 @@
   <link rel="stylesheet" href="../../cases.css">
   <style>
     /* Project-specific styles for Learning Hub */
-    .case-layout {
-      gap: 24px;
-    }
-
-    .case-hero {
-      background: transparent;
-      box-shadow: none;
-      padding: 0;
-      margin-bottom: 0;
-    }
 
 
 
@@ -922,13 +912,29 @@
 
         <!-- Project Details -->
         <section class="case-content-grid">
-          <div class="content-block">
-            <h3 data-i18n="case.learninghub.overview.title">Overview</h3>
-            <p data-i18n="case.learninghub.overview.desc">Learning Hub is an all-in-one platform for educational institutions. The main challenge was to design an interface that handles complex data (thousands of students and courses) without overwhelming the administrator.</p>
+          <div class="content-block problem-section">
+            <h3 data-i18n="case.learninghub.problem.title">Problem: Data Overload</h3>
+            <div data-i18n="case.learninghub.problem.desc">
+              <p>Educational platforms often suffer from "data overload," making it difficult for teachers to track student progress efficiently. The challenge was to design a dashboard that handles complex datasets (grades, attendance, assignments) while remaining clean and actionable.</p>
+            </div>
           </div>
-          <div class="content-block">
-            <h3 data-i18n="case.learninghub.design.title">Design System</h3>
-            <p data-i18n="case.learninghub.design.desc">We used a clean, card-based layout with a purple accent color (#7C3AED) to evoke creativity and wisdom. The typography is set in Inter for maximum readability on data-heavy screens.</p>
+
+          <div class="content-block solution-section">
+            <h3 data-i18n="case.learninghub.solution.title">Solution: Modular Dashboard</h3>
+            <div data-i18n="case.learninghub.solution.desc">
+              <p>We created a modular, card-based dashboard that prioritizes critical information. By using a sidebar for navigation and clear visual hierarchy for stats, teachers can get a snapshot of their class performance in seconds.</p>
+            </div>
+          </div>
+
+          <div class="content-block benefits-section">
+            <h3 data-i18n="case.learninghub.benefits.title">Key Benefits</h3>
+            <div data-i18n="case.learninghub.benefits.desc">
+              <ul>
+                <li><b>Efficient Tracking</b> — color-coded alerts highlight "at-risk" students immediately.</li>
+                <li><b>Unified View</b> — all courses and relevant metrics are visible on a single screen.</li>
+                <li><b>Scalable Design</b> — the card system adapts to different screen sizes and data densities.</li>
+              </ul>
+            </div>
           </div>
         </section>
 
@@ -936,7 +942,7 @@
     </main>
   </div>
   
-  <script src="../../translations.js"></script>
+  <script src="../../translations.js?v=7"></script>
   <script src="../../script.js" defer></script>
   <script>
     // View Switching Logic

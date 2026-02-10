@@ -476,9 +476,11 @@ body {
   .nav-buttons {
     /* display: none; Removed to allow display on homepage */
     gap: 12px; /* Tighter gap for mobile */
-    width: 400px;
+    width: 100%; /* Changed from fixed 400px */
+    max-width: 400px;
     margin-left: auto;
     margin-right: auto;
+    flex-direction: column; /* Stack buttons vertically */
   }
 
   /* Hide Mobile Header specifically on Home Page */
@@ -888,9 +890,7 @@ body.exiting .footer-text {
 }
 
 @media (max-width: 480px) {
-  .nav-buttons {
-    width: 300px;
-  }
+  /* Removed fixed width for nav-buttons to allow fluid sizing */
 }
 
 @media (min-width: 1600px) {

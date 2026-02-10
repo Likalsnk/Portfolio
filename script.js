@@ -2,9 +2,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- 0. Env Loader ---
   const loadEnv = async () => {
     try {
+      // Check if we are on file protocol
+      if (window.location.protocol === 'file:') {
+        console.error('Cannot load .env file via file:// protocol. Please run on a local server (e.g. python3 -m http.server).');
+        return;
+      }
+
       const response = await fetch('.env');
       if (!response.ok) {
-        throw new Error('Failed to load .env file');
+        throw new Error(`Failed to load .env file: ${response.status} ${response.statusText}`);
       }
       const text = await response.text();
       const config = {};
@@ -12,18 +18,28 @@ document.addEventListener('DOMContentLoaded', () => {
       text.split('\n').forEach(line => {
         line = line.trim();
         if (line && !line.startsWith('#')) {
-          const [key, value] = line.split('=');
-          if (key && value) {
-            config[key.trim()] = value.trim();
+          // Robust splitting: handle values containing '='
+          const parts = line.split('=');
+          if (parts.length >= 2) {
+             const key = parts[0].trim();
+             // Join the rest back in case the value has '='
+             let value = parts.slice(1).join('=').trim();
+             
+             // Remove surrounding quotes if present
+             if ((value.startsWith('"') && value.endsWith('"')) || 
+                 (value.startsWith("'") && value.endsWith("'"))) {
+                 value = value.slice(1, -1);
+             }
+             
+             config[key] = value;
           }
         }
       });
       
       window.CONFIG = config;
-      console.log('Environment variables loaded successfully');
+      console.log('Environment variables loaded successfully', Object.keys(config));
     } catch (error) {
-      console.warn('Could not load .env file:', error);
-      // Fallback to existing window.CONFIG if available (from config.js)
+      console.error('Could not load .env file:', error);
     }
   };
 
@@ -622,10 +638,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const botToken = config.TELEGRAM_BOT_TOKEN || ''; 
     const chatId = config.TELEGRAM_CHAT_ID || '';
     
-    if (!botToken || !chatId) {
-        console.error('Telegram Bot configuration missing! Check .env file');
-        console.log('botToken:', botToken, 'chatId:', chatId);
-        return;
+    // Check if we have direct access (Local Dev)
+    const useDirectApi = botToken && chatId;
+    
+    if (!useDirectApi) {
+        console.log('Telegram tokens not found. Switching to Serverless API mode (Send Only).');
     }
     // ---------------------
 
@@ -836,7 +853,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Polling Logic ---
     let lastUpdateId = 0;
     const pollUpdates = async () => {
-        if (!botToken || botToken === 'YOUR_BOT_TOKEN') return;
+        // Polling only works in Direct Mode (Local Dev)
+        if (!useDirectApi) return;
 
         try {
           // Use offset to ignore already processed messages
@@ -879,28 +897,38 @@ document.addEventListener('DOMContentLoaded', () => {
       addMessage(text, 'user');
       input.value = '';
 
-      if (botToken === 'YOUR_BOT_TOKEN' || chatId === 'YOUR_CHAT_ID') {
-         setTimeout(() => {
-           addMessage('⚠️ Please configure the Bot Token and Chat ID in script.js to send messages.', 'bot');
-         }, 500);
-         return;
+      // Mode 1: Direct Telegram API (Local Dev with .env)
+      if (useDirectApi) {
+          try {
+            const fullMessage = `<b>📩 New Message from Portfolio</b>\n\n` +
+                                `<b>📄 Page:</b> ${document.title}\n` +
+                                `<b>💬 Message:</b>\n${text}`;
+
+            const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ chat_id: chatId, text: fullMessage, parse_mode: 'HTML' })
+            });
+
+            if (response.ok) {
+               showTypingIndicator();
+               setTimeout(() => { addMessage(getText('chat.bot.sent'), 'bot'); }, 1500);
+            } else {
+               throw new Error('Failed to send via Telegram API');
+            }
+          } catch (error) {
+            console.error(error);
+            addMessage(`${getText('chat.bot.error')}: ${error.message}`, 'bot');
+          }
+          return;
       }
 
+      // Mode 2: Serverless API (Production / No .env)
       try {
-        const fullMessage = `<b>📩 New Message from Portfolio</b>\n\n` +
-                            `<b>📄 Page:</b> ${document.title}\n` +
-                            `<b>💬 Message:</b>\n${text}`;
-
-        const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        const response = await fetch('/api/send-message', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            chat_id: chatId,
-            text: fullMessage,
-            parse_mode: 'HTML'
-          })
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text, pageTitle: document.title })
         });
 
         if (response.ok) {
@@ -910,7 +938,7 @@ document.addEventListener('DOMContentLoaded', () => {
            }, 1500);
         } else {
            const errorData = await response.json();
-           throw new Error(errorData.description || 'Failed to send');
+           throw new Error(errorData.error || 'Failed to send');
         }
       } catch (error) {
         console.error(error);
