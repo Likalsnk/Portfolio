@@ -631,18 +631,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.querySelector('.chat-widget-btn')) return;
 
     // --- CONFIGURATION ---
-    // Loaded from .env (via loadEnv)
+    // Loaded from .env (via loadEnv) OR Hardcoded (Visible Keys)
     const config = window.CONFIG || {};
     console.log('Checking CONFIG...', config);
 
-    const botToken = config.TELEGRAM_BOT_TOKEN || ''; 
-    const chatId = config.TELEGRAM_CHAT_ID || '';
+    // Default to hardcoded keys if .env is missing (Production/GitHub Pages)
+    const botToken = config.TELEGRAM_BOT_TOKEN || '8089410124:AAE0zxRnUhg1jvYnBacZtx5rfwgwxlaWOxo'; 
+    const chatId = config.TELEGRAM_CHAT_ID || '611158916';
     
-    // Check if we have direct access (Local Dev)
-    const useDirectApi = botToken && chatId;
-    
-    if (!useDirectApi) {
-        console.log('Telegram tokens not found. Switching to Serverless API mode (Send Only).');
+    if (!botToken || !chatId) {
+        console.error('Telegram Bot configuration missing!');
+        return;
     }
     // ---------------------
 
@@ -853,8 +852,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Polling Logic ---
     let lastUpdateId = 0;
     const pollUpdates = async () => {
-        // Polling only works in Direct Mode (Local Dev)
-        if (!useDirectApi) return;
+        if (!botToken || botToken === 'YOUR_BOT_TOKEN') return;
 
         try {
           // Use offset to ignore already processed messages
@@ -897,38 +895,28 @@ document.addEventListener('DOMContentLoaded', () => {
       addMessage(text, 'user');
       input.value = '';
 
-      // Mode 1: Direct Telegram API (Local Dev with .env)
-      if (useDirectApi) {
-          try {
-            const fullMessage = `<b>📩 New Message from Portfolio</b>\n\n` +
-                                `<b>📄 Page:</b> ${document.title}\n` +
-                                `<b>💬 Message:</b>\n${text}`;
-
-            const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ chat_id: chatId, text: fullMessage, parse_mode: 'HTML' })
-            });
-
-            if (response.ok) {
-               showTypingIndicator();
-               setTimeout(() => { addMessage(getText('chat.bot.sent'), 'bot'); }, 1500);
-            } else {
-               throw new Error('Failed to send via Telegram API');
-            }
-          } catch (error) {
-            console.error(error);
-            addMessage(`${getText('chat.bot.error')}: ${error.message}`, 'bot');
-          }
-          return;
+      if (botToken === 'YOUR_BOT_TOKEN' || chatId === 'YOUR_CHAT_ID') {
+         setTimeout(() => {
+           addMessage('⚠️ Please configure the Bot Token and Chat ID in script.js to send messages.', 'bot');
+         }, 500);
+         return;
       }
 
-      // Mode 2: Serverless API (Production / No .env)
       try {
-        const response = await fetch('/api/send-message', {
+        const fullMessage = `<b>📩 New Message from Portfolio</b>\n\n` +
+                            `<b>📄 Page:</b> ${document.title}\n` +
+                            `<b>💬 Message:</b>\n${text}`;
+
+        const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ text, pageTitle: document.title })
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            chat_id: chatId,
+            text: fullMessage,
+            parse_mode: 'HTML'
+          })
         });
 
         if (response.ok) {
@@ -938,7 +926,7 @@ document.addEventListener('DOMContentLoaded', () => {
            }, 1500);
         } else {
            const errorData = await response.json();
-           throw new Error(errorData.error || 'Failed to send');
+           throw new Error(errorData.description || 'Failed to send');
         }
       } catch (error) {
         console.error(error);
