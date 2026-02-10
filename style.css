@@ -379,6 +379,7 @@ body {
   visibility: hidden;
   transition: all 0.3s ease;
   padding: 20px;
+  box-sizing: border-box;
 }
 
 .mobile-nav-overlay.active {
