@@ -881,3 +881,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initChatWidget();
 });
+
+// --- Preloader Logic ---
+window.addEventListener('load', () => {
+  const preloader = document.getElementById('preloader');
+  if (preloader) {
+    // Ensure minimum display time for smooth UX
+    setTimeout(() => {
+      preloader.classList.add('hidden');
+      // Remove from DOM after transition to free up resources
+      setTimeout(() => {
+        preloader.style.display = 'none';
+      }, 500);
+    }, 500);
+  }
+});

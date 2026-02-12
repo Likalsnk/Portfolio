@@ -1116,3 +1116,56 @@ body:has(.tab-button:nth-child(2).active) .tab-content .accordion-container > .a
   background: #e63939;
   transform: translateY(-1px);
 }
+
+/* --------------------------------------------
+   Preloader
+   -------------------------------------------- */
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+#preloader.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.spinner {
+  display: flex;
+  gap: 8px;
+}
+
+.spinner div {
+  width: 12px;
+  height: 12px;
+  background-color: var(--brand);
+  border-radius: 50%;
+  animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.spinner div:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.spinner div:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes bounce {
+  0%, 80%, 100% { 
+    transform: scale(0);
+  } 
+  40% { 
+    transform: scale(1.0);
+  }
+}
