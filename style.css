@@ -151,8 +151,6 @@ body {
   display: block;
   object-fit: contain; /* Сохраняет пропорции */
   margin: 0 auto;
-  transition: transform 0.1s ease-out; /* Плавность для 3D tilt */
-  will-change: transform;
 }
 
 .hero-photo {
