@@ -224,7 +224,7 @@ const translations = {
     "cases.realface.desc": "SAAS",
     "cases.realface.tech.1": "Figma",
     "cases.realface.tech.2": "Prototyping",
-    "cases.realface.tech.3": "Relised",
+    "cases.realface.tech.3": "Released",
 
     "cases.languages.title": "Languages Of Love",
     "cases.languages.year": "2025",
